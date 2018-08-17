@@ -1,0 +1,136 @@
+<?php
+namespace Hametuha\Thread\Rest;
+
+use Hametuha\Thread\Hooks\PostType;
+use Hametuha\Thread\Model\ThreadModel;
+use Hametuha\Thread\Pattern\RestBase;
+use Hametuha\Thread\Pattern\RushDetector;
+
+
+/**
+ * REST API for thread.
+ * @package hamethread
+ */
+class RestThreadNew extends RestBase {
+	
+	protected $route = 'thread/new/?';
+
+	/**
+	 * Should return arguments.
+	 *
+	 * @param string $http_method
+	 * @return array
+	 */
+	protected function get_args( $http_method ) {
+		switch ( $http_method ) {
+			case 'GET':
+				return [
+					'post_id' => [
+						'type'     => 'int',
+						'description' => 'If set, form will be update form.',
+						'validate_callback' => function( $var ) {
+							return is_numeric( $var ) && ( $post = get_post( $var ) ) && PostType::get_instance()->is_supported( $post->post_type );
+						},
+					],
+				];
+				break;
+			case 'POST':
+				$args = $this->thread_arg_base();
+				return apply_filters( 'hamethread_new_thread_rest_args', $args );
+				break;
+			default:
+				return [];
+				break;
+		}
+	}
+
+	/**
+	 * Get request object.
+	 *
+	 * @param \WP_REST_Request $request
+	 * @return array
+	 */
+	public function handle_get( $request ) {
+		$post_id = $request->get_param( 'post_id' );
+		$args = [
+			'post'   => $post_id ? get_post( $post_id ) : null,
+			'action' => rest_url( 'hamethread/v1/thread/' ) . ( $post_id ?: 'new' ),
+		];
+		$form = apply_filters( 'hamethread_form_thread', hamethread_template( 'form-thread', '', false, $args ), $request );
+		return [
+			'html' => $form,
+		];
+	}
+
+	/**
+	 * Handle POST request.
+	 *
+	 * @param \WP_REST_Request $request
+	 * @return array|\WP_Error
+	 */
+	public function handle_post( $request ) {
+		$error = new \WP_Error();
+		if ( RushDetector::is_user_rushing( get_current_user_id() ) ) {
+			$error->add( 'user_is_rushing', RushDetector::rushing_message( get_current_user_id() ), [
+				'response' => 403,
+				'status'   => 403,
+			] );
+		}
+		/**
+		 * hamethread_new_thread_validation
+		 *
+		 * If error exists, add error here.
+		 *
+		 * @param \WP_Error        $error
+		 * @param \WP_REST_Request $request
+		 * @return \WP_Error
+		 */
+		$error = apply_filters( 'hamethread_new_thread_validation', $error, $request );
+		if ( $error->get_error_messages() ) {
+			return $error;
+		}
+		$post_args = [
+			'post_type'    => PostType::get_instance()->post_type,
+			'post_title'   => $request->get_param( 'thread_title' ),
+			'post_content' => $request->get_param( 'thread_content' ),
+			'post_status'  => 'publish',
+			'post_author'  => get_current_user_id(),
+		];
+		$post_args = apply_filters( 'hamethread_new_thread_post_arg', $post_args, $request );
+		$post_id = wp_insert_post( $post_args, true );
+		if ( is_wp_error( $post_id ) ) {
+			return $post_id;
+		}
+		// Update user rush time.
+		RushDetector::record_rush_time( get_current_user_id() );
+		// Add topic.
+		$topic_id = $request->get_param( 'topic_id' );
+		if ( $topic_id ) {
+			wp_set_object_terms( $post_id, (int) $topic_id, PostType::get_instance()->taxonomy );
+		}
+		/**
+		 * hamethread_new_thread_inserted
+		 *
+		 * Do something.
+		 *
+		 * @param int $post_id
+		 * @param \WP_REST_Request $request
+		 */
+		do_action( 'hamethread_new_thread_inserted', $post_id, $request );
+		$thread = new ThreadModel( $post_id );
+		return $thread->to_array();
+	}
+
+	/**
+	 * Permission handler
+	 *
+	 * @param \WP_REST_Request $request
+	 * @return bool|\WP_Error
+	 */
+	public function permission_callback( $request ) {
+		$can = ThreadModel::can_post( get_current_user_id() ) ?: new \WP_Error( 'invalid_cap', __( 'You have no permission.', 'hamethread' ), [
+			'response' => 403,
+		] );
+		return apply_filters( 'hamethread_new_thread_capability', $can, $request );
+	}
+}

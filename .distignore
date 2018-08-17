@@ -14,6 +14,7 @@ bin
 composer.json
 composer.lock
 Gruntfile.js
+gulpfile.js
 package.json
 package-lock.json
 phpunit.xml
@@ -25,7 +26,6 @@ phpcs.xml.dist
 README.md
 wp-cli.local.yml
 yarn.lock
-tests
 vendor
 node_modules
 *.sql

@@ -23,7 +23,7 @@ function hamethread_init() {
 	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	if ( version_compare( phpversion(), '5.4.0', '>=' ) ) {
 		require dirname( __FILE__ ) . '/vendor/autoload.php';
-		call_user_func( [ 'Hametuha\\Thread', 'get' ]);
+		call_user_func( [ 'Hametuha\\Thread', 'get_instance' ]);
 		require __DIR__ . '/functions.php';
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
@@ -47,48 +47,6 @@ function hamethread_version_error() {
  */
 function hamethread_asset_url() {
 	return plugin_dir_url( __FILE__ ) . 'assets';
-}
-
-/**
- * Load template.
- *
- * @param string $name
- * @param string $slug
- * @param bool   $echo
- * @return void|string
- */
-function hamethread_template( $name, $slug = '', $echo = true ) {
-	global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;
-	$existing_path = '';
-	foreach ( [
-		    __DIR__ . '/template-parts',
-			get_template_directory() . '/template-parts/hamethread',
-			get_stylesheet_directory() . '/template-parts/hamethread',
-		] as $dir ) {
-		$files = [ $name . '.php' ];
-		if ( $slug ) {
-			$files[] = "{$name}-{$slug}.php";
-		}
-		foreach ( $files as $file ) {
-			$path = $dir . '/' . $file;
-			if ( file_exists( $path ) ) {
-				$existing_path = $path;
-			}
-		}
-	}
-	$existing_path = apply_filters( 'hamethread_template', $existing_path, $name, $slug, $echo );
-	if ( ! file_exists( $existing_path ) ) {
-		return;
-	}
-	if ( ! $echo  ) {
-		ob_start();
-		include $existing_path;
-		$content = ob_get_contents();
-		ob_end_clean();
-		return $content;
-	} else {
-		include $existing_path;
-	}
 }
 
 /**
