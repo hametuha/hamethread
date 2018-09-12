@@ -5,6 +5,7 @@ use Hametuha\Thread\Hooks\PostType;
 use Hametuha\Thread\Model\CommentModel;
 use Hametuha\Thread\Pattern\RestBase;
 use Hametuha\Thread\Pattern\RushDetector;
+use Hametuha\Thread\UI\CommentForm;
 
 class RestCommentNew extends RestBase {
 
@@ -25,7 +26,7 @@ class RestCommentNew extends RestBase {
 				'description' => 'Post ID to comment to.',
 				'validate_callback' => function( $var ) {
 					$post = get_post( $var );
-					if ( ! $post || PostType::get_instance()->post_type !== $post->post_type || ! comments_open( $post ) ) {
+					if ( ! $post || ! CommentForm::get_instance()->is_supported( $post->post_type ) || ! comments_open( $post ) ) {
 						return new \WP_Error( 'no_permission', __( 'You have no permission to post comment to the specified thread.', 'hamethread' ), [
 							'response' => 403,
 							'status'   => 403,

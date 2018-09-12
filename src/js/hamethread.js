@@ -35,7 +35,8 @@
 		 * @return {jQuery.ajax}
 		 */
 		request: function(method, path, params){
-			var url = (HameThread.endpoint + '/' + path).replace(/([^:])\/{2,3}/g, '$1/');
+
+			var url = (HameThread.endpoint + '/' + path.replace(/\/$/, '').replace(/^\//, ''));
 			var data = null;
 			method = method.toUpperCase();
 			if(params){

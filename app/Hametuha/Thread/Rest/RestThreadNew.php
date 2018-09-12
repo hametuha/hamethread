@@ -32,6 +32,14 @@ class RestThreadNew extends RestBase {
 							return is_numeric( $var ) && ( $post = get_post( $var ) ) && PostType::get_instance()->is_supported( $post->post_type );
 						},
 					],
+					'parent' => [
+						'type' => 'int',
+						'description' => 'If set, thread will be a child of this post.',
+						'validation_callback' => function( $var ) {
+							return is_numeric( $var );
+						},
+						'default' => 0,
+					],
 				];
 				break;
 			case 'POST':
@@ -55,6 +63,7 @@ class RestThreadNew extends RestBase {
 		$args = [
 			'post'   => $post_id ? get_post( $post_id ) : null,
 			'action' => rest_url( 'hamethread/v1/thread/' ) . ( $post_id ?: 'new' ),
+			'parent' => $request->get_param( 'parent' ),
 		];
 		$form = apply_filters( 'hamethread_form_thread', hamethread_template( 'form-thread', '', false, $args ), $request );
 		return [
@@ -95,6 +104,7 @@ class RestThreadNew extends RestBase {
 			'post_content' => $request->get_param( 'thread_content' ),
 			'post_status'  => 'publish',
 			'post_author'  => get_current_user_id(),
+			'post_parent'  => $request->get_param( 'thread_parent' ),
 		];
 		$post_args = apply_filters( 'hamethread_new_thread_post_arg', $post_args, $request );
 		$post_id = wp_insert_post( $post_args, true );

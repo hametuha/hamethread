@@ -45,7 +45,7 @@ class Thread extends Singleton {
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
 			'error'   => __( 'Sorry but request failed.', 'hamethread' ),
 			'archive' => __( 'Are you sure to archive this thread?', 'thread' ),
-			'endpoint'  => rest_url( 'hamethread/v1/' ),
+			'endpoint'  => rest_url( 'hamethread/v1' ),
 		] );
 		wp_register_style( 'hamethread', hamethread_asset_url() . '/css/hamethread.css', [], hamethread_version() );
 	}

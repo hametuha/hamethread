@@ -5,6 +5,7 @@
 		<h2 class="hamethread-form-title"><?php esc_html_e( 'Create New Thread', 'hamethread' ) ?></h2>
 
 		<?php do_action( 'hamethread_before_thread_form', $args, $default ); ?>
+		<input type="hidden" name="thread_parent" value="<?php echo esc_attr( $parent ); ?>" />
 
 		<div class="form-group">
 			<label for="thread_title">

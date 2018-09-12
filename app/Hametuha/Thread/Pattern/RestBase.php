@@ -52,6 +52,14 @@ abstract class RestBase extends RestApi {
 				},
 				'default' => 0,
 			],
+			'parent' => [
+				'type' => 'int',
+				'description' => 'If set, thread will be a child of this post.',
+				'validation_callback' => function( $var ) {
+					return is_numeric( $var );
+				},
+				'default' => 0,
+			],
 		];
 	}
 }

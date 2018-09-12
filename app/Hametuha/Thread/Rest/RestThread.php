@@ -6,6 +6,7 @@ namespace Hametuha\Thread\Rest;
 use Hametuha\Thread\Hooks\PostType;
 use Hametuha\Thread\Model\ThreadModel;
 use Hametuha\Thread\Pattern\RestBase;
+use Hametuha\Thread\Pattern\RushDetector;
 
 class RestThread extends RestBase {
 
@@ -61,7 +62,7 @@ class RestThread extends RestBase {
 			return $post_id;
 		}
 		// Update user rush time.
-		ThreadModel::record_rush_time( get_current_user_id() );
+		RushDetector::record_rush_time( get_current_user_id() );
 		// Save user log.
 		add_post_meta( $post_id, '_hamethread_thread_log', array_merge( $post_args, [
 			'updated' => current_time( 'mysql' ),

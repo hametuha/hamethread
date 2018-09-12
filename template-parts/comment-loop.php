@@ -5,15 +5,15 @@
 	<?php if ( \Hametuha\Thread\UI\CommentForm::get_instance()->user_can_edit_comment( $comment ) ) : ?>
 	<div class="hamethread-controller btn-toolbar">
 		<div class="btn-group right">
-			<button class="btn btn-link dropdown-toggle" data-toggle="dropdown" type="button"><i class="icon-cog"></i></button>
-			<ul class="dropdown-menu">
-				<li>
+			<button class="btn btn-link" data-toggle="dropdown" type="button"><i class="fa fa-cog"></i></button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li class="dropdown-item">
 					<a href="<?php printf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ) ?>"
 						data-hamethread="comment-edit" rel="nofollow">
 						<?php esc_html_e( 'Edit', 'hamethread' ) ?>
 					</a>
 				</li>
-				<li>
+				<li class="dropdown-item">
 					<a href="<?php printf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ) ?>"
 					   rel="nofollow" data-hamethread="comment-delete">
 						<?php esc_html_e( 'Delete', 'hamethread' ) ?>

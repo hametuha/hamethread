@@ -2,11 +2,13 @@
 /*
  * Thread buttons.
  */
+/** @var int    $parent */
+/** @var string $label */
 ?>
 
 <?php if ( hamethread_user_can_start() ) : ?>
-<button data-hamethread="create" class="primary-button btn btn-primary btn-block">
-	<?php esc_html_e( 'Start new thread', 'hamethread' ); ?>
+<button data-hamethread="create" class="primary-button btn btn-primary btn-block" data-parent="<?php printf( '%d', $parent ) ?>">
+	<?php echo esc_html( $label ); ?>
 </button>
 <?php else : ?>
 <div class="alert alert-warning">

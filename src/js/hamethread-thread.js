@@ -24,8 +24,12 @@
 		if(post_id){
 			query.post_id = post_id;
 		}
+		var parent = $button.attr('data-parent');
+		if(parent){
+			query.parent = parent;
+		}
 		$button.addClass('disabled').attr('disabled', true);
-		$.get(HameThread.endpoint + '/new', query).done(function(response){
+		$.get(HameThread.endpoint + '/thread/new', query).done(function(response){
 			$('body').append(response.html);
 		}).fail(HameThread.errorHandler).always(function(){
 			$button.removeClass('disabled').attr('disabled', false);

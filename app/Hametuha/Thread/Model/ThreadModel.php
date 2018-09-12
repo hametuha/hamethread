@@ -48,7 +48,7 @@ class ThreadModel {
 			'avatar'      => get_avatar_url( $this->post->post_author, ['size' => 192 ] ),
 			'link'        => get_permalink( $this->post ),
 			'count'       => get_comment_count( $this->post->ID ),
-			'html'        => hameplate( 'loop-post', '', false, [
+			'html'        => hamethread_template( 'loop-post', '', false, [
 				'post' => $this->post,
 			] ),
 		];

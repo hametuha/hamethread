@@ -168,11 +168,18 @@ function hamethread_topics() {
 
 /**
  * Load button
+ *
+ * @param int    $parent Post parent ID.
+ * @paran string $label  Button label.
  */
-function hamethread_button() {
-	wp_enqueue_script( 'hamethread' );
+function hamethread_button( $parent = 0, $label = '' ) {
+	wp_enqueue_script( 'hamethread-thread' );
 	wp_enqueue_style( 'hamethread' );
-	hamethread_template( 'button-thread' );
+	$label = $label ?: __( 'Start new thread', 'hamethread' );
+	hamethread_template( 'button-thread', '', true, [
+		'parent' => $parent,
+		'label'  => $label,
+	] );
 }
 
 /**
@@ -250,13 +257,13 @@ function hamethread_current_user_can_comment( $post = null ) {
 function hamethread_comment_actions( $comment ) {
 	return apply_filters( 'hamethread_comment_actions', [
 		'reply'  => sprintf(
-			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d"><i class="icon-reply"></i> %s</button>',
+			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d"><i class="fa fa-reply"></i> %s</button>',
 			$comment->comment_post_ID,
 			$comment->comment_ID,
 			esc_html__( 'Reply', 'hamethread' )
 		),
 		'upvote' => sprintf(
-			'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="icon-thumbs-up"></i> %s</button>',
+			'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="fa fa-thumbs-up"></i> %s</button>',
 			\Hametuha\Thread\Rest\RestVote::get_instance()->is_voted( $comment->comment_ID, get_current_user_id() ) ? ' active' : '' ,
 			$comment->comment_ID,
 			esc_html__( 'Upvote', 'hamethread' )

@@ -12,7 +12,7 @@ use Hametuha\Thread\Pattern\AbstractUI;
  * @package hamethread
  */
 class CommentForm extends AbstractUI {
-
+	
 	/**
 	 * Constructor
 	 */
@@ -27,6 +27,22 @@ class CommentForm extends AbstractUI {
 	public function register_script() {
 		wp_register_script( 'hamethread-comment', hamethread_asset_url() . '/js/hamethread-comment.js', ['hamethread'], hamethread_version(), true );
 	}
+	
+	/**
+	 * Is comment supported?
+	 *
+	 * @param string $post_type
+	 * @return bool
+	 */
+	public function is_supported( $post_type ) {
+		if ( ! PostType::get_instance()->is_supported( $post_type ) ) {
+			$post_types = apply_filters( 'hamethread_dynamic_comment_post_types', [] );
+			if ( ! in_array( $post_type, $post_types ) ) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * Returns file path.
@@ -35,11 +51,8 @@ class CommentForm extends AbstractUI {
 	 * @return string
 	 */
 	public function comments_template( $path ) {
-		if ( ! PostType::get_instance()->is_supported( get_post_type() ) ) {
-			$post_types = apply_filters( 'hamethread_dynamic_comment_post_types', [] );
-			if ( ! in_array( get_post_type(), $post_types ) ) {
-				return $path;
-			}
+		if ( ! $this->is_supported( get_post_type() ) ) {
+			return $path;
 		}
 		// Let's override comment template.
 		wp_enqueue_script( 'hamethread-comment' );
