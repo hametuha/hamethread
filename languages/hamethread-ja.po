@@ -1,0 +1,253 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-09-14 01:39+0900\n"
+"PO-Revision-Date: 2018-09-14 01:43+0900\n"
+"Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: app/Hametuha/Thread.php:46
+msgid "Sorry but request failed."
+msgstr "申し訳ございません。リクエストに失敗しました。"
+
+#: app/Hametuha/Thread.php:47
+msgid "Are you sure to archive this thread?"
+msgstr "このスレッドをアーカイブしてよろしいですか？"
+
+#: app/Hametuha/Thread/Hooks/PostType.php:32
+msgid "Thread"
+msgstr "スレッド"
+
+#: app/Hametuha/Thread/Hooks/PostType.php:58 template-parts/form-thread.php:27
+msgid "Topic"
+msgstr "トピック"
+
+#: app/Hametuha/Thread/Model/ThreadModel.php:35
+msgid "Sorry, but thread not found."
+msgstr "もうしわけございません。スレッドが見つかりません。"
+
+#: app/Hametuha/Thread/Pattern/RestBase.php:43
+msgid "Topic is not specified."
+msgstr "トピックが指定されていません。"
+
+#: app/Hametuha/Thread/Pattern/RushDetector.php:34
+#, php-format
+msgid "You posted more than %1$d comments in %2$d minutes. Please be patient."
+msgstr "%2$d 分で %1$d 件のコメントを投稿しました。しばらくお待ちください。"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:31
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:49
+#: app/Hametuha/Thread/Rest/RestVote.php:74
+msgid "Comment not found."
+msgstr "コメントが見つかりません。"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:57
+msgid "Edit comment"
+msgstr "コメントを編集"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:79
+msgid "Sorry, but failed to delete comment."
+msgstr "申し訳ございません。コメントを削除できませんでした。"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:83
+msgid "Comment is successfully deleted."
+msgstr "コメントは削除されました。"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:108
+msgid "Sorry, but failed to update comment."
+msgstr "申し訳ございません、コメントの更新に失敗しました。"
+
+#: app/Hametuha/Thread/Rest/RestComment.php:134
+msgid "You have no permission to edit comment."
+msgstr "コメントを編集する権限がありません。"
+
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:30
+msgid "You have no permission to post comment to the specified thread."
+msgstr "指定されたスレッドにコメントを投稿する権限がありません。"
+
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:87
+#, php-format
+msgid "Reply to %s"
+msgstr "%sに返信"
+
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:88
+msgid "Post comment"
+msgstr "コメントを投稿する"
+
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:137
+msgid "Sorry, but failed to insert comment."
+msgstr "コメントを追加できませんでした。"
+
+#: app/Hametuha/Thread/Rest/RestThread.php:104
+#, php-format
+msgid "Thread %s is successfully archived."
+msgstr "スレッド %s はアーカイブされました。"
+
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:141
+msgid "You have no permission."
+msgstr "権限がありません。"
+
+#: app/Hametuha/Thread/Rest/RestVote.php:107
+msgid "You already upvoted this comment."
+msgstr "すでにこのコメントを高評価しています。"
+
+#: app/Hametuha/Thread/Rest/RestVote.php:124
+msgid "You never voted for this comment."
+msgstr "このコメントに投票していません。"
+
+#: app/Hametuha/Thread/UI/CommentForm.php:61
+msgid "Are you sure to delete comment?"
+msgstr "コメントを削除してよろしいですか？"
+
+#: functions.php:178
+msgid "Start new thread"
+msgstr "新しいスレッドを開始する"
+
+#: functions.php:263
+msgid "Reply"
+msgstr "返信"
+
+#: functions.php:269
+msgid "Upvote"
+msgstr "いいね"
+
+#: functions.php:316
+msgid "Guest"
+msgstr "ゲスト"
+
+#: hamethread.php:40
+#, php-format
+msgid ""
+"HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider "
+"upgrade."
+msgstr ""
+"HameThread は PHP %1$s が必須ですが、ご利用の PHP バージョンは %2$s です。"
+"アップグレードを検討してください。"
+
+#: template-parts/button-comment-post.php:5
+msgid "Post Comment"
+msgstr "コメントを投稿する"
+
+#: template-parts/button-comment-post.php:9
+#, php-format
+msgid ""
+"Please <a class=\"alert-link\" href=\"%s\">log in</a> to post a comment."
+msgstr ""
+"コメントを投稿するには <a class=\"alert-link\" href=\"%s\">ログイン</a>して"
+"ください。"
+
+#: template-parts/button-thread-controller.php:12
+#: template-parts/comment-loop.php:13
+msgid "Edit"
+msgstr "編集"
+
+#: template-parts/button-thread-controller.php:17
+msgid "Archive"
+msgstr "アーカイブ"
+
+#: template-parts/button-thread.php:15
+#, php-format
+msgid ""
+"To start thread, please <a class=\"alert-link\" rel=\"nofollow\" href=\"%s"
+"\">log in</a>."
+msgstr ""
+"スレッドを開始するには、 <a class=\"alert-link\" rel=\"nofollow\" href=\"%s"
+"\">ログイン</a>してください。"
+
+#: template-parts/comment-loop.php:19
+msgid "Delete"
+msgstr "削除"
+
+#: template-parts/comment-loop.php:39
+msgid "(edited)"
+msgstr "（編集済）"
+
+#: template-parts/comments-no.php:2
+#, php-format
+msgid "This %s has no comment."
+msgstr "この%sにはまだコメントがありません。"
+
+#: template-parts/form-comment.php:16
+msgid "Comment"
+msgstr "コメント"
+
+#: template-parts/form-comment.php:18
+msgid "e.g. Your opinion is collect."
+msgstr "例・あなたの意見は正しいです。"
+
+#: template-parts/form-comment.php:24 template-parts/form-thread.php:45
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: template-parts/form-comment.php:26 template-parts/form-thread.php:47
+msgid "Submit"
+msgstr "送信"
+
+#: template-parts/form-nocap.php:2
+#, php-format
+msgid ""
+"You have no permission to comment. Please <a href=\"%s\" class=\"alert-link"
+"\">log in</a> and continue."
+msgstr ""
+"コメントをする権限がありません。<a href=\"%s\" class=\"alert-link\">ログイン"
+"</a>してください。"
+
+#: template-parts/form-thread.php:5
+msgid "Create New Thread"
+msgstr "新しいスレッドを開始する"
+
+#: template-parts/form-thread.php:12
+msgid "Thread Title"
+msgstr "スレッドタイトル"
+
+#: template-parts/form-thread.php:13 template-parts/form-thread.php:29
+msgid "Required"
+msgstr "必須"
+
+#: template-parts/form-thread.php:16
+msgid "e.g. What does \"dark matter\" mean?"
+msgstr "例・「ダークマター」とはなんですか？"
+
+#: template-parts/form-thread.php:20
+msgid "body"
+msgstr "本文"
+
+#: template-parts/form-thread.php:22
+msgid ""
+"e.g. Yesterday, I read an article about galaxy. But I can't understand nor "
+"even imagine what \"dark matter\" is. Please ask my question."
+msgstr ""
+"例・昨日、銀河についての本を読みました。しかし、「ダークマター」を理解するど"
+"ころか、それがなにかを想像することさえできませんでした。回答よろしくお願いし"
+"ます。"
+
+#: template-parts/form-thread.php:33
+msgid "Please select topic"
+msgstr "トピックを選択してください。"
+
+#. Plugin Name of the plugin/theme
+msgid "HameThread"
+msgstr "HameThread"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/extend/plugins/hamethread"
+msgstr "https://ja.wordpress.org/extend/plugins/hamethread"
+
+#. Description of the plugin/theme
+msgid "Forum plugin by Hametuha."
+msgstr "破滅派によるフォーラムプラグイン。"
+
+#. Author of the plugin/theme
+msgid "Takahashi_Fumiki"
+msgstr "高橋文樹"
+
+#. Author URI of the plugin/theme
+msgid "https://takahashifumiki.com"
+msgstr "https://takahashifumiki.com"
