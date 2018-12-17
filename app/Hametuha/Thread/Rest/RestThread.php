@@ -84,6 +84,34 @@ class RestThread extends RestBase {
 		$thread = new ThreadModel( $post_id );
 		return $thread->to_array();
 	}
+	
+	/**
+	 * Handle put request.
+	 *
+	 * @param \WP_REST_Request $request
+	 * @return array
+	 */
+	protected function handle_put( $request ) {
+		$thread_id = $request->get_param( 'thread_id' );
+		$is_resolved = get_post_meta( $thread_id, '_thread_resolved', true );
+		$resolved_count = (int) get_post_meta( $thread_id, '_thread_resolved_count', true );
+		$response = [
+			'url' => get_permalink( $thread_id ),
+		];
+		if ( $is_resolved ) {
+			update_post_meta( $thread_id, '_thread_unresolved', current_time( 'mysql', true ) );
+			delete_post_meta( $thread_id, '_thread_resolved' );
+			do_action( 'hamethread_update_unresolved', $thread_id, $resolved_count );
+			$response['message'] = __( 'Thread is now not resolved.', 'hamethread' );
+		} else {
+			$resolved_count++;
+			update_post_meta( $thread_id, '_thread_resolved_count', $resolved_count );
+			update_post_meta( $thread_id, '_thread_resolved', current_time( 'mysql', true ) );
+			do_action( 'hamethread_update_resolved', $thread_id, $resolved_count );
+			$response['message'] = __( 'Thread is marked as resolved.', 'hamethread' );
+		}
+		return $response;
+	}
 
 	/**
 	 * Handle delete method.
@@ -92,17 +120,33 @@ class RestThread extends RestBase {
 	 * @return array|\WP_Error
 	 */
 	protected function handle_delete( $request ) {
+		$current_status = get_post_status( $request->get_param( 'thread_id' ) );
+		if ( 'private' == $current_status ) {
+			$new_status = 'publish';
+		} else {
+			$new_status = 'private';
+		}
+		$error = new \WP_Error();
+		$error = apply_filters( 'hamethread_toggle_post_status_error', $error, $request );
+		if ( $error->get_error_messages() ) {
+			return $error;
+		}
 		$args = apply_filters( 'hamethread_archive_thread_post_arg', [
 			'ID'          => $request->get_param( 'thread_id' ),
-			'post_status' => 'private',
+			'post_status' => $new_status,
 		], $request );
 		$post_id = wp_update_post( $args );
 		if ( is_wp_error( $post_id ) ) {
 			return $post_id;
 		}
+		if ( 'private' === $new_status ) {
+			$message = __( 'Thread %s has been successfully private.', 'hamethread' );
+		} else {
+			$message = __( 'Thread %s has been successfully published.', 'hamethread' );
+		}
 		return [
-			'message' => sprintf( __( 'Thread %s is successfully archived.', 'hamethread' ), get_the_title( $post_id ) ),
-			'url'     => hamethread_home( 'archive' ),
+			'message' => sprintf( $message, get_the_title( $post_id ) ),
+			'url'     => get_permalink( $request->get_param( 'thread_id' ) ),
 		];
 	}
 
@@ -118,6 +162,9 @@ class RestThread extends RestBase {
 				return true;
 				break;
 			case 'POST':
+				return ThreadModel::can_edit( get_current_user_id(), $request->get_param( 'thread_id' ) );
+				break;
+			case 'PUT':
 				return ThreadModel::can_edit( get_current_user_id(), $request->get_param( 'thread_id' ) );
 				break;
 			case 'DELETE':

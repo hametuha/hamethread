@@ -65,32 +65,49 @@
 		$(this).parents('.hamethread-form').remove();
 	});
 
-	// Archive thread.
-	$(document).on('click', 'a[data-hamethread="archive"]', function(e){
+	$(document).on('click', 'a[data-hamethread]', function(e){
 		e.preventDefault();
-		if(!window.confirm(HameThread.archive)){
-			return false;
-		}
 		var $button = $(this);
-		if($button.attr('disabled')){
-			return;
-		}
+		var action = $button.attr('data-hamethread');
 		var query = {
 			_wpnonce: HameThread.nonce
 		};
-		$button.addClass('disabled').attr('disabled', true);
-		$.ajax({
-			url: $button.attr('href') + '?' + $.param({
-				_wpnonce: HameThread.nonce
-			}),
-			method: 'DELETE'
-		}).done(function (response) {
-			alert(response.message);
-			window.location.href = response.url;
-		}).fail(HameThread.errorHandler).always(function () {
-			$button.removeClass('disabled').attr('disabled', false);
-		});
+		switch( action ) {
+			case 'resolve':
+				if ( $button.attr( 'disabled' ) ) {
+					return;
+				}
+				$button.addClass( 'disabled' ).attr( 'disabled', true );
+				$.ajax( {
+					url: HameThread.endpoint + '/thread/' + $button.attr( 'data-post-id' ) + '?' + $.param( query ),
+					method: 'put'
+				} ).done( function( response ) {
+					alert( response.message );
+					window.location.href = response.url;
+				} ).fail( HameThread.errorhandler ).always( function () {
+					$button.removeclass( 'disabled' ).attr( 'disabled', false );
+				} );
+
+				break;
+			case 'publish':
+			case 'archive':
+				if ( ! window.confirm( HameThread[ action ] ) ) {
+					return false;
+				}
+				if ( $button.attr( 'disabled' ) ) {
+					return;
+				}
+				$button.addClass( 'disabled' ).attr( 'disabled', true );
+				$.ajax( {
+					url: $button.attr( 'href' ) + '?' + $.param( query ),
+					method: 'delete'
+				} ).done( function( response ) {
+					alert( response.message );
+					window.location.href = response.url;
+				} ).fail( hamethread.errorhandler ).always( function () {
+					$button.removeclass( 'disabled' ).attr( 'disabled', false );
+				} );
+				break;
+		}
 	});
-
-
 })(jQuery);

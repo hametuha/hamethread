@@ -22,6 +22,9 @@ class PostType extends Singleton {
 		add_action( 'init', [ $this, 'register_taxonomy' ] );
 		add_action( 'post_submitbox_misc_actions', [ $this, 'post_submit_box' ] );
 		add_action( 'save_post', [ $this, 'save_post' ], 20, 2 );
+		add_filter( 'columns', [ $this, 'manage_columns' ] );
+		add_filter( 'manage_thread_posts_columns', [ $this, 'manage_columns' ] );
+		add_action( 'manage_thread_posts_custom_column', [ $this, 'do_custom_column' ], 10, 2 );
 		// Avoid block editor.
 		add_filter( 'use_block_editor_for_post_type', function( $use_block_editor, $post_type ) {
 			if ( 'thread' === $post_type ) {
@@ -106,6 +109,41 @@ class PostType extends Singleton {
 			</label>
 		</div>
 		<?php
+	}
+	
+	/**
+	 * Add columns
+	 *
+	 * @param array $columns
+	 * @return array
+	 */
+	public function manage_columns( $columns ) {
+		$new_columns = [];
+		foreach ( $columns as $col => $label ) {
+			$new_columns[ $col ] = $label;
+			if ( 'title' === $col ) {
+				$new_columns[ 'parent' ] = __( 'Parent', 'hamethread' );
+			}
+		}
+		return $new_columns;
+	}
+	
+	/**
+	 * Render column
+	 *
+	 * @param string $column
+	 * @param int    $post_id
+	 */
+	public function do_custom_column( $column, $post_id ) {
+		if ( 'parent' !== $column ) {
+			return;
+		}
+		$parent = wp_get_post_parent_id( $post_id );
+		if ( ! $parent ) {
+			echo '<span style="color: lightgrey">---</span>';
+		} else {
+			echo edit_post_link( get_the_title( $parent ), '', '', $parent );
+		}
 	}
 
 	/**

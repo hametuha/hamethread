@@ -44,9 +44,40 @@ class Thread extends Singleton {
 		wp_localize_script( 'hamethread', 'HameThread', [
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
 			'error'   => __( 'Sorry but request failed.', 'hamethread' ),
-			'archive' => __( 'Are you sure to archive this thread?', 'thread' ),
+			'archive' => __( 'Are you sure to make this thread private?', 'thread' ),
+			'publish' => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'thread' ),
 			'endpoint'  => rest_url( 'hamethread/v1' ),
 		] );
 		wp_register_style( 'hamethread', hamethread_asset_url() . '/css/hamethread.css', [], hamethread_version() );
+	}
+	
+	/**
+	 * Detect if post is resolved.
+	 *
+	 * @param null|int|\WP_Post $post
+	 *
+	 * @return bool
+	 */
+	public static function is_resolved( $post = null ) {
+		$post = get_post( $post );
+		return (bool) get_post_meta( $post->ID, '_thread_resolved', true );
+	}
+	
+	/**
+	 * Get resolved time.
+	 *
+	 * @param null|int|\WP_Post $post   Default current post.
+	 * @param string            $format Default, WordPress date format.
+	 *
+	 * @return string
+	 */
+	public static function resolved_time( $post = null, $format = '' ) {
+		if ( ! self::is_resolved( $post ) ) {
+			return '';
+		}
+		if ( ! $format ) {
+			$format = get_option( 'date_format' );
+		}
+		return get_date_from_gmt( get_post_meta( get_post( $post )->ID, '_thread_resolved', true ), $format );
 	}
 }
