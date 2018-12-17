@@ -21,8 +21,8 @@
 		<?php do_action( 'hamethread_after_comment_form', $args ); ?>
 
 		<div class="hamethread-form-submit text-right">
-			<button class="hamethread-form-cancel btn btn-link btn-lg"><?php esc_html_e( 'Cancel', 'hamethread' ) ?></button>
-			<input type="submit" class="btn btn-success btn-lg"
+			<button class="hamethread-form-cancel btn btn-link"><?php esc_html_e( 'Cancel', 'hamethread' ) ?></button>
+			<input type="submit" class="btn btn-success"
 			   value="<?php esc_attr_e( 'Submit', 'hamethread' ); ?>"/>
 		</div>
 	</div>

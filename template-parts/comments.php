@@ -1,10 +1,11 @@
-<?php if ( hamethread_user_can_comment() ) : ?>
+<?php if ( hamethread_user_can_comment() && comments_open() ) : ?>
 	<?php hamethread_template( 'button-comment-post' ) ?>
 <?php else : ?>
 	<?php hamethread_template( 'form-nocap' ); ?>
 <?php endif; ?>
+
+<?php if ( have_comments() ) : ?>
 <ul class="hamethread-comments">
-	<?php if ( have_comments() ) : ?>
 		<?php wp_list_comments( [
 			'per_page' => 2,
 			'type'     => 'comment',
@@ -12,9 +13,7 @@
 		] ); ?>
 
     <?php echo paginate_comments_links() ?>
-	<?php endif; ?>
 </ul>
-
-<?php if ( ! have_comments() ) : ?>
-<?php hamethread_template( 'comments-no' ) ?>
+<?php elseif( comments_open() ) : ?>
+	<?php hamethread_template( 'comments-no' ) ?>
 <?php endif; ?>

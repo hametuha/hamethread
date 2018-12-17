@@ -20,6 +20,15 @@ class PostType extends Singleton {
 	protected function init() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 		add_action( 'init', [ $this, 'register_taxonomy' ] );
+		add_action( 'post_submitbox_misc_actions', [ $this, 'post_submit_box' ] );
+		add_action( 'save_post', [ $this, 'save_post' ], 20, 2 );
+		// Avoid block editor.
+		add_filter( 'use_block_editor_for_post_type', function( $use_block_editor, $post_type ) {
+			if ( 'thread' === $post_type ) {
+				$use_block_editor = false;
+			}
+			return $use_block_editor;
+		}, 10, 2 );
 	}
 
 	/**
@@ -60,6 +69,43 @@ class PostType extends Singleton {
 		];
 		$args = apply_filters( 'hamethread_taxonomy_setting', $args );
 		register_taxonomy($this->taxonomy, [ $this->post_type ], $args );
+	}
+	
+	/**
+	 * Save resolver
+	 *
+	 * @param int      $post_id
+	 * @param \WP_Post $post
+	 */
+	public function save_post( $post_id, $post ) {
+		if ( $this->post_type !== $post->post_type || ! wp_verify_nonce( filter_input( INPUT_POST, '_hamethreadresolved' ), 'hamethread_resolved' ) ) {
+			return;
+		}
+		$current   = hamethread_is_resolved( $post );
+		$new_value = (bool) filter_input( INPUT_POST, 'hamethread-resolved' );
+		if ( $current == $new_value) {
+			// No change.
+			return;
+		}
+		
+	}
+	
+	
+	/**
+	 * Render post submit box
+	 *
+	 * @param \WP_Post $post
+	 */
+	public function post_submit_box( $post ) {
+		wp_nonce_field( 'hamethread_resolved', '_hamethreadresolved', false );
+		?>
+		<div class="misc-pub-section misc-pub-resolved">
+			<label>
+				<input type="checkbox" name="hamethread-resolved" value="1" <?php checked( hamethread_is_resolved( $post ) ) ?> />
+				<span><?php esc_html_e( 'This thread is resolved', 'hamethread' ) ?></span>
+			</label>
+		</div>
+		<?php
 	}
 
 	/**

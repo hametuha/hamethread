@@ -113,7 +113,7 @@ class CommentForm extends AbstractUI {
 		} else {
 			$can = false;
 		}
-		return (bool) apply_filters( 'hamethread_current_user_can_edit_comment', $can );
+		return (bool) apply_filters( 'hamethread_current_user_can_edit_comment', $can, $comment );
 	}
 
 	/**

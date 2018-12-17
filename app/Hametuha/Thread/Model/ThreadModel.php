@@ -32,7 +32,7 @@ class ThreadModel {
 	 */
 	public function to_array() {
 		if ( ! $this->post ) {
-			return new \WP_Error( 'no_thread_found', __( 'Sorry, but thread not found.', 'hamethread' ), [
+			return new \WP_Error( 'no_thread_found', __( 'Sorry, but no thread found.', 'hamethread' ), [
 				'response' => 404,
 			] );
 		}
@@ -48,6 +48,7 @@ class ThreadModel {
 			'avatar'      => get_avatar_url( $this->post->post_author, ['size' => 192 ] ),
 			'link'        => get_permalink( $this->post ),
 			'count'       => get_comment_count( $this->post->ID ),
+			'status'      => $this->post->post_status,
 			'html'        => hamethread_template( 'loop-post', '', false, [
 				'post' => $this->post,
 			] ),
@@ -97,6 +98,53 @@ class ThreadModel {
 		$post = get_post( $post );
 		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
+	}
+	
+	/**
+	 * Check if user can start private thread.
+	 *
+	 * @param null|int $user_id
+	 * @param int $post_id
+	 *
+	 * @return bool
+	 */
+	public static function can_start_private( $user_id = null, $post_id = 0 ) {
+		if ( is_null( $user_id ) ) {
+			$user_id = get_current_user_id();
+		}
+		return (bool) apply_filters( 'hamethread_user_can_start_private_thread', false, $user_id, $post_id );
+	}
+	
+	/**
+	 * Check if user can mark thread as resolved.
+	 *
+	 * @param int               $user_id
+	 * @param int|null|\WP_Post $post
+	 * @return bool
+	 */
+	public static function can_resolve( $user_id, $post ) {
+		$post = get_post( $post );
+		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		return (bool) apply_filters( 'hamethread_user_can_resolve_post', $can, $user_id, $post );
+	}
+	
+	/**
+	 * Change resolution status
+	 *
+	 * @param bool              $new_status
+	 * @param null|int|\WP_Post $post
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public static function change_resolution_status( $new_status, $post = null ) {
+		$new_status = (bool) $new_status;
+		$post = get_post( $post );
+		if ( ! $post ) {
+			return new \WP_Error( 'no_thread_found', __( 'No post found.', 'hamethread' ), [
+				'response' => 404,
+			] );
+		}
+		
 	}
 
 	/**

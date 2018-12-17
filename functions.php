@@ -177,8 +177,9 @@ function hamethread_button( $parent = 0, $label = '' ) {
 	wp_enqueue_style( 'hamethread' );
 	$label = $label ?: __( 'Start new thread', 'hamethread' );
 	hamethread_template( 'button-thread', '', true, [
-		'parent' => $parent,
-		'label'  => $label,
+		'parent'  => $parent,
+		'label'   => $label,
+		'private' => \Hametuha\Thread\Model\ThreadModel::can_start_private( get_current_user_id(), $parent ),
 	] );
 }
 
@@ -211,6 +212,18 @@ function hamethread_user_can_start( $user_id = null ) {
  */
 function hamethread_user_can_comment( $post = null, $user_id = null ) {
 	return \Hametuha\Thread\Model\CommentModel::can_comment( $post, $user_id );
+}
+
+/**
+ * Detect if thread is resolved.
+ *
+ * @param null|int|WP_Post $post
+ *
+ * @return bool
+ */
+function hamethread_is_resolved( $post = null ) {
+	$post = get_post( $post );
+	return (bool) get_post_meta( $post->id, '_is_resolved', true );
 }
 
 /**

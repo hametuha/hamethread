@@ -60,6 +60,11 @@ abstract class RestBase extends RestApi {
 				},
 				'default' => 0,
 			],
+			'is_private' => [
+				'type' => 'int',
+				'description' => 'If set, thread will be private.',
+				'default' => 0,
+			],
 		];
 	}
 }

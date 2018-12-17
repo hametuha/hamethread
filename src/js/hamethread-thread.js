@@ -28,6 +28,10 @@
 		if(parent){
 			query.parent = parent;
 		}
+		var allowPrivate = $button.attr( 'data-private' );
+		if ( parseInt( allowPrivate, 10 ) ) {
+			query.private = 1;
+		}
 		$button.addClass('disabled').attr('disabled', true);
 		$.get(HameThread.endpoint + '/thread/new', query).done(function(response){
 			$('body').append(response.html);
@@ -43,7 +47,7 @@
 		e.preventDefault();
 		var $form = $(this);
 		var data = {};
-		$form.find('input[name], select[name], textarea[name]').each(function(index, input){
+		$form.find('input[name], select[name], textarea[name], input:checked').each(function(index, input){
 			data[$(input).attr('name')] = $(input).val();
 		});
 		data._wpnonce = HameThread.nonce;

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "hametuha/pattern",
-            "version": "v0.8.2",
+            "version": "0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hametuha/pattern.git",
-                "reference": "6d4768a1aa3bc36da546ae569a0c5a0f3763777b"
+                "reference": "562d18f8e750d1c4e52c537839679807a0e3d055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hametuha/pattern/zipball/6d4768a1aa3bc36da546ae569a0c5a0f3763777b",
-                "reference": "6d4768a1aa3bc36da546ae569a0c5a0f3763777b",
+                "url": "https://api.github.com/repos/hametuha/pattern/zipball/562d18f8e750d1c4e52c537839679807a0e3d055",
+                "reference": "562d18f8e750d1c4e52c537839679807a0e3d055",
                 "shasum": ""
             },
             "require-dev": {
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "WordPress Pattern Library",
-            "time": "2018-01-22T11:42:37+00:00"
+            "time": "2018-10-24T10:13:15+00:00"
         }
     ],
     "packages-dev": [

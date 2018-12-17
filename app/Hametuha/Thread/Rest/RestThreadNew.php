@@ -40,6 +40,14 @@ class RestThreadNew extends RestBase {
 						},
 						'default' => 0,
 					],
+					'private' => [
+						'type'        => 'int',
+						'description' => 'Display private field or not.',
+						'sanitize_callback' => function( $var ) {
+							return (int) $var;
+						},
+						'default'     => 0,
+					 ],
 				];
 				break;
 			case 'POST':
@@ -61,9 +69,10 @@ class RestThreadNew extends RestBase {
 	public function handle_get( $request ) {
 		$post_id = $request->get_param( 'post_id' );
 		$args = [
-			'post'   => $post_id ? get_post( $post_id ) : null,
-			'action' => rest_url( 'hamethread/v1/thread/' ) . ( $post_id ?: 'new' ),
-			'parent' => $request->get_param( 'parent' ),
+			'post'    => $post_id ? get_post( $post_id ) : null,
+			'action'  => rest_url( 'hamethread/v1/thread/' ) . ( $post_id ?: 'new' ),
+			'parent'  => $request->get_param( 'parent' ),
+			'private' => $request->get_param( 'private' ),
 		];
 		$form = apply_filters( 'hamethread_form_thread', hamethread_template( 'form-thread', '', false, $args ), $request );
 		return [
@@ -102,7 +111,7 @@ class RestThreadNew extends RestBase {
 			'post_type'    => PostType::get_instance()->post_type,
 			'post_title'   => $request->get_param( 'thread_title' ),
 			'post_content' => $request->get_param( 'thread_content' ),
-			'post_status'  => 'publish',
+			'post_status'  => $request->get_param( 'is_private' ) ? 'private' : 'publish',
 			'post_author'  => get_current_user_id(),
 			'post_parent'  => $request->get_param( 'thread_parent' ),
 		];
