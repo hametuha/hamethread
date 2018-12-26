@@ -343,3 +343,30 @@ function hamethread_commentor_label_class( $comment, $classes ) {
 	$classes = apply_filters( 'hamethread_commentor_label_class', (array) $classes, $comment );
 	return esc_attr( implode( ' ', $classes ) );
 }
+
+/**
+ * Get last comment updated.
+ *
+ * @param string           $no_comment Default '---'
+ * @param null|int|WP_Post $post
+ * @param string           $format Default WordPress setting.
+ *
+ * @return bool|int|string
+ */
+function hamethread_last_commented( $no_comment = '---', $post = null, $format = '' ) {
+	$post = get_post( $post );
+	if ( ! $format ) {
+		$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+	}
+	$comments = get_comments( [
+		'post_id' => $post->ID,
+		'number'  => 1,
+	] );
+	if ( ! $comments ) {
+		return $no_comment;
+	}
+	foreach ( $comments as $comment ) {
+		/** @var WP_Comment $comment */
+		return mysql2date( $format, $comment->comment_date );
+	}
+}

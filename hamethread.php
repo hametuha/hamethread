@@ -62,3 +62,14 @@ function hamethread_version() {
 	}
 	return $version;
 }
+
+/**
+ * Flush rewrite rules
+ *
+ * @internal
+ */
+function hamethread_flush_rewrites() {
+	flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'hamethread_flush_rewrites' );
+register_deactivation_hook( __FILE__, 'hamethread_flush_rewrites' );

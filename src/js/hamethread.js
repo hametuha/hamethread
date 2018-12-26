@@ -19,11 +19,14 @@
 			}
 			alert(message);
 		},
-		removeElement: function (elem) {
+		removeElement: function (elem, callback) {
 			return $(elem)
 				.effect('highlight', {}, 300)
 				.fadeOut(300, function () {
 					$(elem).remove();
+					if(callback){
+						callback();
+					}
 				});
 		},
 		/**

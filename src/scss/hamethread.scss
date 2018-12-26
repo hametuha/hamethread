@@ -47,6 +47,9 @@ $avatar-padding: 20px;
 	padding: $avatar-padding 0;
 	margin: 0;
 	background-color: #f9f9f9;
+	&[data-comment-count="0"]{
+		padding: 0;
+	}
 }
 
 .hamethread-post-comment{
@@ -205,7 +208,10 @@ ul.children ul.children{
 }
 
 .hamethread-nocomment{
-
+	display: none;
+	[data-comment-count="0"] + &{
+		display: block;
+	}
 }
 
 .hamethread-controller{
