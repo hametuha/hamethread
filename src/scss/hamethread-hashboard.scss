@@ -1,0 +1,26 @@
+.hamethread-list{
+
+  &-body{
+    position: relative;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 3px dashed #f9f9f9;
+    .material-icons{
+      vertical-align: text-bottom;
+      color: #ccc;
+    }
+    .text-success .material-icons{
+      color: inherit;
+    }
+    h5 .material-icons{
+      color: #ffb73e;
+    }
+  }
+  &-meta{
+    &-form {
+      .form-group {
+        padding: 10px;
+      }
+    }
+  }
+}

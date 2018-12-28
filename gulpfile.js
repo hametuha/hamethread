@@ -37,12 +37,14 @@ gulp.task('js', function () {
     .pipe($.sourcemaps.init({
       loadMaps: true
     }))
-    .pipe($.babel())
-	  .pipe($.uglify({
-		  output: {
-			  comments: /^!/
-		  }
-	  }))
+    .pipe($.babel({
+      "presets": ["babel-preset-es2015"]
+    }))
+    .pipe($.uglify({
+      output: {
+        comments: /^!/
+      }
+    }))
     .on('error', $.util.log)
     .pipe($.sourcemaps.write('./map'))
     .pipe(gulp.dest('./assets/js/'));

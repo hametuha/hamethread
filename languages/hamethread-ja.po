@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-09-14 01:39+0900\n"
-"PO-Revision-Date: 2018-09-14 01:43+0900\n"
+"POT-Creation-Date: 2018-12-28 16:43+0900\n"
+"PO-Revision-Date: 2018-12-28 16:48+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
@@ -18,20 +18,44 @@ msgid "Sorry but request failed."
 msgstr "申し訳ございません。リクエストに失敗しました。"
 
 #: app/Hametuha/Thread.php:47
-msgid "Are you sure to archive this thread?"
-msgstr "このスレッドをアーカイブしてよろしいですか？"
+msgid "Are you sure to make this thread private?"
+msgstr "このスレッドを非公開にしてよろしいですか？"
 
-#: app/Hametuha/Thread/Hooks/PostType.php:32
+#: app/Hametuha/Thread.php:48
+msgid ""
+"Are you sure to make this thread public? Please confirm your comments are "
+"ready to be public."
+msgstr ""
+"このスレッドを公開してよろしいですか？　あなたのコメントが公開しても問題ない"
+"かどうか、確認してください。"
+
+#: app/Hametuha/Thread/Hooks/PostType.php:44
 msgid "Thread"
 msgstr "スレッド"
 
-#: app/Hametuha/Thread/Hooks/PostType.php:58 template-parts/form-thread.php:27
+#: app/Hametuha/Thread/Hooks/PostType.php:70 template-parts/form-thread.php:30
 msgid "Topic"
 msgstr "トピック"
 
+#: app/Hametuha/Thread/Hooks/PostType.php:108
+msgid "This thread is resolved"
+msgstr "このスレッドは解決済みになりました。"
+
+#: app/Hametuha/Thread/Hooks/PostType.php:125
+msgid "Parent"
+msgstr "親"
+
+#: app/Hametuha/Thread/Hooks/SupportWooCommerce.php:40
+msgid "Support"
+msgstr "サポート"
+
 #: app/Hametuha/Thread/Model/ThreadModel.php:35
-msgid "Sorry, but thread not found."
+msgid "Sorry, but no thread found."
 msgstr "もうしわけございません。スレッドが見つかりません。"
+
+#: app/Hametuha/Thread/Model/ThreadModel.php:145
+msgid "No post found."
+msgstr "投稿が見つかりませんでした。"
 
 #: app/Hametuha/Thread/Pattern/RestBase.php:43
 msgid "Topic is not specified."
@@ -85,12 +109,25 @@ msgstr "コメントを投稿する"
 msgid "Sorry, but failed to insert comment."
 msgstr "コメントを追加できませんでした。"
 
-#: app/Hametuha/Thread/Rest/RestThread.php:104
-#, php-format
-msgid "Thread %s is successfully archived."
-msgstr "スレッド %s はアーカイブされました。"
+#: app/Hametuha/Thread/Rest/RestThread.php:105
+msgid "Thread is now not resolved."
+msgstr "スレッドは解決いたしました。"
 
-#: app/Hametuha/Thread/Rest/RestThreadNew.php:141
+#: app/Hametuha/Thread/Rest/RestThread.php:111
+msgid "Thread is marked as resolved."
+msgstr "スレッドは解決済みになりました。"
+
+#: app/Hametuha/Thread/Rest/RestThread.php:143
+#, php-format
+msgid "Thread %s has been successfully private."
+msgstr "スレッド %s は非公開にされました。"
+
+#: app/Hametuha/Thread/Rest/RestThread.php:145
+#, php-format
+msgid "Thread %s has been successfully published."
+msgstr "スレッド %s は公開されました。"
+
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:150
 msgid "You have no permission."
 msgstr "権限がありません。"
 
@@ -102,6 +139,59 @@ msgstr "すでにこのコメントを高評価しています。"
 msgid "You never voted for this comment."
 msgstr "このコメントに投票していません。"
 
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:13
+msgid "List of threads which belong to you."
+msgstr "あなたに関連するスレッドの一覧です。"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:21
+msgid "Threads"
+msgstr "スレッド"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:39
+msgid "All Status"
+msgstr "すべてのステータス"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:40
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:90
+#: template-parts/woocommerce-my-account.php:23
+msgid "Resolved"
+msgstr "解決済み"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:41
+msgid "Not Resolved"
+msgstr "未解決"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:52
+msgid "Only private"
+msgstr "非公開のみ"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:61
+msgid "Search keyword..."
+msgstr "検索キーワード……"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:65
+msgid "Search"
+msgstr "検索"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:87
+msgctxt "thread-comment-count"
+msgid "comments"
+msgstr "コメント"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:88
+msgctxt "thread-comment-count"
+msgid "comment"
+msgstr "コメント"
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:95
+#: template-parts/woocommerce-my-account.php:29
+msgid "Last Updated: "
+msgstr "最終更新日： "
+
+#: app/Hametuha/Thread/Screen/HashboardScreen.php:105
+msgid "No thread is found for your criteria."
+msgstr "お探しの条件に合うスレッドはありませんでした。"
+
 #: app/Hametuha/Thread/UI/CommentForm.php:61
 msgid "Are you sure to delete comment?"
 msgstr "コメントを削除してよろしいですか？"
@@ -110,15 +200,15 @@ msgstr "コメントを削除してよろしいですか？"
 msgid "Start new thread"
 msgstr "新しいスレッドを開始する"
 
-#: functions.php:263
+#: functions.php:276
 msgid "Reply"
 msgstr "返信"
 
-#: functions.php:269
+#: functions.php:282
 msgid "Upvote"
 msgstr "いいね"
 
-#: functions.php:316
+#: functions.php:329
 msgid "Guest"
 msgstr "ゲスト"
 
@@ -143,16 +233,28 @@ msgstr ""
 "コメントを投稿するには <a class=\"alert-link\" href=\"%s\">ログイン</a>して"
 "ください。"
 
-#: template-parts/button-thread-controller.php:12
+#: template-parts/button-thread-controller.php:7
+msgid "Make public"
+msgstr "公開する"
+
+#: template-parts/button-thread-controller.php:10
+msgid "Make private"
+msgstr "非公開にする"
+
+#: template-parts/button-thread-controller.php:17
 #: template-parts/comment-loop.php:13
 msgid "Edit"
 msgstr "編集"
 
-#: template-parts/button-thread-controller.php:17
-msgid "Archive"
-msgstr "アーカイブ"
+#: template-parts/button-thread-controller.php:22
+msgid "Unmark resolved"
+msgstr "未解決にする"
 
-#: template-parts/button-thread.php:15
+#: template-parts/button-thread-controller.php:22
+msgid "Mark as resolved"
+msgstr "解決済みにする"
+
+#: template-parts/button-thread.php:16
 #, php-format
 msgid ""
 "To start thread, please <a class=\"alert-link\" rel=\"nofollow\" href=\"%s"
@@ -182,15 +284,15 @@ msgstr "コメント"
 msgid "e.g. Your opinion is collect."
 msgstr "例・あなたの意見は正しいです。"
 
-#: template-parts/form-comment.php:24 template-parts/form-thread.php:45
+#: template-parts/form-comment.php:24 template-parts/form-thread.php:64
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: template-parts/form-comment.php:26 template-parts/form-thread.php:47
+#: template-parts/form-comment.php:26 template-parts/form-thread.php:66
 msgid "Submit"
 msgstr "送信"
 
-#: template-parts/form-nocap.php:2
+#: template-parts/form-nocap.php:3
 #, php-format
 msgid ""
 "You have no permission to comment. Please <a href=\"%s\" class=\"alert-link"
@@ -198,6 +300,10 @@ msgid ""
 msgstr ""
 "コメントをする権限がありません。<a href=\"%s\" class=\"alert-link\">ログイン"
 "</a>してください。"
+
+#: template-parts/form-nocap.php:5
+msgid "Comments are closed."
+msgstr "コメントは受け付けていません。"
 
 #: template-parts/form-thread.php:5
 msgid "Create New Thread"
@@ -207,7 +313,8 @@ msgstr "新しいスレッドを開始する"
 msgid "Thread Title"
 msgstr "スレッドタイトル"
 
-#: template-parts/form-thread.php:13 template-parts/form-thread.php:29
+#: template-parts/form-thread.php:13 template-parts/form-thread.php:22
+#: template-parts/form-thread.php:32
 msgid "Required"
 msgstr "必須"
 
@@ -215,11 +322,11 @@ msgstr "必須"
 msgid "e.g. What does \"dark matter\" mean?"
 msgstr "例・「ダークマター」とはなんですか？"
 
-#: template-parts/form-thread.php:20
-msgid "body"
-msgstr "本文"
+#: template-parts/form-thread.php:21
+msgid "Description"
+msgstr "説明"
 
-#: template-parts/form-thread.php:22
+#: template-parts/form-thread.php:25
 msgid ""
 "e.g. Yesterday, I read an article about galaxy. But I can't understand nor "
 "even imagine what \"dark matter\" is. Please ask my question."
@@ -228,9 +335,39 @@ msgstr ""
 "ころか、それがなにかを想像することさえできませんでした。回答よろしくお願いし"
 "ます。"
 
-#: template-parts/form-thread.php:33
+#: template-parts/form-thread.php:36
 msgid "Please select topic"
 msgstr "トピックを選択してください。"
+
+#: template-parts/form-thread.php:49
+msgid "Make this thread private"
+msgstr "このスレッドを非公開にする"
+
+#: template-parts/form-thread.php:53
+#, php-format
+msgid "Author of %s and invited people can see private thread."
+msgstr ""
+"%s の作者と招待されたユーザーだけが非公開スレッドを見ることができます。"
+
+#: template-parts/form-thread.php:55
+msgid "Only invited people can see private thread."
+msgstr "招待された人だけが非公開スレッドを見ることができます。"
+
+#: template-parts/woocommerce-my-account.php:6
+#, php-format
+msgid "You have %s."
+msgstr "%s があります。"
+
+#: template-parts/woocommerce-my-account.php:6
+#, php-format
+msgctxt "owning-thread"
+msgid "%d thread"
+msgid_plural "%d threads"
+msgstr[0] "%d件のスレッド"
+
+#: template-parts/woocommerce-my-account.php:44
+msgid "You have no thread yet."
+msgstr "まだスレッドがありません。"
 
 #. Plugin Name of the plugin/theme
 msgid "HameThread"
@@ -251,3 +388,9 @@ msgstr "高橋文樹"
 #. Author URI of the plugin/theme
 msgid "https://takahashifumiki.com"
 msgstr "https://takahashifumiki.com"
+
+#~ msgid "Archive"
+#~ msgstr "アーカイブ"
+
+#~ msgid "body"
+#~ msgstr "本文"

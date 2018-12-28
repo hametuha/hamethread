@@ -223,7 +223,7 @@ function hamethread_user_can_comment( $post = null, $user_id = null ) {
  */
 function hamethread_is_resolved( $post = null ) {
 	$post = get_post( $post );
-	return (bool) get_post_meta( $post->id, '_is_resolved', true );
+	return (bool) get_post_meta( $post->ID, '_thread_resolved', true );
 }
 
 /**

@@ -136,7 +136,16 @@ class RestCommentNew extends RestBase {
 		if ( ! $comment_id ) {
 			return new \WP_Error( 'failed_insert_comment', __( 'Sorry, but failed to insert comment.', 'hamethread' ) );
 		}
-		do_action( 'hamethread_new_comment_inserted', $comment_id, $request );
+		/**
+		 * hamethread_new_comment_inserted
+		 *
+		 * Fires when new comment posted
+		 *
+		 * @param int              $comment_id
+		 * @param array            $comment_param
+		 * @param \WP_REST_Request $request
+		 */
+		do_action( 'hamethread_new_comment_inserted', $comment_id, $comment_param, $request );
 		$comment = new CommentModel( $comment_id );
 		$response = new \WP_REST_Response( $comment->to_array() );
 		$response->set_headers( [

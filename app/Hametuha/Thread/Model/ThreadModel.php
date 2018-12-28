@@ -49,6 +49,8 @@ class ThreadModel {
 			'link'        => get_permalink( $this->post ),
 			'count'       => get_comment_count( $this->post->ID ),
 			'status'      => $this->post->post_status,
+			'resolved'    => hamethread_is_resolved( $this->post ),
+			'latest'      => hamethread_get_latest_comment_date( $this->post ),
 			'html'        => hamethread_template( 'loop-post', '', false, [
 				'post' => $this->post,
 			] ),
