@@ -65,7 +65,6 @@ class RestThreads extends RestBase {
 		// Check permission.
 		$page        = max( 1, $request->get_param( 'page' ) );
 		$per_page    = $request->get_param( 'per_page' );
-		$per_page = 2;
 		$search_term = $request->get_param( 's' );
 		$args = [
 			'post_type'      => 'thread',

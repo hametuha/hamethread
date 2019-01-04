@@ -370,3 +370,33 @@ function hamethread_last_commented( $no_comment = '---', $post = null, $format =
 		return mysql2date( $format, $comment->comment_date );
 	}
 }
+
+/**
+ * Display comment links
+ *
+ * @return string
+ */
+function hamethread_comment_links() {
+	$link = paginate_comments_links( [
+		'echo' => false,
+		'type' => 'array',
+	] );
+	if ( $link ) {
+		$link = array_map( function( $l ) {
+			$classes = [ 'page-item' ];
+			if ( false !== strpos( $l, 'current' ) ) {
+				$classes[] = 'active';
+			} elseif ( false !== strpos( $l, 'dot' ) ) {
+				$classes[] = 'disabled';
+			}
+
+			return sprintf( '<li class="%s">%s</li>', implode( ' ', $classes ), $l );
+		}, $link );
+		array_unshift( $link, '<ul class="pagination">' );
+		array_unshift( $link, sprintf( '<nav aria-label="%s" class="text-center">', esc_html__( 'Comments Pagination', 'hamethread' ) ) );
+		array_push( $link, '</ul>' );
+		array_push( $link, '</nav>' );
+		$link = implode( "\n", $link );
+	}
+	return apply_filters( 'hamethread_comment_links', $link );
+}

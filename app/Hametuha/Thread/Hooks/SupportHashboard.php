@@ -15,10 +15,7 @@ class SupportHashboard extends Singleton {
 	 * Constructor
 	 */
 	protected function init() {
-		if ( ! class_exists( 'Hametuha\\Hashboard' ) ) {
-			return;
-		}
-		add_filter( 'hashboard_screens', [ $this, 'add_screen' ] );
+		add_filter( 'hashboard_screens', [ $this, 'add_screen' ], 9999 );
 	}
 	
 	/**
