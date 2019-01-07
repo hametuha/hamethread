@@ -18,7 +18,7 @@
 
 		<div class="form-group">
 			<label for="thread_content">
-				<?php esc_html_e( 'Description', 'thread' ) ?>
+				<?php esc_html_e( 'Description', 'hamethread' ) ?>
 				<span class="badge badge-danger"><?php esc_html_e( 'Required', 'hamethread' ) ?></span>
 			</label>
 			<textarea class="form-control" rows="8" name="thread_content" id="thread_content"
@@ -27,7 +27,7 @@
 
 		<div class="form-group">
 			<label for="topic_id">
-				<?php esc_html_e( 'Topic', 'thread' ) ?>
+				<?php esc_html_e( 'Topic', 'hamethread' ) ?>
 				<?php if ( hamethread_topic_forced( get_current_user_id() ) ) : ?>
 					<span class="badge badge-danger"><?php esc_html_e( 'Required', 'hamethread' ) ?></span>
 				<?php endif; ?>

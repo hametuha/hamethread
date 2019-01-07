@@ -69,4 +69,11 @@
 		}
 	});
 
+
+	// Form cancel
+	$( document ).on('click', '.hamethread-form-cancel', function( e ) {
+		e.preventDefault();
+		$( this ).parents( '.hamethread-form' ).remove();
+	});
+
 })(jQuery);

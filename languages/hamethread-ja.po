@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-28 16:43+0900\n"
-"PO-Revision-Date: 2018-12-28 16:48+0900\n"
+"POT-Creation-Date: 2019-01-07 13:30+0900\n"
+"PO-Revision-Date: 2019-01-07 13:30+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -211,6 +211,10 @@ msgstr "いいね"
 #: functions.php:329
 msgid "Guest"
 msgstr "ゲスト"
+
+#: functions.php:396
+msgid "Comments Pagination"
+msgstr "コメントのページネーション"
 
 #: hamethread.php:40
 #, php-format

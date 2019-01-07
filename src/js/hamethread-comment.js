@@ -57,7 +57,6 @@
 			});
 	});
 
-
 	// Voting
 	$(document).on('click','.hamethread-upvote', function(e){
 		e.preventDefault();

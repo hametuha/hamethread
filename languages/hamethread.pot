@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: HameThread\n"
-"POT-Creation-Date: 2018-12-28 16:43+0900\n"
+"POT-Creation-Date: 2019-01-07 13:30+0900\n"
 "PO-Revision-Date: 2018-09-14 01:27+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
@@ -220,6 +220,10 @@ msgstr ""
 
 #: functions.php:329
 msgid "Guest"
+msgstr ""
+
+#: functions.php:396
+msgid "Comments Pagination"
 msgstr ""
 
 #: hamethread.php:40

@@ -59,12 +59,6 @@
 		});
 	});
 
-	// Form cancel
-	$(document).on('click', '.hamethread-form-cancel', function(e){
-		e.preventDefault();
-		$(this).parents('.hamethread-form').remove();
-	});
-
 	$(document).on('click', 'a[data-hamethread]', function(e){
 		e.preventDefault();
 		var $button = $(this);
