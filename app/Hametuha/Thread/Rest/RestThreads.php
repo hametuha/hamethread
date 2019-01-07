@@ -78,7 +78,7 @@ class RestThreads extends RestBase {
 			$args['s'] = $search_term;
 		}
 		// Set status.
-		// If query is 'me', add private threads.
+		// If query is 'me', allow private threads.
 		$post_status = array_filter( explode( ',', $request->get_param( 'status' ) ), function( $status ) use ( $request ) {
 			if ( 'me' !== $request->get_param( 'user_id' ) ) {
 				return current_user_can( 'edit_others_posts' ) || 'publish' === $status;
