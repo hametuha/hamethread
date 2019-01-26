@@ -100,6 +100,9 @@ class PostType extends Singleton {
 	 * @param \WP_Post $post
 	 */
 	public function post_submit_box( $post ) {
+		if ( ! $this->is_supported( $post->post_type ) ) {
+			return;
+		}
 		wp_nonce_field( 'hamethread_resolved', '_hamethreadresolved', false );
 		?>
 		<div class="misc-pub-section misc-pub-resolved">
