@@ -43,11 +43,11 @@ class Thread extends Singleton {
 	public function register_assets() {
 		wp_register_script( 'hamethread', hamethread_asset_url() . '/js/hamethread.js', ['jquery-effects-highlight'], hamethread_version(), true );
 		wp_localize_script( 'hamethread', 'HameThread', [
-			'nonce'   => wp_create_nonce( 'wp_rest' ),
-			'error'   => __( 'Sorry but request failed.', 'hamethread' ),
-			'archive' => __( 'Are you sure to make this thread private?', 'thread' ),
-			'publish' => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'thread' ),
-			'endpoint'  => rest_url( 'hamethread/v1' ),
+			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'error'    => __( 'Sorry but request failed.', 'hamethread' ),
+			'archive'  => __( 'Are you sure to make this thread private?', 'thread' ),
+			'publish'  => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'thread' ),
+			'endpoint' => rest_url( 'hamethread/v1' ),
 		] );
 		wp_register_style( 'hamethread', hamethread_asset_url() . '/css/hamethread.css', [], hamethread_version() );
 	}

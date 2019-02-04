@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-01-07 13:30+0900\n"
-"PO-Revision-Date: 2019-01-07 13:30+0900\n"
+"POT-Creation-Date: 2019-02-04 20:53+0900\n"
+"PO-Revision-Date: 2019-02-04 20:56+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -13,15 +13,15 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: app/Hametuha/Thread.php:46
+#: app/Hametuha/Thread.php:47
 msgid "Sorry but request failed."
 msgstr "申し訳ございません。リクエストに失敗しました。"
 
-#: app/Hametuha/Thread.php:47
+#: app/Hametuha/Thread.php:48
 msgid "Are you sure to make this thread private?"
 msgstr "このスレッドを非公開にしてよろしいですか？"
 
-#: app/Hametuha/Thread.php:48
+#: app/Hametuha/Thread.php:49
 msgid ""
 "Are you sure to make this thread public? Please confirm your comments are "
 "ready to be public."
@@ -37,13 +37,68 @@ msgstr "スレッド"
 msgid "Topic"
 msgstr "トピック"
 
-#: app/Hametuha/Thread/Hooks/PostType.php:108
+#: app/Hametuha/Thread/Hooks/PostType.php:111
 msgid "This thread is resolved"
 msgstr "このスレッドは解決済みになりました。"
 
-#: app/Hametuha/Thread/Hooks/PostType.php:125
+#: app/Hametuha/Thread/Hooks/PostType.php:128
 msgid "Parent"
 msgstr "親"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:52
+#, php-format
+msgid "%s - A new comment is posted to your subscribing thread."
+msgstr "%s - 購読しているスレッドに新しいコメントがありました。"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:57
+#, php-format
+msgid ""
+"Dear %1$s,\n"
+"\n"
+"%2$s posted new comment on %3$s.\n"
+"\n"
+">>>\n"
+"\n"
+"%5$s\n"
+"\n"
+">>>\n"
+"\n"
+"URL: %4$s\n"
+"\n"
+"You get this notification because you subscribed thread.\n"
+"To change notification setting, plese go to thread page. \n"
+msgstr ""
+"%1$sさん\n"
+"\n"
+"%2$s さんが %3$s に新しいコメントを投稿しました。\n"
+"\n"
+">>>\n"
+"\n"
+"%5$s\n"
+"\n"
+">>>\n"
+"\n"
+"URL: %4$s\n"
+"\n"
+"このお知らせはスレッドを購読した方にお送りしています。\n"
+"設定を変更するにはスレッドのページへ移動してください。\n"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:84
+msgid "A guest"
+msgstr "ゲスト"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:182
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:213
+msgid "Thread or user not found."
+msgstr "スレッドまたはユーザーが見つかりません。"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:189
+msgid "Already subscribing this thread."
+msgstr "すでにこのスレッドを購読しています。"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:220
+msgid "Not in the list of subscribers."
+msgstr "購読者のリストにありませんでした。"
 
 #: app/Hametuha/Thread/Hooks/SupportWooCommerce.php:40
 msgid "Support"
@@ -127,7 +182,11 @@ msgstr "スレッド %s は非公開にされました。"
 msgid "Thread %s has been successfully published."
 msgstr "スレッド %s は公開されました。"
 
-#: app/Hametuha/Thread/Rest/RestThreadNew.php:150
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:100
+msgid "You cannot post private thread."
+msgstr "非公開のスレッドに投稿することはできません。"
+
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:173
 msgid "You have no permission."
 msgstr "権限がありません。"
 
@@ -196,6 +255,18 @@ msgstr "お探しの条件に合うスレッドはありませんでした。"
 msgid "Are you sure to delete comment?"
 msgstr "コメントを削除してよろしいですか？"
 
+#: app/Hametuha/Thread/UI/CommentForm.php:62
+msgid "Follow This Thread"
+msgstr "このスレッドをフォローする"
+
+#: app/Hametuha/Thread/UI/CommentForm.php:63
+msgid "Following"
+msgstr "フォロー中"
+
+#: app/Hametuha/Thread/UI/CommentForm.php:64
+msgid "Unfollow This Thread"
+msgstr "このスレッドのフォローをやめる"
+
 #: functions.php:178
 msgid "Start new thread"
 msgstr "新しいスレッドを開始する"
@@ -234,8 +305,8 @@ msgstr "コメントを投稿する"
 msgid ""
 "Please <a class=\"alert-link\" href=\"%s\">log in</a> to post a comment."
 msgstr ""
-"コメントを投稿するには <a class=\"alert-link\" href=\"%s\">ログイン</a>して"
-"ください。"
+"コメントを投稿するには <a class=\"alert-link\" href=\"%s\">ログイン</a>してく"
+"ださい。"
 
 #: template-parts/button-thread-controller.php:7
 msgid "Make public"
@@ -274,6 +345,27 @@ msgstr "削除"
 #: template-parts/comment-loop.php:39
 msgid "(edited)"
 msgstr "（編集済）"
+
+#: template-parts/comment-watcher.php:3
+msgid "People Following This Thread"
+msgstr "このスレッドをフォローしている人たち"
+
+#: template-parts/comment-watcher.php:11
+#, php-format
+msgid "Please <a href=\"%s\" rel=\"nofollow\">login</a> to follow this thread."
+msgstr ""
+"このスレッドをフォローするには<a href=\"%s\" rel=\"nofollow\">ログイン</a>し"
+"てください。"
+
+#: template-parts/comment-watcher.php:18
+#, php-format
+msgid "1 people following."
+msgid_plural "%d people following."
+msgstr[0] "%d人がフォロー中です。"
+
+#: template-parts/comment-watcher.php:34
+msgid "No one is following this thread."
+msgstr "このスレッドは誰もフォローしていません。"
 
 #: template-parts/comments-no.php:2
 #, php-format

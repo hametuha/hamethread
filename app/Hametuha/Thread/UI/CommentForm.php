@@ -59,6 +59,9 @@ class CommentForm extends AbstractUI {
 		wp_localize_script( 'hamethread-comment', 'HameThreadComment', [
 			'noComment' => hamethread_template( 'comments-no', '', false ),
 			'confirm'   => __( 'Are you sure to delete comment?', 'hamethread' ),
+			'follow'    => __( 'Follow This Thread', 'hamethread' ),
+			'following' => __( 'Following', 'hamethread' ),
+			'unfollow'  => __( 'Unfollow This Thread', 'hamethread' ),
 		] );
 		wp_enqueue_style( 'hamethread' );
 		return hamethread_file_path( 'comments' );

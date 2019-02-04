@@ -15,6 +15,11 @@
 		} );
 	};
 
+	// Initialize comment count.
+	$( document ).ready( function() {
+		updateCommentCount();
+	} );
+
 	// Get comment form.
 	$(document).on('click', 'button[data-hamethread="comment"]', function (e) {
 		e.preventDefault();
@@ -153,5 +158,52 @@
 				$comment.removeClass('loading');
 			});
 	});
+
+	// Update following status.
+	$( document ).ready( function() {
+		var $button = $( '#hamthread-watchers-toggle' );
+		if ( ! $button.length ) {
+			// Do nothing.
+			return true;
+		}
+		var setFollowStatus = function( following ) {
+			var html = '';
+			if ( following ) {
+				html = '<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' + HameThreadComment.following + '</span><span class="hover">' + HameThreadComment.unfollow + '</span></button>';
+			} else {
+				html = '<button class="btn btn-default">' + HameThreadComment.follow + '</button>';
+			}
+			if ( HameThreadComment.buttonCallback ) {
+				html = HameThreadComment.buttonCallback( html, following );
+			}
+			$button.html( html );
+			var label = following ? HameThreadComment.follow : HameThreadComment.unfollow;
+			var icon  = following ? '<i class="fa"></ifa>' : '';
+		};
+
+		// Check current status.
+		HameThread.request( 'GET', 'follower/in/' + $button.attr( 'data-id' ), {
+			user_id: 'me'
+		} ).done( function( response ) {
+			setFollowStatus( response.subscribing );
+		} );
+
+		// Toggle information.
+		$button.on( 'click', 'button', function( e ) {
+			e.preventDefault();
+			var method;
+			if ( $( this ).hasClass( 'btn-following' ) ) {
+				method = 'DELETE';
+			} else {
+				method = 'POST';
+			}
+			HameThread.request( method, 'follower/in/' + $button.attr( 'data-id' ), {
+				user_id: 'me'
+			} ).done( function( response) {
+				setFollowStatus( response.subscribing );
+			});
+		} );
+	});
+
 
 })(jQuery);

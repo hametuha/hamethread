@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: HameThread\n"
-"POT-Creation-Date: 2019-01-07 13:30+0900\n"
+"POT-Creation-Date: 2019-02-04 20:53+0900\n"
 "PO-Revision-Date: 2018-09-14 01:27+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
@@ -25,15 +25,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: vendor\n"
 "X-Poedit-SearchPathExcluded-4: node_modules\n"
 
-#: app/Hametuha/Thread.php:46
+#: app/Hametuha/Thread.php:47
 msgid "Sorry but request failed."
 msgstr ""
 
-#: app/Hametuha/Thread.php:47
+#: app/Hametuha/Thread.php:48
 msgid "Are you sure to make this thread private?"
 msgstr ""
 
-#: app/Hametuha/Thread.php:48
+#: app/Hametuha/Thread.php:49
 msgid ""
 "Are you sure to make this thread public? Please confirm your comments are "
 "ready to be public."
@@ -47,12 +47,53 @@ msgstr ""
 msgid "Topic"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/PostType.php:108
+#: app/Hametuha/Thread/Hooks/PostType.php:111
 msgid "This thread is resolved"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/PostType.php:125
+#: app/Hametuha/Thread/Hooks/PostType.php:128
 msgid "Parent"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:52
+#, php-format
+msgid "%s - A new comment is posted to your subscribing thread."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:57
+#, php-format
+msgid ""
+"Dear %1$s,\n"
+"\n"
+"%2$s posted new comment on %3$s.\n"
+"\n"
+">>>\n"
+"\n"
+"%5$s\n"
+"\n"
+">>>\n"
+"\n"
+"URL: %4$s\n"
+"\n"
+"You get this notification because you subscribed thread.\n"
+"To change notification setting, plese go to thread page. \n"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:84
+msgid "A guest"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:182
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:213
+msgid "Thread or user not found."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:189
+msgid "Already subscribing this thread."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:220
+msgid "Not in the list of subscribers."
 msgstr ""
 
 #: app/Hametuha/Thread/Hooks/SupportWooCommerce.php:40
@@ -137,7 +178,11 @@ msgstr ""
 msgid "Thread %s has been successfully published."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestThreadNew.php:150
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:100
+msgid "You cannot post private thread."
+msgstr ""
+
+#: app/Hametuha/Thread/Rest/RestThreadNew.php:173
 msgid "You have no permission."
 msgstr ""
 
@@ -204,6 +249,18 @@ msgstr ""
 
 #: app/Hametuha/Thread/UI/CommentForm.php:61
 msgid "Are you sure to delete comment?"
+msgstr ""
+
+#: app/Hametuha/Thread/UI/CommentForm.php:62
+msgid "Follow This Thread"
+msgstr ""
+
+#: app/Hametuha/Thread/UI/CommentForm.php:63
+msgid "Following"
+msgstr ""
+
+#: app/Hametuha/Thread/UI/CommentForm.php:64
+msgid "Unfollow This Thread"
 msgstr ""
 
 #: functions.php:178
@@ -277,6 +334,27 @@ msgstr ""
 
 #: template-parts/comment-loop.php:39
 msgid "(edited)"
+msgstr ""
+
+#: template-parts/comment-watcher.php:3
+msgid "People Following This Thread"
+msgstr ""
+
+#: template-parts/comment-watcher.php:11
+#, php-format
+msgid ""
+"Please <a href=\"%s\" rel=\"nofollow\">login</a> to follow this thread."
+msgstr ""
+
+#: template-parts/comment-watcher.php:18
+#, php-format
+msgid "1 people following."
+msgid_plural "%d people following."
+msgstr[0] ""
+msgstr[1] ""
+
+#: template-parts/comment-watcher.php:34
+msgid "No one is following this thread."
 msgstr ""
 
 #: template-parts/comments-no.php:2

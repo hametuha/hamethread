@@ -14,6 +14,13 @@
 	<?php echo hamethread_comment_links() ?>
 	<?php endif; ?>
 </ul>
-<?php if ( comments_open() ) : ?>
-	<?php hamethread_template( 'comments-no' ) ?>
-<?php endif; ?>
+
+<?php if ( comments_open() ) :
+    hamethread_template( 'comments-no' );
+endif; ?>
+
+<?php
+// Display comment watchers.
+if ( comments_open() ) :
+   hamethread_template( 'comment-watcher' );
+endif;

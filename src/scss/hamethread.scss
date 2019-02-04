@@ -238,3 +238,47 @@ ul.children ul.children{
 	color: #ccc;
 	border-color: #eee;
 }
+
+.hamethread-watchers{
+
+	margin: 40px 0;
+
+	&-no{
+
+	}
+
+	&-item{
+		display: inline-block;
+		margin: 0 10px 10px 0;
+	}
+
+	.avatar{
+		width: auto;
+		height: auto;
+		max-width: 48px;
+		border-radius: 50%;
+	}
+
+	&-toggle{
+		text-align: right;
+		margin-bottom: 20px;
+	}
+
+	.btn-following{
+		.on{
+			display: inline;
+		}
+		.hover{
+			display: none;
+		}
+		&:hover{
+			.on{
+				display: none;
+			}
+			.hover{
+				display: inline;
+			}
+		}
+	}
+
+}

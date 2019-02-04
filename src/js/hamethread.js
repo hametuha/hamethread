@@ -65,7 +65,7 @@
 			if(data){
 				request.data = data;
 			}
-			return $.ajax(request).error(HameThread.errorHandler);
+			return $.ajax(request).fail( HameThread.errorHandler );
 		}
 	});
 
