@@ -4,6 +4,7 @@ namespace Hametuha;
 
 
 use Hametuha\Pattern\Singleton;
+use Hametuha\Thread\Hooks\SupportNotification;
 
 /**
  * Thread Bootstrap plugin.
@@ -79,5 +80,23 @@ class Thread extends Singleton {
 			$format = get_option( 'date_format' );
 		}
 		return get_date_from_gmt( get_post_meta( get_post( $post )->ID, '_thread_resolved', true ), $format );
+	}
+
+	/**
+	 * Get subscribers.
+	 *
+	 * @param null|int|\WP_Post $post
+	 * @return \WP_User[]
+	 */
+	public static function subscribers( $post = null ) {
+		$subscribers = SupportNotification::get_instance()->get_subscribers( $post );
+		if ( ! $subscribers ) {
+			return [];
+		}
+		$query = new \WP_User_Query( [
+			'include' => $subscribers,
+			'number'  => -1,
+		] );
+		return $query->get_results();
 	}
 }

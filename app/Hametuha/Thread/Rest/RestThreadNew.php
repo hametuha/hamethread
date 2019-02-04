@@ -1,7 +1,9 @@
 <?php
 namespace Hametuha\Thread\Rest;
 
+use Hametuha\Thread;
 use Hametuha\Thread\Hooks\PostType;
+use Hametuha\Thread\Hooks\SupportNotification;
 use Hametuha\Thread\Model\ThreadModel;
 use Hametuha\Thread\Pattern\RestBase;
 use Hametuha\Thread\Pattern\RushDetector;
@@ -94,6 +96,12 @@ class RestThreadNew extends RestBase {
 				'status'   => 403,
 			] );
 		}
+		if ( $request->get_param( 'is_private' ) && ! ThreadModel::can_start_private( get_current_user_id() ) ) {
+			$error->add( 'private_not_allowed', __( 'You cannot post private thread.', 'hamethread' ), [
+				'status'   => 403,
+				'response' => 403,
+			] );
+		}
 		/**
 		 * hamethread_new_thread_validation
 		 *
@@ -119,6 +127,21 @@ class RestThreadNew extends RestBase {
 		$post_id = wp_insert_post( $post_args, true );
 		if ( is_wp_error( $post_id ) ) {
 			return $post_id;
+		}
+		/**
+		 * hamethread_default_subscribers
+		 *
+		 * Make thread author subscribe it.
+		 *
+		 * @param bool $subscribe
+		 * @param int  $post_id
+		 * @param int  $user_id
+		 */
+		$default_subscribers = apply_filters( 'hamethread_default_subscribers', [ get_current_user_id() ], $post_id, get_current_user_id(), $request );
+		if ( $default_subscribers ) {
+			foreach ( $default_subscribers as $subscriber ) {
+				SupportNotification::get_instance()->subscribe( $post_id, $subscriber );
+			}
 		}
 		// Update user rush time.
 		RushDetector::record_rush_time( get_current_user_id() );
