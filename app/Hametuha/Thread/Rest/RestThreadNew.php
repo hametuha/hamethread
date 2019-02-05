@@ -96,7 +96,7 @@ class RestThreadNew extends RestBase {
 				'status'   => 403,
 			] );
 		}
-		if ( $request->get_param( 'is_private' ) && ! ThreadModel::can_start_private( get_current_user_id() ) ) {
+		if ( $request->get_param( 'is_private' ) && ! ThreadModel::can_start_private( get_current_user_id(), $request->get_param( 'thread_parent' ) ) ) {
 			$error->add( 'private_not_allowed', __( 'You cannot post private thread.', 'hamethread' ), [
 				'status'   => 403,
 				'response' => 403,
