@@ -54,7 +54,7 @@ class RestThreadNew extends RestBase {
 				break;
 			case 'POST':
 				$args = $this->thread_arg_base();
-				return apply_filters( 'hamethread_new_thread_rest_args', $args );
+				return apply_filters( 'hamethread_new_thread_post_params', $args );
 				break;
 			default:
 				return [];

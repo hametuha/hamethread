@@ -47,7 +47,10 @@
 		e.preventDefault();
 		var $form = $(this);
 		var data = {};
-		$form.find('input[name], select[name], textarea[name], input:checked').each(function(index, input){
+		$form.find('input[name], select[name], textarea[name]').each(function(index, input){
+			if ( 'checkbox' === $( input ).attr( 'type' ) && ! input.checked ) {
+				return true;
+			}
 			data[$(input).attr('name')] = $(input).val();
 		});
 		data._wpnonce = HameThread.nonce;
