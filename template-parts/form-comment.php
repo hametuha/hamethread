@@ -18,7 +18,7 @@
 					  placeholder="<?php esc_attr_e( 'e.g. Your opinion is collect.', 'hamethread' ) ?>"><?php echo $comment ? esc_textarea( $comment->comment_content ) : ''; ?></textarea>
 		</div>
 
-		<?php do_action( 'hamethread_after_comment_form', $args ); ?>
+		<?php do_action( 'hamethread_after_comment_form', $args, $comment ); ?>
 
 		<div class="hamethread-form-submit text-right">
 			<button class="hamethread-form-cancel btn btn-link"><?php esc_html_e( 'Cancel', 'hamethread' ) ?></button>

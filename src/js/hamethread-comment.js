@@ -91,6 +91,9 @@
 		var $form = $(this);
 		var data = {};
 		$form.find('input[name], select[name], textarea[name]').each(function (index, input) {
+			if ( 'checkbox' === $( input ).attr( 'type' ) && ! input.checked ) {
+				return true;
+			}
 			data[$(input).attr('name')] = $(input).val();
 		});
 		$form.addClass('loading');
