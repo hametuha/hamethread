@@ -56,7 +56,7 @@ function hamethread_version() {
 	static $version = null;
 	if ( is_null( $version ) ) {
 		$file_info = get_file_data( __FILE__, [
-			'version' => 'Version:'
+			'version' => 'Version'
 		] );
 		$version = trim( $file_info['version'] );
 	}
