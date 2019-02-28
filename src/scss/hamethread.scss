@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+$small-screen: 480px;
+
 .hamethread-form{
 
 	position: fixed;
@@ -47,6 +49,18 @@ $avatar-padding: 20px;
 	padding: $avatar-padding 0;
 	margin: 0;
 	background-color: #f9f9f9;
+	.children{
+		li{
+			padding-left: 0;
+		}
+		padding-bottom: 0;
+		.children .children{
+			padding-left: 0;
+		}
+		@media screen and ( max-width: $small-screen ) {
+			padding-left: 0;
+		}
+	}
 	&[data-comment-count="0"]{
 		padding: 0;
 	}
@@ -64,6 +78,7 @@ ul.children ul.children{
 .hamethread-comment{
 	$img-size: 60px;
 	$avatar-col-width: $img-size + 2 * $avatar-padding;
+
 	&-item{
 		position: relative;
 		min-height: $img-size;
@@ -100,8 +115,15 @@ ul.children ul.children{
 		box-sizing: border-box;
 		width: $avatar-col-width;
 		padding: 0 $avatar-padding;
+		@media only screen and (max-width: $small-screen) {
+			width: $avatar-col-width / 3 * 2;
+			padding: 0 $avatar-padding / 2;
+		}
 		img{
 			max-width: $img-size;
+			@media only screen and (max-width: $small-screen) {
+				width: $img-size / 3 * 2;
+			}
 			width: auto;
 			height: auto;
 			border-radius: 50%;
@@ -109,6 +131,10 @@ ul.children ul.children{
 	}
 	&-body{
 		margin-left: $avatar-col-width;
+		@media only screen and (max-width: $small-screen) {
+			margin-left: $avatar-col-width / 3 * 2;
+			font-size: 14px;
+		}
 		font-size: 16px;
 	}
 	&-header{
