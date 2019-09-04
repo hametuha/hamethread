@@ -8,7 +8,7 @@
         </div>
     <?php else : ?>
         <p class="text-muted">
-            <?php echo wp_kses_post( sprintf( __( 'Please <a href="%s" rel="nofollow">login</a> to follow this thread.', 'hamethread' ), wp_login_url( get_permalink() ) ) ) ?>
+            <?php echo wp_kses_post( sprintf( __( 'Please <a href="%s" rel="nofollow">login</a> to follow this thread.', 'hamethread' ), hamethread_login_url( get_permalink() ) ) ) ?>
         </p>
 	<?php endif; ?>
 

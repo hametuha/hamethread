@@ -456,3 +456,18 @@ function hamethread_get_best_answer( $post = null ) {
 	// TODO: Best answer.
 	return null;
 }
+
+/**
+ * Get login link
+ *
+ * @param string $redirect_to
+ * @return string
+ */
+function hamethread_login_url( $redirect_to = '' ) {
+	if ( function_exists( 'WC' ) ) {
+		// WooCommerce
+	} else {
+		$url = wp_login_url( $redirect_to );
+	}
+	return apply_filters( 'hamethread_login_url', $url, $redirect_to );
+}

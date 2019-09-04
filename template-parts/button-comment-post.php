@@ -6,7 +6,7 @@
     </button>
 	<?php else : ?>
 	<div class="alert alert-warning">
-		<?php echo wp_kses_post( sprintf( __('Please <a class="alert-link" href="%s">log in</a> to post a comment.', 'hamethread' ), wp_login_url( get_permalink() ) ) ); ?>
+		<?php echo wp_kses_post( sprintf( __('Please <a class="alert-link" href="%s">log in</a> to post a comment.', 'hamethread' ), hamethread_login_url( get_permalink() ) ) ); ?>
 	</div>
 	<?php endif; ?>
 </div>
