@@ -400,3 +400,59 @@ function hamethread_comment_links() {
 	}
 	return apply_filters( 'hamethread_comment_links', $link );
 }
+
+/**
+ * Get upvoted count.
+ *
+ * @param null|int|WP_Post $post
+ * @return int
+ */
+function hamethread_upvote_count( $post = null ) {
+	global $wpdb;
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return 0;
+	}
+	$query = <<<SQL
+		SELECT COUNT( cm.meta_id )
+		FROM {$wpdb->commentmeta} AS cm
+		LEFT JOIN {$wpdb->comments} AS c
+		ON cm.comment_id = c.comment_ID
+		WHERE cm.meta_key = '_user_upvote'
+		  AND c.comment_post_ID = %d
+SQL;
+	return (int) $wpdb->get_var( $wpdb->prepare( $query, $post->ID ) );
+}
+
+/**
+ * Get upvoted count.
+ *
+ * @param null|int|WP_Comment $comment
+ * @return int
+ */
+function hamethread_comment_upvoted_count( $comment = null ) {
+	$comment = get_comment( $comment );
+	global $wpdb;
+	$query = <<<SQL
+		SELECT COUNT( meta_id ) FROM {$wpdb->commentmeta}
+		WHERE comment_id = %d
+		  AND meta_key   = '_user_upvote'
+SQL;
+
+	return (int) $wpdb->get_var( $wpdb->prepare( $query, $comment->comment_ID ) );
+}
+
+/**
+ * Get best answer
+ *
+ * @param null|int|WP_Post $post
+ * @return null
+ */
+function hamethread_get_best_answer( $post = null ) {
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return null;
+	}
+	// TODO: Best answer.
+	return null;
+}
