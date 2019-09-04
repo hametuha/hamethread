@@ -74,10 +74,12 @@ class RestComment extends RestCommentNew {
 	public function handle_delete( $request ) {
 		$comment_id = $request->get_param( 'comment_id' );
 		$comment = get_comment( $comment_id );
+		$post_id = $comment->comment_post_ID;
 		$result = wp_delete_comment( $comment );
 		if ( ! $result ) {
 			return new \WP_Error( 'failed_to_delete_comment', __( 'Sorry, but failed to delete comment.', 'hamethread' ) );
 		} else {
+			wp_update_comment_count_now( $post_id );
 			do_action( 'hamethread_after_comment_deleted', $comment, $request );
 			return [
 				'message' => __( 'Comment is successfully deleted.', 'hamethread' ),

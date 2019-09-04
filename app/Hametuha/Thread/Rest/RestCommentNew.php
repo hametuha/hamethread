@@ -136,6 +136,8 @@ class RestCommentNew extends RestBase {
 		if ( ! $comment_id ) {
 			return new \WP_Error( 'failed_insert_comment', __( 'Sorry, but failed to insert comment.', 'hamethread' ) );
 		}
+		// Count up comment count.
+		wp_update_comment_count_now( $post_id );
 		/**
 		 * hamethread_new_comment_inserted
 		 *
