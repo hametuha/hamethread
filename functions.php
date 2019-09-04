@@ -466,6 +466,12 @@ function hamethread_get_best_answer( $post = null ) {
 function hamethread_login_url( $redirect_to = '' ) {
 	if ( function_exists( 'WC' ) ) {
 		// WooCommerce
+		$url = wc_get_page_permalink( 'myaccount' );
+		if ( $redirect_to ) {
+			$url = add_query_arg( [
+				'redirect_to' => $redirect_to,
+			], $url );
+		}
 	} else {
 		$url = wp_login_url( $redirect_to );
 	}
