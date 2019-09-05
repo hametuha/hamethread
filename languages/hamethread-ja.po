@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-02-04 20:53+0900\n"
-"PO-Revision-Date: 2019-02-04 20:56+0900\n"
+"POT-Creation-Date: 2019-09-05 19:02+0900\n"
+"PO-Revision-Date: 2019-09-05 19:03+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -13,21 +13,35 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: app/Hametuha/Thread.php:47
+#: app/Hametuha/Thread.php:51
 msgid "Sorry but request failed."
 msgstr "申し訳ございません。リクエストに失敗しました。"
 
-#: app/Hametuha/Thread.php:48
+#: app/Hametuha/Thread.php:52
 msgid "Are you sure to make this thread private?"
 msgstr "このスレッドを非公開にしてよろしいですか？"
 
-#: app/Hametuha/Thread.php:49
+#: app/Hametuha/Thread.php:53
 msgid ""
 "Are you sure to make this thread public? Please confirm your comments are "
 "ready to be public."
 msgstr ""
 "このスレッドを公開してよろしいですか？　あなたのコメントが公開しても問題ない"
 "かどうか、確認してください。"
+
+#: app/Hametuha/Thread.php:55
+msgid ""
+"Are you sure to lock this thread? None can post new comment on this thread."
+msgstr ""
+"このスレッドをロックしてよろしいですか？　コメントを新たに投稿することはでき"
+"ません。"
+
+#: app/Hametuha/Thread.php:56
+msgid ""
+"Are you sure to reopen this thread? Uses can post new comment on this thread."
+msgstr ""
+"このスレッドをオープンにしてよろしいですか？　ユーザーは新しいコメントを投稿"
+"できるようになります。"
 
 #: app/Hametuha/Thread/Hooks/PostType.php:44
 msgid "Thread"
@@ -131,19 +145,19 @@ msgstr "コメントが見つかりません。"
 msgid "Edit comment"
 msgstr "コメントを編集"
 
-#: app/Hametuha/Thread/Rest/RestComment.php:79
+#: app/Hametuha/Thread/Rest/RestComment.php:80
 msgid "Sorry, but failed to delete comment."
 msgstr "申し訳ございません。コメントを削除できませんでした。"
 
-#: app/Hametuha/Thread/Rest/RestComment.php:83
+#: app/Hametuha/Thread/Rest/RestComment.php:85
 msgid "Comment is successfully deleted."
 msgstr "コメントは削除されました。"
 
-#: app/Hametuha/Thread/Rest/RestComment.php:108
+#: app/Hametuha/Thread/Rest/RestComment.php:110
 msgid "Sorry, but failed to update comment."
 msgstr "申し訳ございません、コメントの更新に失敗しました。"
 
-#: app/Hametuha/Thread/Rest/RestComment.php:134
+#: app/Hametuha/Thread/Rest/RestComment.php:136
 msgid "You have no permission to edit comment."
 msgstr "コメントを編集する権限がありません。"
 
@@ -181,6 +195,22 @@ msgstr "スレッド %s は非公開にされました。"
 #, php-format
 msgid "Thread %s has been successfully published."
 msgstr "スレッド %s は公開されました。"
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:39
+msgid "This thread is already locked."
+msgstr "このスレッドはすでにロックされています。"
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:53
+msgid "This thread is closed."
+msgstr "このスレッドはロックされました。"
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:66
+msgid "This thread is already opened."
+msgstr "このスレッドはすでにオープンです。"
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:80
+msgid "This thread is reopened."
+msgstr "このスレッドはオープンになりました。"
 
 #: app/Hametuha/Thread/Rest/RestThreadNew.php:100
 msgid "You cannot post private thread."
@@ -316,16 +346,24 @@ msgstr "公開する"
 msgid "Make private"
 msgstr "非公開にする"
 
-#: template-parts/button-thread-controller.php:17
+#: template-parts/button-thread-controller.php:12
+msgid "Close thread"
+msgstr "スレッドを閉じる"
+
+#: template-parts/button-thread-controller.php:12
+msgid "Reopen thread"
+msgstr "スレッドを再開する"
+
+#: template-parts/button-thread-controller.php:18
 #: template-parts/comment-loop.php:13
 msgid "Edit"
 msgstr "編集"
 
-#: template-parts/button-thread-controller.php:22
+#: template-parts/button-thread-controller.php:23
 msgid "Unmark resolved"
 msgstr "未解決にする"
 
-#: template-parts/button-thread-controller.php:22
+#: template-parts/button-thread-controller.php:23
 msgid "Mark as resolved"
 msgstr "解決済みにする"
 

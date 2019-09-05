@@ -35,6 +35,10 @@ class Thread extends Singleton {
 		}
 		// Register script.
 		add_action( 'init', [ $this, 'register_assets' ], 20 );
+		// Register command.
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::add_command( 'thread', Thread\Command::class );
+		}
 	}
 
 	/**
@@ -48,10 +52,12 @@ class Thread extends Singleton {
 			'archive'  => __( 'Are you sure to make this thread private?', 'thread' ),
 			'publish'  => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'thread' ),
 			'endpoint' => rest_url( 'hamethread/v1' ),
+			'lock'      => __( 'Are you sure to lock this thread? None can post new comment on this thread.', 'hamethread' ),
+			'reopen'    => __( 'Are you sure to reopen this thread? Uses can post new comment on this thread.', 'hamethread' ),
 		] );
 		wp_register_style( 'hamethread', hamethread_asset_url() . '/css/hamethread.css', [], hamethread_version() );
 	}
-	
+
 	/**
 	 * Detect if post is resolved.
 	 *
@@ -63,7 +69,7 @@ class Thread extends Singleton {
 		$post = get_post( $post );
 		return (bool) get_post_meta( $post->ID, '_thread_resolved', true );
 	}
-	
+
 	/**
 	 * Get resolved time.
 	 *

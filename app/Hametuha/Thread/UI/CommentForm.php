@@ -12,7 +12,7 @@ use Hametuha\Thread\Pattern\AbstractUI;
  * @package hamethread
  */
 class CommentForm extends AbstractUI {
-	
+
 	/**
 	 * Constructor
 	 */
@@ -27,7 +27,7 @@ class CommentForm extends AbstractUI {
 	public function register_script() {
 		wp_register_script( 'hamethread-comment', hamethread_asset_url() . '/js/hamethread-comment.js', ['hamethread'], hamethread_version(), true );
 	}
-	
+
 	/**
 	 * Is comment supported?
 	 *

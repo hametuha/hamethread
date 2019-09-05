@@ -101,8 +101,38 @@
 				} ).done( function( response ) {
 					alert( response.message );
 					window.location.href = response.url;
-				} ).fail( hamethread.errorhandler ).always( function () {
-					$button.removeclass( 'disabled' ).attr( 'disabled', false );
+				} ).fail( HameThread.errorHandler ).always( function () {
+					$button.removeClass( 'disabled' ).attr( 'disabled', false );
+				} );
+				break;
+			case 'lock':
+			case 'reopen':
+				if ( ! window.confirm( HameThread[ action ] ) ) {
+					return false;
+				}
+				if ( $button.attr( 'disabled' ) ) {
+					return;
+				}
+				var method;
+				switch ( action ) {
+					case 'lock':
+						method = 'POST';
+						break;
+					case 'reopen':
+						method = 'DELETE';
+						break;
+					default:
+						return;
+				}
+				$button.addClass( 'disabled' ).attr( 'disabled', true );
+				$.ajax( {
+					url: $button.attr( 'href' ) + '?' + $.param( query ),
+					method: method
+				} ).done( function( response ) {
+					alert( response.message );
+					window.location.href = response.url;
+				} ).fail( HameThread.errorHandler ).always( function () {
+					$button.removeClass( 'disabled' ).attr( 'disabled', false );
 				} );
 				break;
 		}

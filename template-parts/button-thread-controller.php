@@ -9,6 +9,7 @@ if ( 'private' === get_post_status() ) {
 	$key   = 'archive';
 	$label = __( 'Make private', 'hamethread' );
 }
+$lock_action = comments_open( $post ) ? __( 'Close thread', 'hamethread' ) : __( 'Reopen thread', 'hamethread' );
 $lists = [];
 ob_start();
 if ( $can_edit ) {
@@ -27,9 +28,6 @@ if ( $can_edit ) {
 	</li>
 	<?php
 	$lists[] = ob_get_contents();
-	
-	
-	
 	ob_clean();
 }
 if ( $can_archive ) {
@@ -39,6 +37,12 @@ if ( $can_archive ) {
 			<?php echo esc_html( $label ) ?>
 		</a>
 	</li>
+	<li class="dropdown-item">
+		<a href="<?php echo rest_url( 'hamethread/v1/thread/lock/' . $post->ID ) ?>" rel="nofollow" data-hamethread="<?php echo comments_open( $post ) ? 'lock' : 'reopen' ?>">
+			<?php echo esc_html( $lock_action ) ?>
+		</a>
+	</li>
+
 	<?php
 	$lists[] = ob_get_contents();
 	ob_clean();

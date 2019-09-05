@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: HameThread\n"
-"POT-Creation-Date: 2019-02-04 20:53+0900\n"
+"POT-Creation-Date: 2019-09-05 19:02+0900\n"
 "PO-Revision-Date: 2018-09-14 01:27+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
@@ -25,18 +25,29 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: vendor\n"
 "X-Poedit-SearchPathExcluded-4: node_modules\n"
 
-#: app/Hametuha/Thread.php:47
+#: app/Hametuha/Thread.php:51
 msgid "Sorry but request failed."
 msgstr ""
 
-#: app/Hametuha/Thread.php:48
+#: app/Hametuha/Thread.php:52
 msgid "Are you sure to make this thread private?"
 msgstr ""
 
-#: app/Hametuha/Thread.php:49
+#: app/Hametuha/Thread.php:53
 msgid ""
 "Are you sure to make this thread public? Please confirm your comments are "
 "ready to be public."
+msgstr ""
+
+#: app/Hametuha/Thread.php:55
+msgid ""
+"Are you sure to lock this thread? None can post new comment on this thread."
+msgstr ""
+
+#: app/Hametuha/Thread.php:56
+msgid ""
+"Are you sure to reopen this thread? Uses can post new comment on this "
+"thread."
 msgstr ""
 
 #: app/Hametuha/Thread/Hooks/PostType.php:44
@@ -127,19 +138,19 @@ msgstr ""
 msgid "Edit comment"
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestComment.php:79
+#: app/Hametuha/Thread/Rest/RestComment.php:80
 msgid "Sorry, but failed to delete comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestComment.php:83
+#: app/Hametuha/Thread/Rest/RestComment.php:85
 msgid "Comment is successfully deleted."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestComment.php:108
+#: app/Hametuha/Thread/Rest/RestComment.php:110
 msgid "Sorry, but failed to update comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestComment.php:134
+#: app/Hametuha/Thread/Rest/RestComment.php:136
 msgid "You have no permission to edit comment."
 msgstr ""
 
@@ -176,6 +187,22 @@ msgstr ""
 #: app/Hametuha/Thread/Rest/RestThread.php:145
 #, php-format
 msgid "Thread %s has been successfully published."
+msgstr ""
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:39
+msgid "This thread is already locked."
+msgstr ""
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:53
+msgid "This thread is closed."
+msgstr ""
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:66
+msgid "This thread is already opened."
+msgstr ""
+
+#: app/Hametuha/Thread/Rest/RestThreadLock.php:80
+msgid "This thread is reopened."
 msgstr ""
 
 #: app/Hametuha/Thread/Rest/RestThreadNew.php:100
@@ -308,16 +335,24 @@ msgstr ""
 msgid "Make private"
 msgstr ""
 
-#: template-parts/button-thread-controller.php:17
+#: template-parts/button-thread-controller.php:12
+msgid "Close thread"
+msgstr ""
+
+#: template-parts/button-thread-controller.php:12
+msgid "Reopen thread"
+msgstr ""
+
+#: template-parts/button-thread-controller.php:18
 #: template-parts/comment-loop.php:13
 msgid "Edit"
 msgstr ""
 
-#: template-parts/button-thread-controller.php:22
+#: template-parts/button-thread-controller.php:23
 msgid "Unmark resolved"
 msgstr ""
 
-#: template-parts/button-thread-controller.php:22
+#: template-parts/button-thread-controller.php:23
 msgid "Mark as resolved"
 msgstr ""
 
