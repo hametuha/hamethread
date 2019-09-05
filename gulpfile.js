@@ -14,7 +14,7 @@ gulp.task('sass', function () {
       errorHandler: $.notify.onError('<%= error.message %>')
     }))
     .pipe($.sourcemaps.init({loadMaps: true}))
-    .pipe($.sassBulkImport())
+    .pipe($.sassGlob())
     .pipe($.sass({
       errLogToConsole: true,
       outputStyle    : 'compressed',
