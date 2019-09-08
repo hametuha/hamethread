@@ -4,6 +4,7 @@ namespace Hametuha\Thread\Hooks;
 
 
 use Hametuha\Pattern\Singleton;
+use Hametuha\Thread\Model\ThreadModel;
 
 /**
  * Best answer
@@ -140,6 +141,10 @@ class BestAnswer extends Singleton {
 		// Add new BA
 		$now = current_time( 'timestamp', true );
 		update_comment_meta( $comment->comment_ID, self::BA_KEY, $now );
+		if ( ! ThreadModel::is_resolved( $comment->comment_post_ID ) ) {
+			// Resolved.
+			ThreadModel::set_resolved( $comment->comment_post_ID );
+		}
 		do_action( 'hamethread_best_answer_selected', $comment, $now );
 		return true;
 	}
@@ -157,7 +162,6 @@ class BestAnswer extends Singleton {
 		}
 		$old_value = get_comment_meta( $comment->comment_ID, self::BA_KEY, true );
 		delete_comment_meta( $comment->comment_ID, self::BA_KEY );
-
 		do_action( 'hamethread_best_answer_unmarked', $comment, $old_value );
 		return true;
 	}

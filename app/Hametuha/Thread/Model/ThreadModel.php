@@ -101,7 +101,7 @@ class ThreadModel {
 		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
 	}
-	
+
 	/**
 	 * Check if user can start private thread.
 	 *
@@ -116,7 +116,7 @@ class ThreadModel {
 		}
 		return (bool) apply_filters( 'hamethread_user_can_start_private_thread', false, $user_id, $post_id );
 	}
-	
+
 	/**
 	 * Check if user can mark thread as resolved.
 	 *
@@ -129,7 +129,7 @@ class ThreadModel {
 		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_resolve_post', $can, $user_id, $post );
 	}
-	
+
 	/**
 	 * Change resolution status
 	 *
@@ -146,7 +146,53 @@ class ThreadModel {
 				'response' => 404,
 			] );
 		}
-		
+
+	}
+
+	/**
+	 * Detect if thread is resolved.
+	 *
+	 * @param int $thread_id
+	 * @return bool
+	 */
+	public static function is_resolved( $thread_id ) {
+		return (bool) get_post_meta( $thread_id, '_thread_resolved', true );
+	}
+
+	/**
+	 * Get resolved count.
+	 *
+	 * @param int $thread_id
+	 * @return int
+	 */
+	public static function get_resolved_count( $thread_id ) {
+		return (int) get_post_meta( $thread_id, '_thread_resolved_count', true );
+	}
+
+	/**
+	 * Set thread as resolved.
+	 *
+	 * @param int $thread_id
+	 * @return bool
+	 */
+	public static function set_resolved( $thread_id ) {
+		update_post_meta( $thread_id, 'thread_resolved_count', self::get_resolved_count( $thread_id ) + 1 );
+		update_post_meta( $thread_id, '_thread_resolved', current_time( 'mysql', true ) );
+		do_action( 'hamethread_update_resolved', $thread_id, self::get_resolved_count( $thread_id ) );
+		return true;
+	}
+
+	/**
+	 * Unset resolved thread.
+	 *
+	 * @param int $thread_id
+	 * @return bool
+	 */
+	public static function unset_resolved( $thread_id ) {
+		delete_post_meta( $thread_id, '_thread_resolved' );
+		add_post_meta( $thread_id,'_thread_unresolved', current_time( 'mysql', true ) );
+		do_action( 'hamethread_update_unresolved', $thread_id, self::get_resolved_count( $thread_id ) );
+		return true;
 	}
 
 	/**

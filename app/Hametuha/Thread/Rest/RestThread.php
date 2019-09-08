@@ -3,6 +3,7 @@
 namespace Hametuha\Thread\Rest;
 
 
+use Hametuha\Thread;
 use Hametuha\Thread\Hooks\PostType;
 use Hametuha\Thread\Model\ThreadModel;
 use Hametuha\Thread\Pattern\RestBase;
@@ -84,7 +85,7 @@ class RestThread extends RestBase {
 		$thread = new ThreadModel( $post_id );
 		return $thread->to_array();
 	}
-	
+
 	/**
 	 * Handle put request.
 	 *
@@ -93,21 +94,14 @@ class RestThread extends RestBase {
 	 */
 	protected function handle_put( $request ) {
 		$thread_id = $request->get_param( 'thread_id' );
-		$is_resolved = get_post_meta( $thread_id, '_thread_resolved', true );
-		$resolved_count = (int) get_post_meta( $thread_id, '_thread_resolved_count', true );
 		$response = [
 			'url' => get_permalink( $thread_id ),
 		];
-		if ( $is_resolved ) {
-			update_post_meta( $thread_id, '_thread_unresolved', current_time( 'mysql', true ) );
-			delete_post_meta( $thread_id, '_thread_resolved' );
-			do_action( 'hamethread_update_unresolved', $thread_id, $resolved_count );
+		if ( ThreadModel::is_resolved( $thread_id ) ) {
+			ThreadModel::unset_resolved( $thread_id );
 			$response['message'] = __( 'Thread is now not resolved.', 'hamethread' );
 		} else {
-			$resolved_count++;
-			update_post_meta( $thread_id, '_thread_resolved_count', $resolved_count );
-			update_post_meta( $thread_id, '_thread_resolved', current_time( 'mysql', true ) );
-			do_action( 'hamethread_update_resolved', $thread_id, $resolved_count );
+			ThreadModel::set_resolved( $thread_id );
 			$response['message'] = __( 'Thread is marked as resolved.', 'hamethread' );
 		}
 		return $response;
