@@ -3,9 +3,9 @@
  * Plugin Name:     HameThread
  * Plugin URI:     	https://wordpress.org/extend/plugins/hamethread
  * Description:     Forum plugin by Hametuha.
- * Version:         1.0.7
- * Author:          Takahashi_Fumiki
- * Author URI:      https://takahashifumiki.com
+ * Version:         1.1.0
+ * Author:          Hametuna INC.
+ * Author URI:      https://hametuha.co.jp
  * Text Domain:     hamethread
  * Domain Path:     /languages
  * License:         GPL3 or Later

@@ -132,7 +132,7 @@ ul.children ul.children{
 	&-body{
 		margin-left: $avatar-col-width;
 		@media only screen and (max-width: $small-screen) {
-			margin-left: $avatar-col-width / 3 * 2;
+			margin-left: 0;
 			font-size: 14px;
 		}
 		font-size: 16px;
@@ -140,10 +140,17 @@ ul.children ul.children{
 	&-header{
 		font-size: 0.85em;
 		padding: 0 0 $avatar-padding / 2;
+		@media only screen and (max-width: $small-screen) {
+			margin-left: $avatar-col-width / 3 * 2;
+			padding-bottom: $avatar-padding;
+		}
 	}
 	&-author{
 		font-weight: bold;
 		margin-right: 0.5em;
+		@media only screen and (max-width: $small-screen) {
+			display: block;
+		}
 	}
 	&-role{
 		background: #aaa;
@@ -174,6 +181,11 @@ ul.children ul.children{
 		border-bottom-right-radius: 2px;
 		border-bottom-left-radius: 2px;
 		font-size: 14px;
+		&-label{
+			@media only screen and (max-width: $small-screen) {
+				display: none;
+			}
+		}
 		& > a,
 		& > button{
 			display: inline-block;

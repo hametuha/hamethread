@@ -108,7 +108,7 @@ class BestAnswer extends Singleton {
 		$label  = $toggle ? __( 'Cancel Best Answer', 'hamethread' ) : __( 'Best Answer', 'hamethread' );
 		$icon   = $toggle ? 'times-circle' : 'star';
 		$actions = array_merge( [ 'ba' => sprintf(
-			'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s"><i class="fa fa-%s"></i> %s</button>',
+			'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s"><i class="fa fa-%s"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
 			esc_attr( $action ),
 			esc_attr( $method ),
 			$icon,
