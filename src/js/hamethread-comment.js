@@ -137,6 +137,26 @@
 			});
 	});
 
+	// Best answer.
+	$( document ).on( 'click', '.hamethread-ba-toggle', function( e ) {
+		e.preventDefault();
+		var $button  = $(this);
+		var $comment = $button.closest('.hamethread-comment-item-wrapper');
+		var method   = $button.attr( 'data-method' );
+		var path     = $button.attr( 'data-path' );
+		var message  =  'POST' === method ? HameThreadComment.chooseBa : HameThreadComment.cancelBa;
+		if ( ! window.confirm( message ) ) {
+			return;
+		}
+		$comment.addClass( 'loading' );
+		HameThread.request( method, path ).done( function( response ) {
+			alert( response.message );
+			window.location.href = response.url;
+		} ).always( function(){
+			$comment.removeClass( 'loading' );
+		});
+	} );
+
 
 	// Remove comment.
 	$(document).on('click', 'a[data-hamethread="comment-delete"]', function (e) {

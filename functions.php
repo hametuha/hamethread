@@ -5,6 +5,8 @@
  * @package hamethread
  */
 
+use Hametuha\Thread\Hooks\BestAnswer;
+
 /**
  * Get file path.
  *
@@ -270,13 +272,13 @@ function hamethread_current_user_can_comment( $post = null ) {
 function hamethread_comment_actions( $comment ) {
 	return apply_filters( 'hamethread_comment_actions', [
 		'reply'  => sprintf(
-			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d"><i class="fa fa-reply"></i> %s</button>',
+			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d"><i class="fa fa-reply"></i> <span class="hamethread-comment-actions-label">%s</spanc></button>',
 			$comment->comment_post_ID,
 			$comment->comment_ID,
 			esc_html__( 'Reply', 'hamethread' )
 		),
 		'upvote' => sprintf(
-			'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="fa fa-thumbs-up"></i> %s</button>',
+			'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="fa fa-thumbs-up"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
 			\Hametuha\Thread\Rest\RestVote::get_instance()->is_voted( $comment->comment_ID, get_current_user_id() ) ? ' active' : '' ,
 			$comment->comment_ID,
 			esc_html__( 'Upvote', 'hamethread' )
@@ -328,7 +330,7 @@ function hamethread_commentor_label( $comment ) {
 	if ( ! $label ) {
 		$label = __( 'Guest', 'hamethread' );
 	}
-	$label = sprintf( '<span class="hamethread-comment-label">%s</span>', wp_kses_post( $label ) );
+	$label = sprintf( '<span class="hamethread-comment-label">%s</span>', trim( wp_kses_post( $label ) ) );
 	return apply_filters( 'hamethread_commentor_label', $label, $comment, $user );
 }
 
@@ -440,21 +442,6 @@ function hamethread_comment_upvoted_count( $comment = null ) {
 SQL;
 
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $comment->comment_ID ) );
-}
-
-/**
- * Get best answer
- *
- * @param null|int|WP_Post $post
- * @return null
- */
-function hamethread_get_best_answer( $post = null ) {
-	$post = get_post( $post );
-	if ( ! $post ) {
-		return null;
-	}
-	// TODO: Best answer.
-	return null;
 }
 
 /**

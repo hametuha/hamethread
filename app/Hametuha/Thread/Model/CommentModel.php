@@ -5,6 +5,11 @@ namespace Hametuha\Thread\Model;
 
 use Hametuha\Thread\UI\CommentForm;
 
+/**
+ * Comment Model
+ *
+ * @package hamethread
+ */
 class CommentModel {
 
 	protected $comment = null;
@@ -61,5 +66,4 @@ class CommentModel {
 		$can = user_can( $user_id, 'read' );
 		return (bool) apply_filters( 'hamethread_user_can_comment', $can, $post, $user_id );
 	}
-
 }

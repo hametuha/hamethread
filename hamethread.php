@@ -3,9 +3,9 @@
  * Plugin Name:     HameThread
  * Plugin URI:     	https://wordpress.org/extend/plugins/hamethread
  * Description:     Forum plugin by Hametuha.
- * Version:         1.0.7
- * Author:          Takahashi_Fumiki
- * Author URI:      https://takahashifumiki.com
+ * Version:         1.1.0
+ * Author:          Hametuna INC.
+ * Author URI:      https://hametuha.co.jp
  * Text Domain:     hamethread
  * Domain Path:     /languages
  * License:         GPL3 or Later
@@ -22,9 +22,20 @@ function hamethread_init() {
 	// i18n.
 	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	if ( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+		// Load functions.
+		require __DIR__ . '/functions.php';
+		$dir = __DIR__ . '/includes';
+		if ( is_dir( $dir ) ) {
+			foreach ( scandir( $dir ) as $file ) {
+				if ( ! preg_match( '/[^._].*\.php$/u', $file ) ) {
+					continue;
+				}
+				require $dir . '/' . $file;
+			}
+		}
+		// Load composer.
 		require dirname( __FILE__ ) . '/vendor/autoload.php';
 		call_user_func( [ 'Hametuha\\Thread', 'get_instance' ]);
-		require __DIR__ . '/functions.php';
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
 	}

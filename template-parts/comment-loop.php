@@ -30,9 +30,7 @@
 	<div class="hamethread-comment-body">
 		<header class="hamethread-comment-header">
 			<span class="hamethread-comment-author"><?php comment_author( $comment ) ?></span>
-			<span class="<?php echo hamethread_commentor_label_class( $comment, 'hamethread-comment-role' ); ?>">
-				<?php echo hamethread_commentor_label( $comment ) ?>
-			</span>
+			<span class="<?php echo hamethread_commentor_label_class( $comment, 'hamethread-comment-role' ); ?>"><?php echo hamethread_commentor_label( $comment ) ?></span>
 			<span class="hamethread-comment-date">
 				<?php comment_date( '', $comment ) ?>
 				<?php if ( hamethread_is_edited( $comment ) ) : ?>
@@ -41,6 +39,11 @@
 			</span>
 		</header>
 		<div class="hamethread-comment-content">
+			<?php if ( hamethread_is_best_answer( $comment ) ) : ?>
+				<p class="text-success hamethread-comment-best-answer">
+					<i class="fa fa-crown"></i> <strong><?php esc_html_e( 'Best Answer', 'hamethread' ) ?></strong>
+				</p>
+			<?php endif; ?>
 			<?php comment_text() ?>
 		</div>
 		<footer class="hamethread-comment-actions">
