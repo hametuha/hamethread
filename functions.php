@@ -5,6 +5,8 @@
  * @package hamethread
  */
 
+use Hametuha\Thread\Hooks\BestAnswer;
+
 /**
  * Get file path.
  *
@@ -328,7 +330,7 @@ function hamethread_commentor_label( $comment ) {
 	if ( ! $label ) {
 		$label = __( 'Guest', 'hamethread' );
 	}
-	$label = sprintf( '<span class="hamethread-comment-label">%s</span>', wp_kses_post( $label ) );
+	$label = sprintf( '<span class="hamethread-comment-label">%s</span>', trim( wp_kses_post( $label ) ) );
 	return apply_filters( 'hamethread_commentor_label', $label, $comment, $user );
 }
 
@@ -440,21 +442,6 @@ function hamethread_comment_upvoted_count( $comment = null ) {
 SQL;
 
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $comment->comment_ID ) );
-}
-
-/**
- * Get best answer
- *
- * @param null|int|WP_Post $post
- * @return null
- */
-function hamethread_get_best_answer( $post = null ) {
-	$post = get_post( $post );
-	if ( ! $post ) {
-		return null;
-	}
-	// TODO: Best answer.
-	return null;
 }
 
 /**

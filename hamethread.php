@@ -22,9 +22,20 @@ function hamethread_init() {
 	// i18n.
 	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	if ( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+		// Load functions.
+		require __DIR__ . '/functions.php';
+		$dir = __DIR__ . '/includes';
+		if ( is_dir( $dir ) ) {
+			foreach ( scandir( $dir ) as $file ) {
+				if ( ! preg_match( '/[^._].*\.php$/u', $file ) ) {
+					continue;
+				}
+				require $dir . '/' . $file;
+			}
+		}
+		// Load composer.
 		require dirname( __FILE__ ) . '/vendor/autoload.php';
 		call_user_func( [ 'Hametuha\\Thread', 'get_instance' ]);
-		require __DIR__ . '/functions.php';
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
 	}

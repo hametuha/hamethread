@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-09-05 19:02+0900\n"
-"PO-Revision-Date: 2019-09-05 19:03+0900\n"
+"POT-Creation-Date: 2019-09-09 00:29+0900\n"
+"PO-Revision-Date: 2019-09-09 00:30+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -42,6 +42,32 @@ msgid ""
 msgstr ""
 "このスレッドをオープンにしてよろしいですか？　ユーザーは新しいコメントを投稿"
 "できるようになります。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:29
+msgid "Thread Setting"
+msgstr "スレッド設定"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:34
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+#: template-parts/comment-loop.php:44
+msgid "Best Answer"
+msgstr "ベストアンサー"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:55
+msgid "Choose post types to enable best answer in."
+msgstr "ベストアンサーを有効にする投稿タイプを選んでください。"
+
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+msgid "Cancel Best Answer"
+msgstr "ベストアンサー取消"
+
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:89
+msgid "This comment is already best answer."
+msgstr "このコメントはすでにベストアンサーです。"
+
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:129
+msgid "No comment found."
+msgstr "コメントが見つかりません。"
 
 #: app/Hametuha/Thread/Hooks/PostType.php:44
 msgid "Thread"
@@ -135,6 +161,15 @@ msgstr "トピックが指定されていません。"
 msgid "You posted more than %1$d comments in %2$d minutes. Please be patient."
 msgstr "%2$d 分で %1$d 件のコメントを投稿しました。しばらくお待ちください。"
 
+#: app/Hametuha/Thread/Rest/RestBestAnswer.php:54
+msgid "The comment now becomes the best answer."
+msgstr "コメントはベストアンサーになりました。"
+
+#: app/Hametuha/Thread/Rest/RestBestAnswer.php:77
+msgid "The best answer is canceled."
+msgstr "ベストアンサーは取り消されました。"
+
+#: app/Hametuha/Thread/Rest/RestBestAnswer.php:102
 #: app/Hametuha/Thread/Rest/RestComment.php:31
 #: app/Hametuha/Thread/Rest/RestCommentNew.php:49
 #: app/Hametuha/Thread/Rest/RestVote.php:74
@@ -297,27 +332,35 @@ msgstr "フォロー中"
 msgid "Unfollow This Thread"
 msgstr "このスレッドのフォローをやめる"
 
-#: functions.php:178
+#: app/Hametuha/Thread/UI/CommentForm.php:65
+msgid "Are you sure to choose this comment as the best answer?"
+msgstr "このコメントをベストアンサーにしてよろしいですか？"
+
+#: app/Hametuha/Thread/UI/CommentForm.php:66
+msgid "Are you sure to unmark the best answer?"
+msgstr "このベストアンサーを解除してよろしいですか？"
+
+#: functions.php:180
 msgid "Start new thread"
 msgstr "新しいスレッドを開始する"
 
-#: functions.php:276
+#: functions.php:278
 msgid "Reply"
 msgstr "返信"
 
-#: functions.php:282
+#: functions.php:284
 msgid "Upvote"
 msgstr "いいね"
 
-#: functions.php:329
+#: functions.php:331
 msgid "Guest"
 msgstr "ゲスト"
 
-#: functions.php:396
+#: functions.php:398
 msgid "Comments Pagination"
 msgstr "コメントのページネーション"
 
-#: hamethread.php:40
+#: hamethread.php:51
 #, php-format
 msgid ""
 "HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider "
@@ -380,7 +423,7 @@ msgstr ""
 msgid "Delete"
 msgstr "削除"
 
-#: template-parts/comment-loop.php:39
+#: template-parts/comment-loop.php:37
 msgid "(edited)"
 msgstr "（編集済）"
 

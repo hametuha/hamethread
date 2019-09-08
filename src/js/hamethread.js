@@ -42,6 +42,7 @@
 			var url = (HameThread.endpoint + '/' + path.replace(/\/$/, '').replace(/^\//, ''));
 			var data = null;
 			method = method.toUpperCase();
+			// TODO: to be ready for cached page, nonce should be retrieved from wpApi
 			if(params){
 				params._wpnonce = HameThread.nonce;
 			}else{
