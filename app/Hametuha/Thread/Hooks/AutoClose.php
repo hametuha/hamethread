@@ -25,8 +25,9 @@ class AutoClose extends Singleton {
 	protected function init() {
 		add_action( 'hamethread_new_thread_inserted', [ $this, 'set_thread_limit' ], 10, 2 );
 		add_action( 'hamethread_new_comment_inserted', [ $this, 'update_limit_with_new_comment' ] );
-		// add_action( 'init', [ $this, 'set_cron' ] );
+		add_action( 'init', [ $this, 'set_cron' ] );
 		add_action( self::CRON_NAME, [ $this, 'do_cron' ] );
+		// TODO: send notification before closing.
 	}
 
 	/**
@@ -119,11 +120,12 @@ class AutoClose extends Singleton {
 			return false;
 		}
 		delete_post_meta( $post->ID, $this->close_key );
+		$already_closed = (bool) get_post_meta( $post->ID, $this->closed_key, true );
 		update_post_meta( $post->ID, $this->closed_key, current_time( 'timestamp', true ) );
 		if ( ! ThreadModel::is_resolved( $post->ID ) ) {
 			ThreadModel::set_resolved( $post->ID );
 		}
-		do_action( 'hamethread_automatically_closed', $post );
+		do_action( 'hamethread_automatically_closed', $post, $already_closed );
 		return true;
 	}
 
@@ -153,6 +155,9 @@ class AutoClose extends Singleton {
 	public function is_auto_closable( $thread = null ) {
 		$thread = get_post( $thread );
 		$should = (bool) $this->get_duration( $thread->ID );
+		if ( get_post_meta( $thread->ID, $this->closed_key, true ) ) {
+			$should = false;
+		}
 		return (bool) apply_filters( 'hamethread_auto_closable', $should, $thread );
 	}
 

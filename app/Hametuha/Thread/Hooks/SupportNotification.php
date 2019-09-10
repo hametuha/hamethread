@@ -18,6 +18,7 @@ class SupportNotification extends Singleton {
 	 */
 	protected function init() {
 		add_action( 'hamethread_new_comment_inserted', [ $this, 'new_comment_created' ], 10, 3 );
+		add_action( 'hamethread_automatically_closed', [ $this, 'auto_close_notification' ], 10, 2 );
 	}
 	
 	/**
@@ -67,7 +68,7 @@ class SupportNotification extends Singleton {
 URL: %4$s
 
 You get this notification because you subscribed thread.
-To change notification setting, plese go to thread page. 
+To change notification setting, please go to thread page.
 ', 'hamethread' );
 
 		/**
@@ -106,7 +107,6 @@ To change notification setting, plese go to thread page.
 				] );
 			}
 		}
-
 	}
 
 	/**
@@ -141,6 +141,57 @@ To change notification setting, plese go to thread page.
 			return $query->get_results();
 		}
 	}
+	
+	/**
+	 * Send notification if thread is automatically closed.
+	 *
+	 * @param \WP_Post $post
+	 * @param bool     $already_closed
+	 */
+	public function auto_close_notification( $post, $already_closed ) {
+		if ( $already_closed ) {
+			// Do nothing.
+			return;
+		}
+		$users = [
+			$post->post_author => new \WP_User( $post->post_author ),
+		];
+		$subscribers = $this->get_subscribers( $post );
+		foreach ( $this->get_subscribers( $post ) as $user_id ) {
+			if ( ! isset( $users[ $user_id ] ) ) {
+				$users[ $user_id ] = new \WP_User( $user_id );
+			}
+		}
+		$subject = apply_filters( 'hamethread_auto_close_notification_title', sprintf(
+			__( '%1$s - Thread #%2$d is automatically closed.', 'hamethread' ), // translator: %1$s is site title, %2$d is post ID.
+			get_bloginfo( 'name' ),
+			$post->ID
+		), $post, $already_closed );
+		// translator: %1$s is user name, %2$s is date passed, %3$s is title, %4$s is URL.
+		$body = __( 'Dear %1$s,
+
+Since %2$s been passed from last comment,
+The thread you are subscribing has been closed.
+
+%3$s
+URL: %4$s
+
+', 'hamethread' );
+		$title  = get_the_title( $post );
+		$url    = get_permalink( $post );
+		$duration = AutoClose::get_instance()->get_duration( $post->ID );
+		$passed = sprintf( _n( '%d day has', '%d days have', $duration, 'hamethread' ), $duration );
+		$body = sprintf( $body, '-name-', $passed, $title, $url );
+		if ( function_exists( 'hamail_simple_mail' ) ) {
+			hamail_simple_mail( array_map( function( \WP_User $user ) {
+				return $user->ID;
+			}, $users ), $subject, $body );
+		} else {
+			foreach ( $users as $user ) {
+				wp_mail( $user->user_email, $subject, str_replace( '-name-', $user->display_name, $body ) );
+			}
+		}
+	}
 
 	/**
 	 * Get subscribers IDs.
@@ -163,7 +214,7 @@ To change notification setting, plese go to thread page.
 		 * @param \WP_Post $post
 		 * @return int[]
 		 */
-		return apply_filters( 'hamethread_subscribers', $subscribers, $post );
+		return (array) apply_filters( 'hamethread_subscribers', $subscribers, $post );
 	}
 
 	/**
