@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: HameThread\n"
-"POT-Creation-Date: 2019-09-09 00:29+0900\n"
+"POT-Creation-Date: 2019-09-10 16:12+0900\n"
 "PO-Revision-Date: 2018-09-14 01:27+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
@@ -50,29 +50,88 @@ msgid ""
 "thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:29
+#: app/Hametuha/Thread/Command.php:44
+#, php-format
+msgid "%s will be automatically closed %s"
+msgstr ""
+
+#: app/Hametuha/Thread/Command.php:45
+#, php-format
+msgid "%d thread"
+msgid_plural "%d threads"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/Hametuha/Thread/Command.php:46
+#, php-format
+msgctxt "in %d days"
+msgid "in %d day"
+msgstr ""
+
+#: app/Hametuha/Thread/Command.php:46
+msgid "just now"
+msgstr ""
+
+#: app/Hametuha/Thread/Command.php:59
+#, php-format
+msgid "Automacally closed: %d"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:39
 msgid "Thread Setting"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:34
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:50
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 #: template-parts/comment-loop.php:44
 msgid "Best Answer"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:55
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:71
 msgid "Choose post types to enable best answer in."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:83
+msgid "Auto Close Duration"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:90
+msgid ""
+"Auto close duration in daiy. The thread will be automatically closed if "
+"this thread is more than 0."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:96
+msgid "Prolongation"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:100
+msgid "Close anyway."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:101
+msgid ""
+"Count down just after thread creation and prolong prolong with new comment."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:102
+msgid ""
+"Count down just after first comment submission and prolong with new comment."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AutoClose.php:227
+msgid "This thread cannot be prolong."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 msgid "Cancel Best Answer"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:89
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:132
 msgid "This comment is already best answer."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:129
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:175
 msgid "No comment found."
 msgstr ""
 
@@ -92,12 +151,12 @@ msgstr ""
 msgid "Parent"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:52
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:53
 #, php-format
 msgid "%s - A new comment is posted to your subscribing thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:57
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:58
 #, php-format
 msgid ""
 "Dear %1$s,\n"
@@ -113,23 +172,48 @@ msgid ""
 "URL: %4$s\n"
 "\n"
 "You get this notification because you subscribed thread.\n"
-"To change notification setting, plese go to thread page. \n"
+"To change notification setting, please go to thread page.\n"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:84
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:85
 msgid "A guest"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:182
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:213
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:166
+#, php-format
+msgid "%1$s - Thread #%2$d is automatically closed."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:171
+#, php-format
+msgid ""
+"Dear %1$s,\n"
+"\n"
+"Since %2$s been passed from last comment,\n"
+"The thread you are subscribing has been closed.\n"
+"\n"
+"%3$s\n"
+"URL: %4$s\n"
+"\n"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:183
+#, php-format
+msgid "%d day has"
+msgid_plural "%d days have"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:233
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:264
 msgid "Thread or user not found."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:189
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:240
 msgid "Already subscribing this thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:220
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:271
 msgid "Not in the list of subscribers."
 msgstr ""
 
@@ -162,7 +246,7 @@ msgstr ""
 msgid "The best answer is canceled."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestBestAnswer.php:102
+#: app/Hametuha/Thread/Rest/RestBestAnswer.php:109
 #: app/Hametuha/Thread/Rest/RestComment.php:31
 #: app/Hametuha/Thread/Rest/RestCommentNew.php:49
 #: app/Hametuha/Thread/Rest/RestVote.php:74
@@ -206,20 +290,20 @@ msgstr ""
 msgid "Sorry, but failed to insert comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestThread.php:105
+#: app/Hametuha/Thread/Rest/RestThread.php:102
 msgid "Thread is now not resolved."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestThread.php:111
+#: app/Hametuha/Thread/Rest/RestThread.php:105
 msgid "Thread is marked as resolved."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestThread.php:143
+#: app/Hametuha/Thread/Rest/RestThread.php:137
 #, php-format
 msgid "Thread %s has been successfully private."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestThread.php:145
+#: app/Hametuha/Thread/Rest/RestThread.php:139
 #, php-format
 msgid "Thread %s has been successfully published."
 msgstr ""
@@ -541,9 +625,9 @@ msgid "Forum plugin by Hametuha."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Takahashi_Fumiki"
+msgid "Hametuna INC."
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://takahashifumiki.com"
+msgid "https://hametuha.co.jp"
 msgstr ""

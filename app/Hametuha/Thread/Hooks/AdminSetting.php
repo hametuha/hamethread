@@ -12,24 +12,40 @@ use Hametuha\Pattern\Singleton;
  */
 class AdminSetting extends Singleton {
 
+	const SECTION = 'hamethread';
+
+	const PAGE = 'discussion';
+	
 	const OPTION_POST_TYPE = 'hamethread_best_answer_supported';
 
+	const OPTION_AUTO_CLOSE_DURATION = 'hamethread_auto_close_duration';
+	
+	const OPTION_AUTO_CLOSE_PROLONG= 'hamethread_auto_close_prolong';
+	
 	/**
 	 * Add setting section for hamail.
 	 */
 	public function init() {
-		add_action( 'admin_init', [ $this, 'admin_setting' ] );
+		add_action( 'admin_init', [ $this, 'setting_section' ] );
+		add_action( 'admin_init', [ $this, 'best_answer_setting' ] );
+		add_action( 'admin_init', [ $this, 'auto_close_setting' ] );
 	}
 
 	/**
 	 * Add admin screen setting.
 	 */
-	public function admin_setting() {
+	public function setting_section() {
 		// Add main section.
-		add_settings_section( 'hamethread-setting', __( 'Thread Setting', 'hamethread' ), function() {
+		add_settings_section( self::SECTION, __( 'Thread Setting', 'hamethread' ), function () {
 			// Do nothing.
-		}, 'discussion' );
-
+		}, self::PAGE );
+	}
+	
+	
+	/**
+	 * Add best answer.
+	 */
+	public function best_answer_setting( ){
 		// Option for best answer.
 		add_settings_field( self::OPTION_POST_TYPE, __( 'Best Answer', 'hamethread' ), function( $args ) {
 			$key = $args['key'];
@@ -55,7 +71,45 @@ class AdminSetting extends Singleton {
 				<?php esc_html_e( 'Choose post types to enable best answer in.', 'hamethread' ) ?>
 			</p>
 			<?php
-		}, 'discussion', 'hamethread-setting', [ 'key' => self::OPTION_POST_TYPE ] );
-		register_setting( 'discussion', self::OPTION_POST_TYPE );
+		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_POST_TYPE ] );
+		register_setting( self::PAGE, self::OPTION_POST_TYPE );
+	}
+	
+	/**
+	 * Add auto close setting.
+	 */
+	public function auto_close_setting() {
+		// Option for auto close duration.
+		add_settings_field( self::OPTION_AUTO_CLOSE_DURATION, __( 'Auto Close Duration', 'hamethread' ), function( $args ) {
+			$key      = $args['key'];
+			$duration = (int) get_option( $key, 0 );
+			?>
+			<input type="number" step="1" name="<?php echo esc_attr( $key ) ?>" id="<?php echo esc_attr( $key ) ?>"
+				   value="<?php echo esc_attr( $duration ) ?>" />
+			<p class="description">
+				<?php esc_html_e( 'Auto close duration in daiy. The thread will be automatically closed if this thread is more than 0.', 'hamethread' ) ?>
+			</p>
+			<?php
+		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_AUTO_CLOSE_DURATION] );
+		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_DURATION);
+		// Option for auto close prolong.
+		add_settings_field( self::OPTION_AUTO_CLOSE_PROLONG, __( 'Prolongation', 'hamethread' ), function( $args ) {
+			$key          = $args['key'];
+			$prolongation = (int) get_option( $key, 0 );
+			foreach ( [
+				__( 'Close anyway.', 'hamethread' ),
+				__( 'Count down just after thread creation and prolong prolong with new comment.', 'hamethread' ),
+				__( 'Count down just after first comment submission and prolong with new comment.', 'hamethread' ),
+			] as $value => $label ) {
+				printf(
+					'<p><label><input type="radio" name="%s" value="%s" %s/> %s</label></p>',
+					esc_attr( $key ),
+					esc_attr( $value ),
+					checked( $value, $prolongation, false ),
+					esc_html( $label )
+				);
+			}
+		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_AUTO_CLOSE_PROLONG ] );
+		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_PROLONG );
 	}
 }

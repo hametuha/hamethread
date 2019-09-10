@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-09-09 00:29+0900\n"
-"PO-Revision-Date: 2019-09-09 00:30+0900\n"
+"POT-Creation-Date: 2019-09-10 16:12+0900\n"
+"PO-Revision-Date: 2019-09-10 16:19+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -43,29 +43,92 @@ msgstr ""
 "このスレッドをオープンにしてよろしいですか？　ユーザーは新しいコメントを投稿"
 "できるようになります。"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:29
+#: app/Hametuha/Thread/Command.php:44
+#, php-format
+msgid "%s will be automatically closed %s"
+msgstr "%s は %sで自動的に閉じられます"
+
+#: app/Hametuha/Thread/Command.php:45
+#, php-format
+msgid "%d thread"
+msgid_plural "%d threads"
+msgstr[0] "%d件のスレッド"
+
+#: app/Hametuha/Thread/Command.php:46
+#, php-format
+msgctxt "in %d days"
+msgid "in %d day"
+msgstr "%d日"
+
+#: app/Hametuha/Thread/Command.php:46
+msgid "just now"
+msgstr "たったいま"
+
+#: app/Hametuha/Thread/Command.php:59
+#, php-format
+msgid "Automacally closed: %d"
+msgstr "自動で閉じる: %d"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:39
 msgid "Thread Setting"
 msgstr "スレッド設定"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:34
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:50
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 #: template-parts/comment-loop.php:44
 msgid "Best Answer"
 msgstr "ベストアンサー"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:55
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:71
 msgid "Choose post types to enable best answer in."
 msgstr "ベストアンサーを有効にする投稿タイプを選んでください。"
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:65
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:83
+msgid "Auto Close Duration"
+msgstr "自動で閉じる日数"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:90
+msgid ""
+"Auto close duration in daiy. The thread will be automatically closed if this "
+"thread is more than 0."
+msgstr ""
+"自動で閉じる日数。この値が0より大きい場合、スレッドは自動的に閉じられます。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:96
+msgid "Prolongation"
+msgstr "延長"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:100
+msgid "Close anyway."
+msgstr "とにかく閉鎖。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:101
+msgid ""
+"Count down just after thread creation and prolong prolong with new comment."
+msgstr ""
+"スレッド作成からカウントダウンを開始し、新しいコメントがあった場合に延長す"
+"る。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:102
+msgid ""
+"Count down just after first comment submission and prolong with new comment."
+msgstr ""
+"最初のコメント投稿からカウントダウンを開始し、新しいコメントがあった場合に延"
+"長する。"
+
+#: app/Hametuha/Thread/Hooks/AutoClose.php:227
+msgid "This thread cannot be prolong."
+msgstr "このスレッドは延長できません。"
+
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 msgid "Cancel Best Answer"
 msgstr "ベストアンサー取消"
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:89
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:132
 msgid "This comment is already best answer."
 msgstr "このコメントはすでにベストアンサーです。"
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:129
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:175
 msgid "No comment found."
 msgstr "コメントが見つかりません。"
 
@@ -79,19 +142,34 @@ msgstr "トピック"
 
 #: app/Hametuha/Thread/Hooks/PostType.php:111
 msgid "This thread is resolved"
-msgstr "このスレッドは解決済みになりました。"
+msgstr "このスレッドは解決済みになりました"
 
 #: app/Hametuha/Thread/Hooks/PostType.php:128
 msgid "Parent"
 msgstr "親"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:52
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:53
 #, php-format
 msgid "%s - A new comment is posted to your subscribing thread."
 msgstr "%s - 購読しているスレッドに新しいコメントがありました。"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:57
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:58
 #, php-format
+#| msgid ""
+#| "Dear %1$s,\n"
+#| "\n"
+#| "%2$s posted new comment on %3$s.\n"
+#| "\n"
+#| ">>>\n"
+#| "\n"
+#| "%5$s\n"
+#| "\n"
+#| ">>>\n"
+#| "\n"
+#| "URL: %4$s\n"
+#| "\n"
+#| "You get this notification because you subscribed thread.\n"
+#| "To change notification setting, plese go to thread page. \n"
 msgid ""
 "Dear %1$s,\n"
 "\n"
@@ -106,9 +184,9 @@ msgid ""
 "URL: %4$s\n"
 "\n"
 "You get this notification because you subscribed thread.\n"
-"To change notification setting, plese go to thread page. \n"
+"To change notification setting, please go to thread page.\n"
 msgstr ""
-"%1$sさん\n"
+"%1$s,さん\n"
 "\n"
 "%2$s さんが %3$s に新しいコメントを投稿しました。\n"
 "\n"
@@ -120,23 +198,55 @@ msgstr ""
 "\n"
 "URL: %4$s\n"
 "\n"
-"このお知らせはスレッドを購読した方にお送りしています。\n"
-"設定を変更するにはスレッドのページへ移動してください。\n"
+"スレッドを購読している方にこのお知らせをお届けしています。\n"
+"通知設定を変更するには、スレッドページへ行ってください。\n"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:84
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:85
 msgid "A guest"
 msgstr "ゲスト"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:182
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:213
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:166
+#, php-format
+msgid "%1$s - Thread #%2$d is automatically closed."
+msgstr "%1$s - スレッド #%2$d は自動で閉じられました。"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:171
+#, php-format
+msgid ""
+"Dear %1$s,\n"
+"\n"
+"Since %2$s been passed from last comment,\n"
+"The thread you are subscribing has been closed.\n"
+"\n"
+"%3$s\n"
+"URL: %4$s\n"
+"\n"
+msgstr ""
+"%1$sさん\n"
+"\n"
+"最新のコメントから %2$s が経過したため、\n"
+"購読中のスレッドは自動で閉じられました。\n"
+"\n"
+"%3$s\n"
+"URL: %4$s\n"
+"\n"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:183
+#, php-format
+msgid "%d day has"
+msgid_plural "%d days have"
+msgstr[0] "%d日"
+
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:233
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:264
 msgid "Thread or user not found."
 msgstr "スレッドまたはユーザーが見つかりません。"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:189
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:240
 msgid "Already subscribing this thread."
 msgstr "すでにこのスレッドを購読しています。"
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:220
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:271
 msgid "Not in the list of subscribers."
 msgstr "購読者のリストにありませんでした。"
 
@@ -169,7 +279,7 @@ msgstr "コメントはベストアンサーになりました。"
 msgid "The best answer is canceled."
 msgstr "ベストアンサーは取り消されました。"
 
-#: app/Hametuha/Thread/Rest/RestBestAnswer.php:102
+#: app/Hametuha/Thread/Rest/RestBestAnswer.php:109
 #: app/Hametuha/Thread/Rest/RestComment.php:31
 #: app/Hametuha/Thread/Rest/RestCommentNew.php:49
 #: app/Hametuha/Thread/Rest/RestVote.php:74
@@ -213,20 +323,20 @@ msgstr "コメントを投稿する"
 msgid "Sorry, but failed to insert comment."
 msgstr "コメントを追加できませんでした。"
 
-#: app/Hametuha/Thread/Rest/RestThread.php:105
+#: app/Hametuha/Thread/Rest/RestThread.php:102
 msgid "Thread is now not resolved."
 msgstr "スレッドは解決いたしました。"
 
-#: app/Hametuha/Thread/Rest/RestThread.php:111
+#: app/Hametuha/Thread/Rest/RestThread.php:105
 msgid "Thread is marked as resolved."
 msgstr "スレッドは解決済みになりました。"
 
-#: app/Hametuha/Thread/Rest/RestThread.php:143
+#: app/Hametuha/Thread/Rest/RestThread.php:137
 #, php-format
 msgid "Thread %s has been successfully private."
 msgstr "スレッド %s は非公開にされました。"
 
-#: app/Hametuha/Thread/Rest/RestThread.php:145
+#: app/Hametuha/Thread/Rest/RestThread.php:139
 #, php-format
 msgid "Thread %s has been successfully published."
 msgstr "スレッド %s は公開されました。"
@@ -514,7 +624,7 @@ msgstr ""
 
 #: template-parts/form-thread.php:36
 msgid "Please select topic"
-msgstr "トピックを選択してください。"
+msgstr "トピックを選択してください"
 
 #: template-parts/form-thread.php:49
 msgid "Make this thread private"
@@ -559,12 +669,18 @@ msgid "Forum plugin by Hametuha."
 msgstr "破滅派によるフォーラムプラグイン。"
 
 #. Author of the plugin/theme
-msgid "Takahashi_Fumiki"
-msgstr "高橋文樹"
+msgid "Hametuna INC."
+msgstr "株式会社破滅派"
 
 #. Author URI of the plugin/theme
-msgid "https://takahashifumiki.com"
-msgstr "https://takahashifumiki.com"
+msgid "https://hametuha.co.jp"
+msgstr "https://hametuha.co.jp"
+
+#~ msgid "Takahashi_Fumiki"
+#~ msgstr "高橋文樹"
+
+#~ msgid "https://takahashifumiki.com"
+#~ msgstr "https://takahashifumiki.com"
 
 #~ msgid "Archive"
 #~ msgstr "アーカイブ"
