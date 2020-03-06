@@ -172,9 +172,10 @@ function hamethread_topics() {
  * Load button
  *
  * @param int    $parent Post parent ID.
- * @paran string $label  Button label.
+ * @param string $label  Button label.
+ * @param array  $attr   Attributes for templates.
  */
-function hamethread_button( $parent = 0, $label = '' ) {
+function hamethread_button( $parent = 0, $label = '', $attr = [] ) {
 	wp_enqueue_script( 'hamethread-thread' );
 	wp_enqueue_style( 'hamethread' );
 	$label = $label ?: __( 'Start new thread', 'hamethread' );
@@ -182,6 +183,7 @@ function hamethread_button( $parent = 0, $label = '' ) {
 		'parent'  => $parent,
 		'label'   => $label,
 		'private' => \Hametuha\Thread\Model\ThreadModel::can_start_private( get_current_user_id(), $parent ),
+		'attr'    => $attr,
 	] );
 }
 
