@@ -49,8 +49,8 @@ class Thread extends Singleton {
 		wp_localize_script( 'hamethread', 'HameThread', [
 			'nonce'    => wp_create_nonce( 'wp_rest' ),
 			'error'    => __( 'Sorry but request failed.', 'hamethread' ),
-			'archive'  => __( 'Are you sure to make this thread private?', 'thread' ),
-			'publish'  => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'thread' ),
+			'archive'  => __( 'Are you sure to make this thread private?', 'hamethread' ),
+			'publish'  => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'hamethread' ),
 			'endpoint' => rest_url( 'hamethread/v1' ),
 			'lock'      => __( 'Are you sure to lock this thread? None can post new comment on this thread.', 'hamethread' ),
 			'reopen'    => __( 'Are you sure to reopen this thread? Uses can post new comment on this thread.', 'hamethread' ),
