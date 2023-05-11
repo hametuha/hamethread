@@ -2,8 +2,7 @@ name: Latest WP Support
 
 on:
   schedule:
-    # - cron: "0 2 5 * *" # Every month on the 5th at 2am UTC
-    - cron: "0 * * * *" # Test run every hour.
+    - cron: "0 2 5 * *" # Every month on the 5th at 2am UTC
 
 jobs:
   is-outdated:
