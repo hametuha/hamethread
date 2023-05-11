@@ -34,4 +34,4 @@ jobs:
           labels: |
             update
           assignees: |
-          	fumikito
+            fumikito
