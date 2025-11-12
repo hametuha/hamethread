@@ -3,21 +3,19 @@ name: Hamethread Test
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   test:
     name: PHP Unit Test
     strategy:
       matrix:
-        operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
-        php: [ '7.4', '8.2' ] # PHP versions to check.
-        wp: [ 'latest', '6.6' ]      # WordPress version to check.
-    services:
+        php: [ '7.4', '8.2' ]
+        wp: [ 'latest', '6.6' ]
     uses: tarosky/workflows/.github/workflows/wp-unit-test.yml@main
     with:
-        php_version: ${{ matrix.php }}
-        wp_version: ${{ matrix.wp }}
+      php_version: ${{ matrix.php }}
+      wp_version: ${{ matrix.wp }}
 
   lint:
     name: PHP Syntax Check
