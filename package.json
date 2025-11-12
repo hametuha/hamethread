@@ -26,7 +26,7 @@
     "lint:js": "wp-scripts lint-js 'src/js/**/*.js' --resolve-plugins-relative-to .",
     "lint:css": "wp-scripts lint-style 'src/**/*.scss'",
     "fix:js": "wp-scripts format src/js --resolve-plugins-relative-to .",
-    "fix:css": "stylelint --fix src/scss",
+    "fix:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
     "watch": "npm-watch"
   },
   "author": "Hametuha INC.",

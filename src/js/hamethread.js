@@ -9,7 +9,6 @@
 const $ = jQuery;
 const { __ } = wp.i18n;
 
-
 /**
  * Assign extra functions.
  */
@@ -40,8 +39,10 @@ $.extend( HameThread, {
 	 * @return {jQuery.ajax}
 	 */
 	request: function ( method, path, params ) {
-
-		var url = ( HameThread.endpoint + '/' + path.replace( /\/$/, '' ).replace( /^\//, '' ) );
+		var url =
+			HameThread.endpoint +
+			'/' +
+			path.replace( /\/$/, '' ).replace( /^\//, '' );
 		var data = null;
 		method = method.toUpperCase();
 		// TODO: to be ready for cached page, nonce should be retrieved from wpApi
@@ -49,7 +50,7 @@ $.extend( HameThread, {
 			params._wpnonce = HameThread.nonce;
 		} else {
 			params = {
-				_wpnonce: HameThread.nonce
+				_wpnonce: HameThread.nonce,
 			};
 		}
 		switch ( method ) {
@@ -63,19 +64,17 @@ $.extend( HameThread, {
 		}
 		var request = {
 			url: url,
-			method: method
+			method: method,
 		};
 		if ( data ) {
 			request.data = data;
 		}
 		return $.ajax( request ).fail( HameThread.errorHandler );
-	}
+	},
 } );
-
 
 // Form cancel
 $( document ).on( 'click', '.hamethread-form-cancel', function ( e ) {
 	e.preventDefault();
 	$( this ).parents( '.hamethread-form' ).remove();
 } );
-

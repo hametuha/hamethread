@@ -9,10 +9,12 @@
 
 const $ = jQuery;
 
-
 var updateCommentCount = function () {
 	$( '.hamethread-comments' ).each( function ( index, comments ) {
-		$( comments ).attr( 'data-comment-count', $( comments ).find( '.hamethread-comment-item-wrapper' ).length );
+		$( comments ).attr(
+			'data-comment-count',
+			$( comments ).find( '.hamethread-comment-item-wrapper' ).length
+		);
 	} );
 };
 
@@ -29,9 +31,10 @@ $( document ).on( 'click', 'button[data-hamethread="comment"]', function ( e ) {
 	HameThread.request( 'GET', $button.attr( 'data-end-point' ) )
 		.done( function ( response ) {
 			$( 'body' ).append( response.html );
-		} ).always( function () {
-		$button.removeClass( 'disabled' ).attr( 'disabled', null );
-	} );
+		} )
+		.always( function () {
+			$button.removeClass( 'disabled' ).attr( 'disabled', null );
+		} );
 } );
 
 // Get reply form.
@@ -40,13 +43,14 @@ $( document ).on( 'click', '.hamethread-reply', function ( e ) {
 	var $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
 	$comment.addClass( 'loading' );
 	HameThread.request( 'GET', $( this ).attr( 'data-path' ), {
-		reply_to: $( this ).attr( 'data-reply-to' )
+		reply_to: $( this ).attr( 'data-reply-to' ),
 	} )
 		.done( function ( response ) {
 			$( 'body' ).append( response.html );
-		} ).always( function () {
-		$comment.removeClass( 'loading' );
-	} );
+		} )
+		.always( function () {
+			$comment.removeClass( 'loading' );
+		} );
 } );
 
 // Get edit form.
@@ -74,16 +78,18 @@ $( document ).on( 'click', '.hamethread-upvote', function ( e ) {
 		return false;
 	}
 	$button.attr( 'disabled', true ).addClass( 'disabled' );
-	HameThread.request( method, path ).done( function ( response ) {
-		// Do something.
-		if ( isActive ) {
-			$button.removeClass( 'active' );
-		} else {
-			$button.addClass( 'active' );
-		}
-	} ).always( function () {
-		$button.attr( 'disabled', null ).removeClass( 'disabled' );
-	} );
+	HameThread.request( method, path )
+		.done( function ( response ) {
+			// Do something.
+			if ( isActive ) {
+				$button.removeClass( 'active' );
+			} else {
+				$button.addClass( 'active' );
+			}
+		} )
+		.always( function () {
+			$button.attr( 'disabled', null ).removeClass( 'disabled' );
+		} );
 } );
 
 // Post comment.
@@ -91,12 +97,14 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 	e.preventDefault();
 	var $form = $( this );
 	var data = {};
-	$form.find( 'input[name], select[name], textarea[name]' ).each( function ( index, input ) {
-		if ( 'checkbox' === $( input ).attr( 'type' ) && !input.checked ) {
-			return true;
-		}
-		data[ $( input ).attr( 'name' ) ] = $( input ).val();
-	} );
+	$form
+		.find( 'input[name], select[name], textarea[name]' )
+		.each( function ( index, input ) {
+			if ( 'checkbox' === $( input ).attr( 'type' ) && ! input.checked ) {
+				return true;
+			}
+			data[ $( input ).attr( 'name' ) ] = $( input ).val();
+		} );
 	$form.addClass( 'loading' );
 	HameThread.request( 'POST', $form.attr( 'action' ), data )
 		.done( function ( response ) {
@@ -121,7 +129,7 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 					if ( $parent.length ) {
 						// Parent found. check if
 						var $children = $parent.find( 'ul.children' );
-						if ( !$children.length ) {
+						if ( ! $children.length ) {
 							$children = $( '<ul></ul>' ).addClass( 'children' );
 							$parent.append( $children );
 						}
@@ -133,9 +141,10 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 			$comment.effect( 'highlight', {}, 3000 );
 			$form.remove();
 			updateCommentCount();
-		} ).always( function () {
-		$form.removeClass( 'loading' );
-	} );
+		} )
+		.always( function () {
+			$form.removeClass( 'loading' );
+		} );
 } );
 
 // Best answer.
@@ -145,69 +154,90 @@ $( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
 	var $comment = $button.closest( '.hamethread-comment-item-wrapper' );
 	var method = $button.attr( 'data-method' );
 	var path = $button.attr( 'data-path' );
-	var message = 'POST' === method ? HameThreadComment.chooseBa : HameThreadComment.cancelBa;
-	if ( !window.confirm( message ) ) {
+	var message =
+		'POST' === method
+			? HameThreadComment.chooseBa
+			: HameThreadComment.cancelBa;
+	if ( ! window.confirm( message ) ) {
 		return;
 	}
 	$comment.addClass( 'loading' );
-	HameThread.request( method, path ).done( function ( response ) {
-		alert( response.message );
-		window.location.href = response.url;
-	} ).always( function () {
-		$comment.removeClass( 'loading' );
-	} );
+	HameThread.request( method, path )
+		.done( function ( response ) {
+			alert( response.message );
+			window.location.href = response.url;
+		} )
+		.always( function () {
+			$comment.removeClass( 'loading' );
+		} );
 } );
-
 
 // Remove comment.
-$( document ).on( 'click', 'a[data-hamethread="comment-delete"]', function ( e ) {
-	e.preventDefault();
-	if ( !confirm( HameThreadComment.confirm ) ) {
-		return false;
-	}
-	const $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
-	$comment.addClass( 'loading' );
-	HameThread.request( 'DELETE', $( this ).attr( 'href' ) )
-		.done( function ( response ) {
-			const $children = $comment.children( 'ul.children' );
-			if ( $children.length ) {
-				// Move children to after comments.
-				$comment.after( $children.children( 'li' ) );
-			}
-			alert( response.message );
-			HameThread.removeElement( $comment, function () {
-				updateCommentCount();
+$( document ).on(
+	'click',
+	'a[data-hamethread="comment-delete"]',
+	function ( e ) {
+		e.preventDefault();
+		if ( ! confirm( HameThreadComment.confirm ) ) {
+			return false;
+		}
+		const $comment = $( this ).closest(
+			'.hamethread-comment-item-wrapper'
+		);
+		$comment.addClass( 'loading' );
+		HameThread.request( 'DELETE', $( this ).attr( 'href' ) )
+			.done( function ( response ) {
+				const $children = $comment.children( 'ul.children' );
+				if ( $children.length ) {
+					// Move children to after comments.
+					$comment.after( $children.children( 'li' ) );
+				}
+				alert( response.message );
+				HameThread.removeElement( $comment, function () {
+					updateCommentCount();
+				} );
+			} )
+			.always( function () {
+				$comment.removeClass( 'loading' );
 			} );
-		} ).always( function () {
-		$comment.removeClass( 'loading' );
-	} );
-} );
+	}
+);
 
 // Update following status.
 $( document ).ready( function () {
 	const $button = $( '#hamthread-watchers-toggle' );
-	if ( !$button.length ) {
+	if ( ! $button.length ) {
 		// Do nothing.
 		return true;
 	}
 	const setFollowStatus = function ( following ) {
 		var html = '';
 		if ( following ) {
-			html = '<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' + HameThreadComment.following + '</span><span class="hover">' + HameThreadComment.unfollow + '</span></button>';
+			html =
+				'<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' +
+				HameThreadComment.following +
+				'</span><span class="hover">' +
+				HameThreadComment.unfollow +
+				'</span></button>';
 		} else {
-			html = '<button class="btn btn-default">' + HameThreadComment.follow + '</button>';
+			html =
+				'<button class="btn btn-default">' +
+				HameThreadComment.follow +
+				'</button>';
 		}
 		if ( HameThreadComment.buttonCallback ) {
 			html = HameThreadComment.buttonCallback( html, following );
 		}
 		$button.html( html );
-		var label = following ? HameThreadComment.follow : HameThreadComment.unfollow;
+		var label = following
+			? HameThreadComment.follow
+			: HameThreadComment.unfollow;
 		var icon = following ? '<i class="fa"></ifa>' : '';
 	};
 
 	// Check current status.
 	HameThread.request( 'GET', 'follower/in/' + $button.attr( 'data-id' ), {
-		user_id: 'me'
+		user_id: 'me',
 	} ).done( function ( response ) {
 		setFollowStatus( response.subscribing );
 	} );
@@ -221,11 +251,14 @@ $( document ).ready( function () {
 		} else {
 			method = 'POST';
 		}
-		HameThread.request( method, 'follower/in/' + $button.attr( 'data-id' ), {
-			user_id: 'me'
-		} ).done( function ( response ) {
+		HameThread.request(
+			method,
+			'follower/in/' + $button.attr( 'data-id' ),
+			{
+				user_id: 'me',
+			}
+		).done( function ( response ) {
 			setFollowStatus( response.subscribing );
 		} );
 	} );
 } );
-
