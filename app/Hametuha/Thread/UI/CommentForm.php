@@ -22,13 +22,6 @@ class CommentForm extends AbstractUI {
 	}
 
 	/**
-	 * Register assets.
-	 */
-	public function register_script() {
-		wp_register_script( 'hamethread-comment', hamethread_asset_url() . '/js/hamethread-comment.js', ['hamethread'], hamethread_version(), true );
-	}
-
-	/**
 	 * Is comment supported?
 	 *
 	 * @param string $post_type
@@ -62,8 +55,8 @@ class CommentForm extends AbstractUI {
 			'follow'    => __( 'Follow This Thread', 'hamethread' ),
 			'following' => __( 'Following', 'hamethread' ),
 			'unfollow'  => __( 'Unfollow This Thread', 'hamethread' ),
-			'chooseBa' => __( 'Are you sure to choose this comment as the best answer?', 'hamethread' ),
-			'cancelBa' => __( 'Are you sure to unmark the best answer?', 'hamethread' ),
+			'chooseBa'  => __( 'Are you sure to choose this comment as the best answer?', 'hamethread' ),
+			'cancelBa'  => __( 'Are you sure to unmark the best answer?', 'hamethread' ),
 		] );
 		wp_enqueue_style( 'hamethread' );
 		return hamethread_file_path( 'comments' );
@@ -80,23 +73,23 @@ class CommentForm extends AbstractUI {
 	 * @return string
 	 */
 	public function comment_display( $comment, $args, $depth, $close = false, $echo = true ) {
-		if ( 'div' === $args[ 'style' ] ) {
+		if ( 'div' === $args['style'] ) {
 			$tag       = 'div';
 			$add_below = 'comment';
 		} else {
 			$tag       = 'li';
 			$add_below = 'div-comment';
 		}
-		$html = sprintf( '<%s %s id="comment-%d">', $tag, comment_class(  ['hamethread-comment-item-wrapper'], $comment, $comment->comment_post_ID, false ), $comment->comment_ID );
+		$html  = sprintf( '<%s %s id="comment-%d">', $tag, comment_class( [ 'hamethread-comment-item-wrapper' ], $comment, $comment->comment_post_ID, false ), $comment->comment_ID );
 		$html .= hamethread_template( 'comment-loop', $comment->comment_type, false, [
 			'comment' => $comment,
-			'depth'  => $depth,
-			'params' => $args,
+			'depth'   => $depth,
+			'params'  => $args,
 		] );
 		if ( $close ) {
 			$html .= "</{$tag}>";
 		}
-		if ( $echo  ) {
+		if ( $echo ) {
 			echo $html;
 		}
 		return $html;
@@ -133,5 +126,4 @@ class CommentForm extends AbstractUI {
 			'like'  => '',
 		];
 	}
-
 }

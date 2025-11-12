@@ -22,10 +22,10 @@ class RestComment extends RestCommentNew {
 		$args = parent::get_args( $http_method );
 		unset( $args['reply_to'] );
 		$args['comment_id'] = [
-			'required' => true,
-			'type' => 'int',
-			'description' => 'Comment ID',
-			'validate_callback' => function( $var ) {
+			'required'          => true,
+			'type'              => 'int',
+			'description'       => 'Comment ID',
+			'validate_callback' => function ( $var ) {
 				$comment = get_comment( $var );
 				if ( ! $comment ) {
 					return new \WP_Error( 'no_comment', __( 'Comment not found.', 'hamethread' ), [
@@ -53,15 +53,15 @@ class RestComment extends RestCommentNew {
 	public function handle_get( $request ) {
 		$post_id    = $request->get_param( 'thread_id' );
 		$comment_id = $request->get_param( 'comment_id' );
-		$args = [
+		$args       = [
 			'title'   => __( 'Edit comment', 'hamethread' ),
 			'post'    => get_post( $post_id ),
 			'action'  => sprintf( 'comment/%d/%d', $post_id, $comment_id ),
 			'comment' => get_comment( $comment_id ),
 		];
-		$form = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
+		$form       = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
 		return [
-			'html' => $form
+			'html' => $form,
 		];
 	}
 
@@ -73,9 +73,9 @@ class RestComment extends RestCommentNew {
 	 */
 	public function handle_delete( $request ) {
 		$comment_id = $request->get_param( 'comment_id' );
-		$comment = get_comment( $comment_id );
-		$post_id = $comment->comment_post_ID;
-		$result = wp_delete_comment( $comment );
+		$comment    = get_comment( $comment_id );
+		$post_id    = $comment->comment_post_ID;
+		$result     = wp_delete_comment( $comment );
 		if ( ! $result ) {
 			return new \WP_Error( 'failed_to_delete_comment', __( 'Sorry, but failed to delete comment.', 'hamethread' ) );
 		} else {
@@ -95,15 +95,15 @@ class RestComment extends RestCommentNew {
 	 */
 	public function handle_post( $request ) {
 		$comment_id = $request->get_param( 'comment_id' );
-		$error = new \WP_Error();
-		$error = apply_filters( 'hamethread_edit_comment_validation', $error, $request );
+		$error      = new \WP_Error();
+		$error      = apply_filters( 'hamethread_edit_comment_validation', $error, $request );
 		if ( $error->get_error_messages() ) {
 			return $error;
 		}
-		$old_content = get_comment_text( $comment_id );
+		$old_content   = get_comment_text( $comment_id );
 		$comment_param = [
-			'comment_ID'       => $comment_id,
-			'comment_content'  => $request->get_param( 'comment_content' ),
+			'comment_ID'      => $comment_id,
+			'comment_content' => $request->get_param( 'comment_content' ),
 		];
 		$comment_param = apply_filters( 'hamethread_edit_comment_params', $comment_param, $request );
 		if ( ! wp_update_comment( $comment_param ) ) {
@@ -116,7 +116,7 @@ class RestComment extends RestCommentNew {
 			'user'    => get_current_user_id(),
 		] );
 		do_action( 'hamethread_comment_updated', $comment_id, $request );
-		$comment = new CommentModel( $comment_id );
+		$comment  = new CommentModel( $comment_id );
 		$response = new \WP_REST_Response( $comment->to_array() );
 		$response->set_headers( [
 			sprintf( 'X-WP-COMMENT-COUNT: %d', get_comment_count( $request->get_param( 'thread_id' ) ) ),

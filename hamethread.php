@@ -1,10 +1,12 @@
 <?php
 /**
- * Plugin Name:     HameThread
- * Plugin URI:     	https://wordpress.org/extend/plugins/hamethread
- * Description:     Forum plugin by Hametuha.
- * Version:         1.1.3
- * Author:          Hametuna INC.
+ * Plugin Name:       HameThread
+ * Plugin URI:        https://wordpress.org/extend/plugins/hamethread
+ * Description:       Forum plugin by Hametuha.
+ * Version:           1.2.0
+ * Requires at least: 6.6
+ * Requires PHP:      7.4
+ * Author:          Hametuha INC.
  * Author URI:      https://hametuha.co.jp
  * Text Domain:     hamethread
  * Domain Path:     /languages
@@ -21,7 +23,7 @@ add_action( 'plugins_loaded', 'hamethread_init' );
 function hamethread_init() {
 	// i18n.
 	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
-	if ( version_compare( phpversion(), '5.4.0', '>=' ) ) {
+	if ( version_compare( phpversion(), '7.4.0', '>=' ) ) {
 		// Load functions.
 		require __DIR__ . '/functions.php';
 		$dir = __DIR__ . '/includes';
@@ -34,8 +36,8 @@ function hamethread_init() {
 			}
 		}
 		// Load composer.
-		require dirname( __FILE__ ) . '/vendor/autoload.php';
-		call_user_func( [ 'Hametuha\\Thread', 'get_instance' ]);
+		require __DIR__ . '/vendor/autoload.php';
+		\Hametuha\Thread::get_instance();
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
 	}
@@ -48,7 +50,7 @@ function hamethread_init() {
  */
 function hamethread_version_error() {
 	// translators: %1$s required PHP version, %2$s current PHP version.
-	printf( '<div class="error"><p>%s</p></div>', sprintf( esc_html__( 'HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider upgrade.', 'hamethread' ), phpversion() ) );
+	printf( '<div class="error"><p>%s</p></div>', sprintf( esc_html__( 'HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider upgrade.', 'hamethread' ), '7.4', phpversion() ) );
 }
 
 /**
@@ -56,8 +58,12 @@ function hamethread_version_error() {
  *
  * @return string
  */
-function hamethread_asset_url() {
-	return plugin_dir_url( __FILE__ ) . 'assets';
+function hamethread_asset_url( $path = '' ) {
+	$url = plugin_dir_url( __FILE__ ) . 'assets';
+	if ( $path ) {
+		$url = str_replace( 'assets/', $url . '/', $path );
+	}
+	return $url;
 }
 
 /**

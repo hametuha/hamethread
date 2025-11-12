@@ -66,10 +66,10 @@ class RestVote extends RestBase {
 	protected function get_args( $http_method ) {
 		return [
 			'comment_id' => [
-				'required'    => true,
-				'type'        => 'int',
-				'description' => 'Comment ID to vote.',
-				'validate_callback' => function( $var ) {
+				'required'          => true,
+				'type'              => 'int',
+				'description'       => 'Comment ID to vote.',
+				'validate_callback' => function ( $var ) {
 					if ( ! is_numeric( $var ) || ! get_comment( $var ) ) {
 						return new \WP_Error( 'comment_not_exists', __( 'Comment not found.', 'hamethread' ), [
 							'status' => 404,
@@ -155,7 +155,7 @@ class RestVote extends RestBase {
 	 */
 	public function delete_user_handler( $user_id ) {
 		global $wpdb;
-		$query = <<<SQL
+		$query  = <<<SQL
 			DELETE FROM {$wpdb->commentmeta}
 			WHERE meta_key   = %s
 			  AND meta_value = %d

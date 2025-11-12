@@ -1,12 +1,10 @@
 # HameThread
 
-Contributors: Takahashi_Fumiki, hametuha  
-Tags: faq,thread,forum  
-Requires at least: 5.0  
-Tested up to: 5.3.2  
-Stable tag: 1.1.3  
-Requires PHP: 5.6  
-License: GPL 3.0 or later  
+Contributors: Takahashi_Fumiki, hametuha
+Tags: faq,thread,forum
+Tested up to: 6.8
+Stable tag: nightly
+License: GPL 3.0 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Form plugin for hametuha.
@@ -17,7 +15,7 @@ Form plugin for hametuha.
 
 W.I.P
 
-##  Installation 
+##  Installation
 
 W.I.P
 
@@ -26,6 +24,10 @@ W.I.P
 W.I.P
 
 ## Changelog
+
+### 1.2.0
+
+* Bump minimum version.
 
 ### 1.1.0
 

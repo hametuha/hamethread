@@ -1,5 +1,7 @@
-/**
- * Description
+/*!
+ * Thread helper
+ *
+ * @deps hamethread
  */
 
 /*global HameThread: true*/

@@ -24,15 +24,15 @@ class RestFollower extends RestBase {
 	 */
 	protected function get_args( $http_method ) {
 		$args = [
-			'user_id' => [
-				'required' => true,
-				'validate_callback' => function( $var ) {
+			'user_id'   => [
+				'required'          => true,
+				'validate_callback' => function ( $var ) {
 					return 'me' === $var || is_numeric( $var );
 				},
 			],
 			'thread_id' => [
-				'required' => true,
-				'validate_callback' => function( $var ) {
+				'required'          => true,
+				'validate_callback' => function ( $var ) {
 					return is_numeric( $var ) && get_post( $var );
 				},
 			],
@@ -61,8 +61,8 @@ class RestFollower extends RestBase {
 	 * @return \WP_REST_Response
 	 */
 	public function handle_get( \WP_REST_Request $request ) {
-		$user_id   = $this->get_user_id( $request );
-		$thread_id = $request->get_param( 'thread_id' );
+		$user_id     = $this->get_user_id( $request );
+		$thread_id   = $request->get_param( 'thread_id' );
 		$subscribers = $this->notification->get_subscribers( $thread_id );
 		return new \WP_REST_Response( [
 			'subscribing' => in_array( $user_id, $subscribers ),
@@ -78,7 +78,7 @@ class RestFollower extends RestBase {
 	public function handle_post( \WP_REST_Request $request ) {
 		$user_id   = $this->get_user_id( $request );
 		$thread_id = $request->get_param( 'thread_id' );
-		$result = $this->notification->subscribe( $thread_id, $user_id );
+		$result    = $this->notification->subscribe( $thread_id, $user_id );
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		} else {
@@ -97,7 +97,7 @@ class RestFollower extends RestBase {
 	public function handle_delete( \WP_REST_Request $request ) {
 		$user_id   = $this->get_user_id( $request );
 		$thread_id = $request->get_param( 'thread_id' );
-		$result = $this->notification->unsubscribe( $thread_id, $user_id );
+		$result    = $this->notification->unsubscribe( $thread_id, $user_id );
 		if ( is_wp_error( $result ) ) {
 			return $result;
 		} else {
@@ -133,7 +133,7 @@ class RestFollower extends RestBase {
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-		switch( $name ) {
+		switch ( $name ) {
 			case 'notification':
 				return SupportNotification::get_instance();
 				break;
@@ -142,6 +142,4 @@ class RestFollower extends RestBase {
 				break;
 		}
 	}
-
-
 }

@@ -14,7 +14,7 @@ use Hametuha\Thread\Pattern\RushDetector;
  * @package hamethread
  */
 class RestThreadNew extends RestBase {
-	
+
 	protected $route = 'thread/new/?';
 
 	/**
@@ -28,28 +28,28 @@ class RestThreadNew extends RestBase {
 			case 'GET':
 				return [
 					'post_id' => [
-						'type'     => 'int',
-						'description' => 'If set, form will be update form.',
-						'validate_callback' => function( $var ) {
+						'type'              => 'int',
+						'description'       => 'If set, form will be update form.',
+						'validate_callback' => function ( $var ) {
 							return is_numeric( $var ) && ( $post = get_post( $var ) ) && PostType::get_instance()->is_supported( $post->post_type );
 						},
 					],
-					'parent' => [
-						'type' => 'int',
-						'description' => 'If set, thread will be a child of this post.',
-						'validation_callback' => function( $var ) {
+					'parent'  => [
+						'type'                => 'int',
+						'description'         => 'If set, thread will be a child of this post.',
+						'validation_callback' => function ( $var ) {
 							return is_numeric( $var );
 						},
-						'default' => 0,
+						'default'             => 0,
 					],
 					'private' => [
-						'type'        => 'int',
-						'description' => 'Display private field or not.',
-						'sanitize_callback' => function( $var ) {
+						'type'              => 'int',
+						'description'       => 'Display private field or not.',
+						'sanitize_callback' => function ( $var ) {
 							return (int) $var;
 						},
-						'default'     => 0,
-					 ],
+						'default'           => 0,
+					],
 				];
 				break;
 			case 'POST':
@@ -70,13 +70,13 @@ class RestThreadNew extends RestBase {
 	 */
 	public function handle_get( $request ) {
 		$post_id = $request->get_param( 'post_id' );
-		$args = [
+		$args    = [
 			'post'    => $post_id ? get_post( $post_id ) : null,
 			'action'  => rest_url( 'hamethread/v1/thread/' ) . ( $post_id ?: 'new' ),
 			'parent'  => $request->get_param( 'parent' ),
 			'private' => $request->get_param( 'private' ),
 		];
-		$form = apply_filters( 'hamethread_form_thread', hamethread_template( 'form-thread', '', false, $args ), $request );
+		$form    = apply_filters( 'hamethread_form_thread', hamethread_template( 'form-thread', '', false, $args ), $request );
 		return [
 			'html' => $form,
 		];
@@ -124,7 +124,7 @@ class RestThreadNew extends RestBase {
 			'post_parent'  => $request->get_param( 'thread_parent' ),
 		];
 		$post_args = apply_filters( 'hamethread_new_thread_post_arg', $post_args, $request );
-		$post_id = wp_insert_post( $post_args, true );
+		$post_id   = wp_insert_post( $post_args, true );
 		if ( is_wp_error( $post_id ) ) {
 			return $post_id;
 		}

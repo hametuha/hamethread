@@ -19,10 +19,10 @@ class RestThreadLock extends RestBase {
 	protected function get_args( $http_method ) {
 		return [
 			'thread_id' => [
-				'required' => true,
-				'validate_callback' => function( $var ) {
+				'required'          => true,
+				'validate_callback' => function ( $var ) {
 					return is_numeric( $var ) && get_post( $var );
-				}
+				},
 			],
 		];
 	}

@@ -10,14 +10,14 @@ use Hametuha\Pattern\Singleton;
  * @package hamethread
  */
 class SupportHashboard extends Singleton {
-	
+
 	/**
 	 * Constructor
 	 */
 	protected function init() {
 		add_filter( 'hashboard_screens', [ $this, 'add_screen' ], 9999 );
 	}
-	
+
 	/**
 	 * Add screens
 	 *
@@ -28,7 +28,7 @@ class SupportHashboard extends Singleton {
 		$new_screen = [];
 		foreach ( $screens as $slug => $class_name ) {
 			if ( 'profile' === $slug ) {
-				$new_screen[ 'threads' ] = \Hametuha\Thread\Screen\HashboardScreen::class;
+				$new_screen['threads'] = \Hametuha\Thread\Screen\HashboardScreen::class;
 			}
 			$new_screen[ $slug ] = $class_name;
 		}

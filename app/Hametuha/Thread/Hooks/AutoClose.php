@@ -90,17 +90,17 @@ class AutoClose extends Singleton {
 	public function do_cron( $diff = 0 ) {
 		$diff = (int) $diff;
 		// Get posts to notify.
-		$time = current_time( 'timestamp', true ) + ( 60 * 60 * 24 * $diff );
-		$posts = $this->get_post_to_close( $time );
+		$time   = current_time( 'timestamp', true ) + ( 60 * 60 * 24 * $diff );
+		$posts  = $this->get_post_to_close( $time );
 		$closed = 0;
 		foreach ( $posts as $post ) {
 			if ( $this->auto_close( $post ) ) {
-				$closed++;
+				++$closed;
 			}
 		}
 		return $closed;
 	}
-	
+
 	/**
 	 * Close post.
 	 *
@@ -169,7 +169,7 @@ class AutoClose extends Singleton {
 	 */
 	public function update_limit_with_new_comment( $comment_id ) {
 		$comment = get_comment( $comment_id );
-		$thread = get_post( $comment->comment_post_ID );
+		$thread  = get_post( $comment->comment_post_ID );
 		if ( ! $comment || ! $thread ) {
 			return;
 		}
@@ -189,7 +189,7 @@ class AutoClose extends Singleton {
 	 * @return int
 	 */
 	public function auto_close_time( $post_id ) {
-		$duration  = $this->get_duration( $post_id );
+		$duration = $this->get_duration( $post_id );
 		return (int) apply_filters( 'hamethread_prolonged_time', current_time( 'timestamp', true ) + ( $duration * 60 * 60 * 24 ), $post_id );
 	}
 
@@ -202,7 +202,7 @@ class AutoClose extends Singleton {
 	public function auto_close_notification_time( $thread = null ) {
 		return (int) apply_filters( 'hamethread_auto_close_notification_time', 60 * 60 * 24, $thread );
 	}
-	
+
 	/**
 	 * Get auto close duration.
 	 *
@@ -213,7 +213,7 @@ class AutoClose extends Singleton {
 	public function get_duration( $post_id = 0 ) {
 		return (int) apply_filters( 'hamethread_auto_close_duration', (int) get_option( AdminSetting::OPTION_AUTO_CLOSE_DURATION, 0 ), $post_id );
 	}
-	
+
 	/**
 	 * Update close time.
 	 *
@@ -230,7 +230,7 @@ class AutoClose extends Singleton {
 		}
 		return (bool) update_post_meta( $post_id, '_hamethread_expires_at', $this->auto_close_time( $post_id ) );
 	}
-	
+
 	/**
 	 * Should start count down?
 	 *
@@ -242,7 +242,7 @@ class AutoClose extends Singleton {
 		$should = 2 > (int) get_option( AdminSetting::OPTION_AUTO_CLOSE_PROLONG, 0 );
 		return (bool) apply_filters( 'hamethread_should_count_down_from_thread_creation', $should, $post_id );
 	}
-	
+
 	/**
 	 * Should update limit with new comment?
 	 *

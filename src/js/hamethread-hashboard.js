@@ -1,5 +1,7 @@
-/**
+/*!
  * Thread list
+ *
+ * @deps vue-js, hb-filters-moment, hashboard-rest, hb-components-loading, hb-components-pagination
  */
 
 /*global Vue: false*/

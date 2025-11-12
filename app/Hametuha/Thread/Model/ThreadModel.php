@@ -45,7 +45,7 @@ class ThreadModel {
 			'date_atom'   => mysql2date( DATE_ATOM, $this->post->post_date_gmt ),
 			'author_id'   => $this->post->post_author,
 			'author'      => get_the_author_meta( 'display_name', $this->post->post_author ),
-			'avatar'      => get_avatar_url( $this->post->post_author, ['size' => 192 ] ),
+			'avatar'      => get_avatar_url( $this->post->post_author, [ 'size' => 192 ] ),
 			'link'        => get_permalink( $this->post ),
 			'count'       => get_comment_count( $this->post->ID ),
 			'status'      => $this->post->post_status,
@@ -85,7 +85,7 @@ class ThreadModel {
 	 */
 	public static function can_edit( $user_id, $post ) {
 		$post = get_post( $post );
-		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
 	}
 
@@ -98,7 +98,7 @@ class ThreadModel {
 	 */
 	public static function can_archive( $user_id, $post ) {
 		$post = get_post( $post );
-		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
 	}
 
@@ -126,7 +126,7 @@ class ThreadModel {
 	 */
 	public static function can_resolve( $user_id, $post ) {
 		$post = get_post( $post );
-		$can = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_resolve_post', $can, $user_id, $post );
 	}
 
@@ -140,13 +140,12 @@ class ThreadModel {
 	 */
 	public static function change_resolution_status( $new_status, $post = null ) {
 		$new_status = (bool) $new_status;
-		$post = get_post( $post );
+		$post       = get_post( $post );
 		if ( ! $post ) {
 			return new \WP_Error( 'no_thread_found', __( 'No post found.', 'hamethread' ), [
 				'response' => 404,
 			] );
 		}
-
 	}
 
 	/**
@@ -190,7 +189,7 @@ class ThreadModel {
 	 */
 	public static function unset_resolved( $thread_id ) {
 		delete_post_meta( $thread_id, '_thread_resolved' );
-		add_post_meta( $thread_id,'_thread_unresolved', current_time( 'mysql', true ) );
+		add_post_meta( $thread_id, '_thread_unresolved', current_time( 'mysql', true ) );
 		do_action( 'hamethread_update_unresolved', $thread_id, self::get_resolved_count( $thread_id ) );
 		return true;
 	}
