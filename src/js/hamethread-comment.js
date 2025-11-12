@@ -9,7 +9,7 @@
 
 const $ = jQuery;
 
-var updateCommentCount = function () {
+const updateCommentCount = function () {
 	$( '.hamethread-comments' ).each( function ( index, comments ) {
 		$( comments ).attr(
 			'data-comment-count',
@@ -26,7 +26,7 @@ $( document ).ready( function () {
 // Get comment form.
 $( document ).on( 'click', 'button[data-hamethread="comment"]', function ( e ) {
 	e.preventDefault();
-	var $button = $( this );
+	const $button = $( this );
 	$button.addClass( 'disabled' ).attr( 'disabled', true );
 	HameThread.request( 'GET', $button.attr( 'data-end-point' ) )
 		.done( function ( response ) {
@@ -40,7 +40,7 @@ $( document ).on( 'click', 'button[data-hamethread="comment"]', function ( e ) {
 // Get reply form.
 $( document ).on( 'click', '.hamethread-reply', function ( e ) {
 	e.preventDefault();
-	var $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
+	const $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
 	$comment.addClass( 'loading' );
 	HameThread.request( 'GET', $( this ).attr( 'data-path' ), {
 		reply_to: $( this ).attr( 'data-reply-to' ),
@@ -56,7 +56,7 @@ $( document ).on( 'click', '.hamethread-reply', function ( e ) {
 // Get edit form.
 $( document ).on( 'click', 'a[data-hamethread="comment-edit"]', function ( e ) {
 	e.preventDefault();
-	var $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
+	const $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
 	$comment.addClass( 'loading' );
 	HameThread.request( 'GET', $( this ).attr( 'href' ) )
 		.done( function ( response ) {
@@ -70,16 +70,16 @@ $( document ).on( 'click', 'a[data-hamethread="comment-edit"]', function ( e ) {
 // Voting
 $( document ).on( 'click', '.hamethread-upvote', function ( e ) {
 	e.preventDefault();
-	var $button = $( this );
-	var isActive = $( this ).hasClass( 'active' );
-	var path = $( this ).attr( 'data-path' );
-	var method = isActive ? 'DELETE' : 'POST';
+	const $button = $( this );
 	if ( $button.hasClass( 'disabled' ) ) {
 		return false;
 	}
+	const isActive = $( this ).hasClass( 'active' );
+	const path = $( this ).attr( 'data-path' );
+	const method = isActive ? 'DELETE' : 'POST';
 	$button.attr( 'disabled', true ).addClass( 'disabled' );
 	HameThread.request( method, path )
-		.done( function ( response ) {
+		.done( function () {
 			// Do something.
 			if ( isActive ) {
 				$button.removeClass( 'active' );
@@ -95,8 +95,8 @@ $( document ).on( 'click', '.hamethread-upvote', function ( e ) {
 // Post comment.
 $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 	e.preventDefault();
-	var $form = $( this );
-	var data = {};
+	const $form = $( this );
+	const data = {};
 	$form
 		.find( 'input[name], select[name], textarea[name]' )
 		.each( function ( index, input ) {
@@ -109,12 +109,12 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 	HameThread.request( 'POST', $form.attr( 'action' ), data )
 		.done( function ( response ) {
 			$form.trigger( 'commented', [ response ] );
-			var $comment = $( response.html );
+			const $comment = $( response.html );
 			// If comment exists, get it.
-			var $oldComment = $( '#comment-' + response.id );
+			const $oldComment = $( '#comment-' + response.id );
 			if ( $oldComment.length ) {
 				// This is existing comment, so replace it.
-				var $children = $oldComment.children( 'ul.children' );
+				const $children = $oldComment.children( 'ul.children' );
 				if ( $children.length ) {
 					// Mover children to new comment.
 					$children.appendTo( $comment );
@@ -123,12 +123,12 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 			} else {
 				// This is new comment.
 				// If comment has children, set it as target.
-				var $target = $( '.hamethread-comments' );
+				let $target = $( '.hamethread-comments' );
 				if ( response.parent ) {
-					var $parent = $( '#comment-' + response.parent );
+					const $parent = $( '#comment-' + response.parent );
 					if ( $parent.length ) {
 						// Parent found. check if
-						var $children = $parent.find( 'ul.children' );
+						let $children = $parent.find( 'ul.children' );
 						if ( ! $children.length ) {
 							$children = $( '<ul></ul>' ).addClass( 'children' );
 							$parent.append( $children );
@@ -150,17 +150,17 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 // Best answer.
 $( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
 	e.preventDefault();
-	var $button = $( this );
-	var $comment = $button.closest( '.hamethread-comment-item-wrapper' );
-	var method = $button.attr( 'data-method' );
-	var path = $button.attr( 'data-path' );
-	var message =
+	const $button = $( this );
+	const method = $button.attr( 'data-method' );
+	const message =
 		'POST' === method
 			? HameThreadComment.chooseBa
 			: HameThreadComment.cancelBa;
 	if ( ! window.confirm( message ) ) {
 		return;
 	}
+	const $comment = $button.closest( '.hamethread-comment-item-wrapper' );
+	const path = $button.attr( 'data-path' );
 	$comment.addClass( 'loading' );
 	HameThread.request( method, path )
 		.done( function ( response ) {
@@ -211,7 +211,7 @@ $( document ).ready( function () {
 		return true;
 	}
 	const setFollowStatus = function ( following ) {
-		var html = '';
+		let html = '';
 		if ( following ) {
 			html =
 				'<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' +
@@ -229,10 +229,6 @@ $( document ).ready( function () {
 			html = HameThreadComment.buttonCallback( html, following );
 		}
 		$button.html( html );
-		var label = following
-			? HameThreadComment.follow
-			: HameThreadComment.unfollow;
-		var icon = following ? '<i class="fa"></ifa>' : '';
 	};
 
 	// Check current status.

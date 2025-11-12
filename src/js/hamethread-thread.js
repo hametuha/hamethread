@@ -17,22 +17,22 @@
 		'button[data-hamethread="create"], a[data-hamethread="create"]',
 		function ( e ) {
 			e.preventDefault();
-			var $button = $( this );
+			const $button = $( this );
 			if ( $button.attr( 'disabled' ) ) {
 				return;
 			}
-			var query = {
+			const query = {
 				_wpnonce: HameThread.nonce,
 			};
-			var post_id = $button.attr( 'data-post-id' );
+			const post_id = $button.attr( 'data-post-id' );
 			if ( post_id ) {
 				query.post_id = post_id;
 			}
-			var parent = $button.attr( 'data-parent' );
+			const parent = $button.attr( 'data-parent' );
 			if ( parent ) {
 				query.parent = parent;
 			}
-			var allowPrivate = $button.attr( 'data-private' );
+			const allowPrivate = $button.attr( 'data-private' );
 			if ( parseInt( allowPrivate, 10 ) ) {
 				query.private = 1;
 			}
@@ -53,8 +53,8 @@
 	//
 	$( document ).on( 'submit', '#hamethread-add', function ( e ) {
 		e.preventDefault();
-		var $form = $( this );
-		var data = {};
+		const $form = $( this );
+		const data = {};
 		$form
 			.find( 'input[name], select[name], textarea[name]' )
 			.each( function ( index, input ) {
@@ -80,9 +80,9 @@
 
 	$( document ).on( 'click', 'a[data-hamethread]', function ( e ) {
 		e.preventDefault();
-		var $button = $( this );
-		var action = $button.attr( 'data-hamethread' );
-		var query = {
+		const $button = $( this );
+		const action = $button.attr( 'data-hamethread' );
+		const query = {
 			_wpnonce: HameThread.nonce,
 		};
 		switch ( action ) {
@@ -144,7 +144,7 @@
 				if ( $button.attr( 'disabled' ) ) {
 					return;
 				}
-				var method;
+				let method;
 				switch ( action ) {
 					case 'lock':
 						method = 'POST';
@@ -158,7 +158,7 @@
 				$button.addClass( 'disabled' ).attr( 'disabled', true );
 				$.ajax( {
 					url: $button.attr( 'href' ) + '?' + $.param( query ),
-					method: method,
+					method,
 				} )
 					.done( function ( response ) {
 						alert( response.message );

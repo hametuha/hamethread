@@ -13,14 +13,14 @@ const { __ } = wp.i18n;
  * Assign extra functions.
  */
 $.extend( HameThread, {
-	errorHandler: function ( response ) {
+	errorHandler( response ) {
 		let message = __( 'Sorry but request failed.', 'hamethread' );
 		if ( response.responseJSON && response.responseJSON.message ) {
 			message = response.responseJSON.message;
 		}
 		alert( message );
 	},
-	removeElement: function ( elem, callback ) {
+	removeElement( elem, callback ) {
 		return $( elem )
 			.effect( 'highlight', {}, 300 )
 			.fadeOut( 300, function () {
@@ -33,17 +33,17 @@ $.extend( HameThread, {
 	/**
 	 * Send request.
 	 *
-	 * @param {String} method
-	 * @param {String } path
+	 * @param {string} method
+	 * @param {string} path
 	 * @param {Object} params
-	 * @return {jQuery.ajax}
+	 * @return {Object}
 	 */
-	request: function ( method, path, params ) {
-		var url =
+	request( method, path, params ) {
+		let url =
 			HameThread.endpoint +
 			'/' +
 			path.replace( /\/$/, '' ).replace( /^\//, '' );
-		var data = null;
+		let data = null;
 		method = method.toUpperCase();
 		// TODO: to be ready for cached page, nonce should be retrieved from wpApi
 		if ( params ) {
@@ -62,9 +62,9 @@ $.extend( HameThread, {
 				data = params;
 				break;
 		}
-		var request = {
-			url: url,
-			method: method,
+		const request = {
+			url,
+			method,
 		};
 		if ( data ) {
 			request.data = data;
