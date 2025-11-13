@@ -47,7 +47,8 @@ class Thread extends Singleton {
 	public function register_assets() {
 		$json = dirname( __DIR__, 2 ) . '/wp-dependencies.json';
 		if ( ! file_exists( $json ) ) {
-			trigger_error( __( 'Dependnecies file missing.', 'hamethread' ), E_USER_WARNING );
+			// ファイルがなければスキップ
+			return;
 		}
 		$dependencies = json_decode( file_get_contents( $json ), true );
 		if ( $dependencies ) {

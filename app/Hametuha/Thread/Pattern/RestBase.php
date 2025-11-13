@@ -3,7 +3,7 @@
 namespace Hametuha\Thread\Pattern;
 
 
-use \Hametuha\RestPattern\RestApiBase;
+use Hametuha\RestPattern\RestApiBase;
 use Hametuha\Thread\Hooks\PostType;
 
 abstract class RestBase extends RestApiBase {
