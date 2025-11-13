@@ -3,3 +3,4 @@ node_modules
 assets
 composer.lock
 package-lock.json
+wp-dependencies.json

@@ -45,17 +45,42 @@ class Thread extends Singleton {
 	 * Register assets.
 	 */
 	public function register_assets() {
-		wp_register_script( 'hamethread', hamethread_asset_url() . '/js/hamethread.js', ['jquery-effects-highlight'], hamethread_version(), true );
+		$json = dirname( __DIR__, 2 ) . '/wp-dependencies.json';
+		if ( ! file_exists( $json ) ) {
+			// ファイルがなければスキップ
+			return;
+		}
+		$dependencies = json_decode( file_get_contents( $json ), true );
+		if ( $dependencies ) {
+			foreach ( $dependencies as $dependency ) {
+				if ( empty( $dependency['path'] ) ) {
+					continue;
+				}
+				switch ( $dependency['ext'] ) {
+					case 'js':
+						$footer = [
+							'in_footer' => $dependency['footer'],
+						];
+						if ( ! empty( $dependency['strategy'] ) ) {
+							$footer['strategy'] = $dependency['strategy'];
+						}
+						wp_register_script( $dependency['handle'], hamethread_asset_url( $dependency['path'] ), $dependency['deps'], $dependency['hash'], $footer );
+						break;
+					case 'css':
+						wp_register_style( $dependency['handle'], hamethread_asset_url( $dependency['path'] ), $dependency['deps'], $dependency['hash'], $dependency['media'] );
+						break;
+				}
+			}
+		}
 		wp_localize_script( 'hamethread', 'HameThread', [
 			'nonce'    => wp_create_nonce( 'wp_rest' ),
 			'error'    => __( 'Sorry but request failed.', 'hamethread' ),
 			'archive'  => __( 'Are you sure to make this thread private?', 'hamethread' ),
 			'publish'  => __( 'Are you sure to make this thread public? Please confirm your comments are ready to be public.', 'hamethread' ),
 			'endpoint' => rest_url( 'hamethread/v1' ),
-			'lock'      => __( 'Are you sure to lock this thread? None can post new comment on this thread.', 'hamethread' ),
-			'reopen'    => __( 'Are you sure to reopen this thread? Uses can post new comment on this thread.', 'hamethread' ),
+			'lock'     => __( 'Are you sure to lock this thread? None can post new comment on this thread.', 'hamethread' ),
+			'reopen'   => __( 'Are you sure to reopen this thread? Uses can post new comment on this thread.', 'hamethread' ),
 		] );
-		wp_register_style( 'hamethread', hamethread_asset_url() . '/css/hamethread.css', [], hamethread_version() );
 	}
 
 	/**

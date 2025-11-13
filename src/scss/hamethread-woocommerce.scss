@@ -1,28 +1,35 @@
-.hamethread-my-threads{
+.hamethread-my-threads {
 
-  &-item{
-    a{
-      &:link, &:visited{
-        color: inherit;
-        text-decoration: underline;
-      }
-      &:hover, &:active{
-        color: inherit;
-        opacity: .6;
-        text-decoration: none;
-      }
-    }
+	&-item {
 
-    .fa{
-      color: #ccc;
-      &-lock{
-        color: #ffb74a;
-        margin-right: 0.25em;
-      }
-      &-check-circle{
-        color: #41cc64;
-      }
-    }
-  }
+		a {
+
+			&:link,
+			&:visited {
+				color: inherit;
+				text-decoration: underline;
+			}
+
+			&:hover,
+			&:active {
+				color: inherit;
+				opacity: 0.6;
+				text-decoration: none;
+			}
+		}
+
+		.fa {
+			color: #ccc;
+
+			&-lock {
+				color: #ffb74a;
+				margin-right: 0.25em;
+			}
+
+			&-check-circle {
+				color: #41cc64;
+			}
+		}
+	}
 
 }

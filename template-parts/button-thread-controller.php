@@ -55,8 +55,8 @@ if ( ! $lists ) {
 ?>
 <div class="hamethread-controller btn-toolbar justify-content-end">
 	<div class="btn-group right">
-		<button class="btn btn-link" data-toggle="dropdown" type="button"><i class="fa fa-cog"></i></button>
-		<ul class="dropdown-menu dropdown-menu-right">
+		<button class="btn btn-link" data-bs-toggle="dropdown" type="button"><i class="fa fa-cog"></i></button>
+		<ul class="dropdown-menu dropdown-menu-end">
 			<?php foreach ( $lists as $list ) {
 				echo $list;
 			} ?>

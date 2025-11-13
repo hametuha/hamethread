@@ -27,7 +27,7 @@ class RestBestAnswer extends RestBase {
 			'comment_id' => [
 				'required'          => true,
 				'type'              => 'integer',
-				'validate_callback' => function( $var ) {
+				'validate_callback' => function ( $var ) {
 					return is_numeric( $var ) && get_comment( $var );
 				},
 			],
@@ -106,7 +106,7 @@ class RestBestAnswer extends RestBase {
 	 */
 	private function get_comment( $request ) {
 		$comment_id = $request->get_param( 'comment_id' );
-		return get_comment(  $comment_id ) ?: new \WP_Error( 'no_comment', __( 'Comment not found.', 'hamethread'), [
+		return get_comment( $comment_id ) ?: new \WP_Error( 'no_comment', __( 'Comment not found.', 'hamethread' ), [
 			'status' => 404,
 		] );
 	}

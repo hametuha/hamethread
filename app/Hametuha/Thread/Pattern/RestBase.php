@@ -3,14 +3,14 @@
 namespace Hametuha\Thread\Pattern;
 
 
-use Hametuha\Pattern\RestApi;
+use Hametuha\RestPattern\RestApiBase;
 use Hametuha\Thread\Hooks\PostType;
 
-abstract class RestBase extends RestApi {
+abstract class RestBase extends RestApiBase {
 
 	protected $namespace = 'hamethread';
 
-	protected $version   = '1';
+	protected $version = '1';
 
 
 	/**
@@ -20,23 +20,23 @@ abstract class RestBase extends RestApi {
 	 */
 	protected function thread_arg_base() {
 		return [
-			'thread_title' => [
-				'required' => true,
-				'type'     => 'string',
-				'description' => 'Thread title',
-				'validate_callback' => function( $var ) {
+			'thread_title'   => [
+				'required'          => true,
+				'type'              => 'string',
+				'description'       => 'Thread title',
+				'validate_callback' => function ( $var ) {
 					return ! empty( $var );
 				},
 			],
 			'thread_content' => [
-				'type' => 'string',
+				'type'        => 'string',
 				'description' => 'Thread content',
 			],
-			'topic_id' => [
-				'type' => 'int',
-				'required' => hamethread_topic_forced( get_current_user_id() ),
-				'description' => 'term_id',
-				'validate_callback' => function( $var ) {
+			'topic_id'       => [
+				'type'              => 'int',
+				'required'          => hamethread_topic_forced( get_current_user_id() ),
+				'description'       => 'term_id',
+				'validate_callback' => function ( $var ) {
 					if ( hamethread_topic_forced( get_current_user_id() ) ) {
 						$term = get_term_by( 'id', $var, PostType::get_instance()->taxonomy );
 						if ( ! $term || is_wp_error( $term ) ) {
@@ -50,20 +50,20 @@ abstract class RestBase extends RestApi {
 						return is_numeric( $var );
 					}
 				},
-				'default' => 0,
+				'default'           => 0,
 			],
-			'thread_parent' => [
-				'type' => 'int',
-				'description' => 'If set, thread will be a child of this post.',
-				'validation_callback' => function( $var ) {
+			'thread_parent'  => [
+				'type'                => 'int',
+				'description'         => 'If set, thread will be a child of this post.',
+				'validation_callback' => function ( $var ) {
 					return is_numeric( $var );
 				},
-				'default' => 0,
+				'default'             => 0,
 			],
-			'is_private' => [
-				'type' => 'int',
+			'is_private'     => [
+				'type'        => 'int',
 				'description' => 'If set, thread will be private.',
-				'default' => 0,
+				'default'     => 0,
 			],
 		];
 	}

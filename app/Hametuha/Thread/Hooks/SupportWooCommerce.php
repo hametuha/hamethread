@@ -11,7 +11,7 @@ use Hametuha\Pattern\Singleton;
  * @package hamethread
  */
 class SupportWooCommerce extends Singleton {
-	
+
 	/**
 	 * Constructor
 	 */
@@ -22,14 +22,14 @@ class SupportWooCommerce extends Singleton {
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'woocommerce_link' ], 20 );
 		add_action( 'init', [ $this, 'add_endpoint' ] );
 		add_action( 'init', [ $this, 'register_assets' ] );
-		add_filter( 'query_vars', function( $vars ) {
+		add_filter( 'query_vars', function ( $vars ) {
 			$vars[] = 'hamethread-support';
 			return $vars;
 		} );
 		add_action( 'woocommerce_account_hamethread-support_endpoint', [ $this, 'render_support_list' ] );
 		add_filter( 'hamethread_pagination', [ $this, 'paginate' ], 1, 2 );
 	}
-	
+
 	/**
 	 * Add Support list for WooCommerce
 	 */
@@ -37,27 +37,20 @@ class SupportWooCommerce extends Singleton {
 		$new_links = [];
 		foreach ( $links as $key => $link ) {
 			if ( 'edit-address' === $key ) {
-				$new_links[ 'support' ] = __( 'Support', 'hamethread' );
+				$new_links['support'] = __( 'Support', 'hamethread' );
 			}
 			$new_links[ $key ] = $link;
 		}
 		return $new_links;
 	}
-	
-	/**
-	 * Register JS and CSS
-	 */
-	public function register_assets() {
-		wp_register_style( 'hamethread-woocommerce', hamethread_asset_url() . '/css/hamethread-woocommerce.css', [], hamethread_version() );
-	}
-	
+
 	/**
 	 * Add endpoint.
 	 */
 	public function add_endpoint() {
 		add_rewrite_endpoint( 'support', EP_ROOT | EP_PAGES, 'hamethread-support' );
 	}
-	
+
 	/**
 	 * Render support list.
 	 */
@@ -75,11 +68,11 @@ class SupportWooCommerce extends Singleton {
 			$query_arg['paged'] = $paged;
 		}
 		$query_arg = apply_filters( 'hamethread_threads_query_args', $query_arg, null );
-		$query = new \WP_Query( $query_arg );
+		$query     = new \WP_Query( $query_arg );
 		wp_enqueue_style( 'hamethread-woocommerce' );
 		hamethread_template( 'woocommerce', 'my-account', true, [ 'query' => $query ] );
 	}
-	
+
 	/**
 	 * Get pagination link
 	 *
@@ -89,7 +82,7 @@ class SupportWooCommerce extends Singleton {
 	 */
 	public function paginate( $pagination, $query ) {
 		$link = paginate_links( [
-			'base'      => untrailingslashit( wc_get_page_permalink( 'myaccount' ) ). '/support/%_%',
+			'base'      => untrailingslashit( wc_get_page_permalink( 'myaccount' ) ) . '/support/%_%',
 			'format'    => '%#%',
 			'total'     => $query->max_num_pages,
 			'prev_text' => '<i class="fa fa-chevron-left"></i>',
@@ -105,8 +98,8 @@ class SupportWooCommerce extends Singleton {
 		<nav aria-label="Page navigation example" class="mt-4">
 			<ul class="pagination">
 				<?php foreach ( $link as $l ) : ?>
-					<li class="page-item<?php echo false === strpos( $l,  '<span' ) ? '' : ' active' ?>">
-						<?php echo preg_replace( '/(?<!i) class=[\'"][^\'"]+[\'"]/u', ' class="page-link"', $l ) ?>
+					<li class="page-item<?php echo false === strpos( $l, '<span' ) ? '' : ' active'; ?>">
+						<?php echo preg_replace( '/(?<!i) class=[\'"][^\'"]+[\'"]/u', ' class="page-link"', $l ); ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>

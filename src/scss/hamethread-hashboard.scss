@@ -1,26 +1,37 @@
-.hamethread-list{
+/*!
+ * Helper style.
+ *
+ * @deps bootstrap
+ */
+.hamethread-list {
 
-  &-body{
-    position: relative;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 3px dashed #f9f9f9;
-    .material-icons{
-      vertical-align: text-bottom;
-      color: #ccc;
-    }
-    .text-success .material-icons{
-      color: inherit;
-    }
-    h5 .material-icons{
-      color: #ffb73e;
-    }
-  }
-  &-meta{
-    &-form {
-      .form-group {
-        padding: 10px;
-      }
-    }
-  }
+	&-body {
+		position: relative;
+		margin-top: 20px;
+		padding-top: 20px;
+		border-top: 3px dashed #f9f9f9;
+
+		.material-icons {
+			vertical-align: text-bottom;
+			color: #ccc;
+		}
+
+		h5 .material-icons {
+			color: #ffb73e;
+		}
+
+		.text-success .material-icons {
+			color: inherit;
+		}
+	}
+
+	&-meta {
+
+		&-form {
+
+			.form-group {
+				padding: 10px;
+			}
+		}
+	}
 }

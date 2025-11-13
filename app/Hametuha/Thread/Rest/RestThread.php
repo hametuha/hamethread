@@ -22,10 +22,10 @@ class RestThread extends RestBase {
 	protected function get_args( $http_method ) {
 		$args = [
 			'thread_id' => [
-				'required' => true,
-				'type' => 'int',
-				'description' => 'Thread ID',
-				'validate_callback' => function( $var ) {
+				'required'          => true,
+				'type'              => 'int',
+				'description'       => 'Thread ID',
+				'validate_callback' => function ( $var ) {
 					return PostType::get_instance()->is_supported( get_post_type( $var ) );
 				},
 			],
@@ -46,8 +46,8 @@ class RestThread extends RestBase {
 	 */
 	protected function handle_post( $request ) {
 		$thread_id = $request->get_param( 'thread_id' );
-		$error = new \WP_Error();
-		$error = apply_filters( 'hamethread_edit_thread_validation', $error, $request, $thread_id );
+		$error     = new \WP_Error();
+		$error     = apply_filters( 'hamethread_edit_thread_validation', $error, $request, $thread_id );
 		if ( $error->get_error_messages() ) {
 			return $error;
 		}
@@ -94,7 +94,7 @@ class RestThread extends RestBase {
 	 */
 	protected function handle_put( $request ) {
 		$thread_id = $request->get_param( 'thread_id' );
-		$response = [
+		$response  = [
 			'url' => get_permalink( $thread_id ),
 		];
 		if ( ThreadModel::is_resolved( $thread_id ) ) {
@@ -115,7 +115,7 @@ class RestThread extends RestBase {
 	 */
 	protected function handle_delete( $request ) {
 		$current_status = get_post_status( $request->get_param( 'thread_id' ) );
-		if ( 'private' == $current_status ) {
+		if ( 'private' === $current_status ) {
 			$new_status = 'publish';
 		} else {
 			$new_status = 'private';
@@ -125,7 +125,7 @@ class RestThread extends RestBase {
 		if ( $error->get_error_messages() ) {
 			return $error;
 		}
-		$args = apply_filters( 'hamethread_archive_thread_post_arg', [
+		$args    = apply_filters( 'hamethread_archive_thread_post_arg', [
 			'ID'          => $request->get_param( 'thread_id' ),
 			'post_status' => $new_status,
 		], $request );

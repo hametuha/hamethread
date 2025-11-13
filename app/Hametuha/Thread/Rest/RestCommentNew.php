@@ -21,10 +21,10 @@ class RestCommentNew extends RestBase {
 	protected function get_args( $http_method ) {
 		$args = [
 			'thread_id' => [
-				'required' => true,
-				'type'     => 'int',
-				'description' => 'Post ID to comment to.',
-				'validate_callback' => function( $var ) {
+				'required'          => true,
+				'type'              => 'int',
+				'description'       => 'Post ID to comment to.',
+				'validate_callback' => function ( $var ) {
 					$post = get_post( $var );
 					if ( ! $post || ! CommentForm::get_instance()->is_supported( $post->post_type ) || ! comments_open( $post ) ) {
 						return new \WP_Error( 'no_permission', __( 'You have no permission to post comment to the specified thread.', 'hamethread' ), [
@@ -36,11 +36,11 @@ class RestCommentNew extends RestBase {
 					}
 				},
 			],
-			'reply_to' => [
-				'default' => 0,
-				'type' => 'int',
-				'description' => 'Comment ID to reply.',
-				'validate_callback' => function( $var, $request ) {
+			'reply_to'  => [
+				'default'           => 0,
+				'type'              => 'int',
+				'description'       => 'Comment ID to reply.',
+				'validate_callback' => function ( $var, $request ) {
 					if ( ! $var ) {
 						return true;
 					}
@@ -59,10 +59,10 @@ class RestCommentNew extends RestBase {
 			case 'POST':
 				$args = array_merge( $args, [
 					'comment_content' => [
-						'required' => true,
-						'type'    => 'string',
-						'description' => 'Comment content.',
-						'validate_callback' => function( $var, \WP_REST_Request $request ) {
+						'required'          => true,
+						'type'              => 'string',
+						'description'       => 'Comment content.',
+						'validate_callback' => function ( $var, \WP_REST_Request $request ) {
 							return ! empty( $var );
 						},
 					],
@@ -82,7 +82,7 @@ class RestCommentNew extends RestBase {
 	public function handle_get( $request ) {
 		$post_id  = $request->get_param( 'thread_id' );
 		$reply_to = $request->get_param( 'reply_to' );
-		$args = [
+		$args     = [
 			'title'    => $reply_to
 				? esc_html( sprintf( __( 'Reply to %s', 'hamethread' ), get_comment_author( $reply_to ) ) )
 				: esc_html__( 'Post comment', 'hamethread' ),
@@ -91,9 +91,9 @@ class RestCommentNew extends RestBase {
 			'comment'  => null,
 			'reply_to' => $reply_to,
 		];
-		$form = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
+		$form     = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
 		return [
-			'html' => $form
+			'html' => $form,
 		];
 	}
 
@@ -105,34 +105,34 @@ class RestCommentNew extends RestBase {
 	 */
 	public function handle_post( $request ) {
 		$post_id = $request->get_param( 'thread_id' );
-		$error = new \WP_Error();
+		$error   = new \WP_Error();
 		if ( RushDetector::is_user_rushing( get_current_user_id() ) ) {
 			$error->add( 'user_is_rushing.', RushDetector::rushing_message( get_current_user_id() ), [
-				'status'   => 403,
+				'status' => 403,
 			] );
 		}
 		$error = apply_filters( 'hamethread_new_comment_validation', $error, $request );
 		if ( $error->get_error_messages() ) {
 			return $error;
 		}
-		$user_data = get_userdata( get_current_user_id() );
+		$user_data     = get_userdata( get_current_user_id() );
 		$comment_param = [
-			'comment_IP'       => isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '',
-			'comment_approved' => 1,
-			'comment_author'   => $user_data->display_name,
+			'comment_IP'           => isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '',
+			'comment_approved'     => 1,
+			'comment_author'       => $user_data->display_name,
 			'comment_author_email' => $user_data->user_email,
 			'comment_author_url'   => $user_data->user_url,
-			'comment_content'  => $request->get_param( 'comment_content' ),
-			'comment_type'     => 'comment',
-			'comment_post_ID'  => $post_id,
-			'user_id'          => get_current_user_id(),
+			'comment_content'      => $request->get_param( 'comment_content' ),
+			'comment_type'         => 'comment',
+			'comment_post_ID'      => $post_id,
+			'user_id'              => get_current_user_id(),
 		];
-		$reply_to = $request->get_param( 'reply_to' );
+		$reply_to      = $request->get_param( 'reply_to' );
 		if ( $reply_to ) {
 			$comment_param['comment_parent'] = $reply_to;
 		}
 		$comment_param = apply_filters( 'hamethread_new_comment_params', $comment_param, $request );
-		$comment_id = wp_insert_comment( $comment_param );
+		$comment_id    = wp_insert_comment( $comment_param );
 		if ( ! $comment_id ) {
 			return new \WP_Error( 'failed_insert_comment', __( 'Sorry, but failed to insert comment.', 'hamethread' ) );
 		}
@@ -148,7 +148,7 @@ class RestCommentNew extends RestBase {
 		 * @param \WP_REST_Request $request
 		 */
 		do_action( 'hamethread_new_comment_inserted', $comment_id, $comment_param, $request );
-		$comment = new CommentModel( $comment_id );
+		$comment  = new CommentModel( $comment_id );
 		$response = new \WP_REST_Response( $comment->to_array() );
 		$response->set_headers( [
 			sprintf( 'X-WP-COMMENT-COUNT: %d', get_comment_count( $post_id ) ),

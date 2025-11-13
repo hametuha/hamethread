@@ -26,7 +26,7 @@ class PostType extends Singleton {
 		add_filter( 'manage_thread_posts_columns', [ $this, 'manage_columns' ] );
 		add_action( 'manage_thread_posts_custom_column', [ $this, 'do_custom_column' ], 10, 2 );
 		// Avoid block editor.
-		add_filter( 'use_block_editor_for_post_type', function( $use_block_editor, $post_type ) {
+		add_filter( 'use_block_editor_for_post_type', function ( $use_block_editor, $post_type ) {
 			if ( 'thread' === $post_type ) {
 				$use_block_editor = false;
 			}
@@ -49,12 +49,12 @@ class PostType extends Singleton {
 			'has_archive'     => true,
 			'capability_type' => 'post',
 			'rewrite'         => [ 'slug' => 'thread' ],
-			'show_ui'         => current_user_can('edit_others_posts'),
+			'show_ui'         => current_user_can( 'edit_others_posts' ),
 			'can_export'      => false,
 			'show_in_rest'    => false,
 		];
 		$args = apply_filters( 'hamethread_post_setting', $args );
-		register_post_type($this->post_type, $args );
+		register_post_type( $this->post_type, $args );
 	}
 
 	/**
@@ -64,16 +64,16 @@ class PostType extends Singleton {
 		// Thread category.
 		$args = [
 			'hierarchical'      => false,
-			'show_ui'           => current_user_can('edit_others_posts'),
+			'show_ui'           => current_user_can( 'edit_others_posts' ),
 			'query_var'         => true,
-			'rewrite'           => ['slug' => 'topic'],
+			'rewrite'           => [ 'slug' => 'topic' ],
 			'label'             => __( 'Topic', 'hamethread' ),
 			'show_admin_column' => true,
 		];
 		$args = apply_filters( 'hamethread_taxonomy_setting', $args );
-		register_taxonomy($this->taxonomy, [ $this->post_type ], $args );
+		register_taxonomy( $this->taxonomy, [ $this->post_type ], $args );
 	}
-	
+
 	/**
 	 * Save resolver
 	 *
@@ -86,14 +86,13 @@ class PostType extends Singleton {
 		}
 		$current   = hamethread_is_resolved( $post );
 		$new_value = (bool) filter_input( INPUT_POST, 'hamethread-resolved' );
-		if ( $current == $new_value) {
+		if ( $current === $new_value ) {
 			// No change.
 			return;
 		}
-		
 	}
-	
-	
+
+
 	/**
 	 * Render post submit box
 	 *
@@ -107,13 +106,13 @@ class PostType extends Singleton {
 		?>
 		<div class="misc-pub-section misc-pub-resolved">
 			<label>
-				<input type="checkbox" name="hamethread-resolved" value="1" <?php checked( hamethread_is_resolved( $post ) ) ?> />
-				<span><?php esc_html_e( 'This thread is resolved', 'hamethread' ) ?></span>
+				<input type="checkbox" name="hamethread-resolved" value="1" <?php checked( hamethread_is_resolved( $post ) ); ?> />
+				<span><?php esc_html_e( 'This thread is resolved', 'hamethread' ); ?></span>
 			</label>
 		</div>
 		<?php
 	}
-	
+
 	/**
 	 * Add columns
 	 *
@@ -125,12 +124,12 @@ class PostType extends Singleton {
 		foreach ( $columns as $col => $label ) {
 			$new_columns[ $col ] = $label;
 			if ( 'title' === $col ) {
-				$new_columns[ 'parent' ] = __( 'Parent', 'hamethread' );
+				$new_columns['parent'] = __( 'Parent', 'hamethread' );
 			}
 		}
 		return $new_columns;
 	}
-	
+
 	/**
 	 * Render column
 	 *
@@ -178,5 +177,4 @@ class PostType extends Singleton {
 				break;
 		}
 	}
-
 }

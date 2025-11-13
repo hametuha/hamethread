@@ -7,7 +7,7 @@
 /** @var bool   $private */
 
 $attr = wp_parse_args( $attr, [
-	'class'  => 'primary-button btn btn-primary btn-block',
+	'class'  => 'primary-button btn btn-primary',
 	'prefix' => '',
 ] );
 ?>

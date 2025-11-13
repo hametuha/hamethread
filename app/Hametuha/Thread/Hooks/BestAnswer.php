@@ -43,7 +43,7 @@ class BestAnswer extends Singleton {
 					$caps = [ 'do_not_allow' ];
 					break;
 				}
-				if ( $user_id == $thread->post_author ) {
+				if ( $user_id === (int) $thread->post_author ) {
 					$caps = [ 'edit_posts' ];
 				} else {
 					$caps = [ 'edit_others_posts' ];
@@ -103,17 +103,19 @@ class BestAnswer extends Singleton {
 				return $actions;
 			}
 		}
-		$method = $toggle ? 'DELETE' : 'POST';
-		$action = sprintf( 'best-answer/%d', $comment->comment_ID );
-		$label  = $toggle ? __( 'Cancel Best Answer', 'hamethread' ) : __( 'Best Answer', 'hamethread' );
-		$icon   = $toggle ? 'times-circle' : 'star';
-		$actions = array_merge( [ 'ba' => sprintf(
-			'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s"><i class="fa fa-%s"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
-			esc_attr( $action ),
-			esc_attr( $method ),
-			$icon,
-			esc_html( $label )
-		) ], $actions );
+		$method  = $toggle ? 'DELETE' : 'POST';
+		$action  = sprintf( 'best-answer/%d', $comment->comment_ID );
+		$label   = $toggle ? __( 'Cancel Best Answer', 'hamethread' ) : __( 'Best Answer', 'hamethread' );
+		$icon    = $toggle ? 'times-circle' : 'star';
+		$actions = array_merge( [
+			'ba' => sprintf(
+				'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s"><i class="fa fa-%s"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
+				esc_attr( $action ),
+				esc_attr( $method ),
+				$icon,
+				esc_html( $label )
+			),
+		], $actions );
 		return $actions;
 	}
 

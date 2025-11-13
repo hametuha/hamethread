@@ -21,14 +21,7 @@ class ThreadEditor extends AbstractUI {
 		parent::init();
 		add_filter( 'the_content', [ $this, 'display_controllers' ] );
 	}
-	
-	/**
-	 * Register scripts
-	 */
-	public function register_script() {
-		wp_register_script( 'hamethread-thread', hamethread_asset_url() . '/js/hamethread-thread.js', ['hamethread'], hamethread_version(), true );
-	}
-	
+
 	/**
 	 * Detect if controllers should be display.
 	 *
@@ -51,7 +44,7 @@ class ThreadEditor extends AbstractUI {
 			return $content;
 		}
 		$controller = $this->get_editor_controllers();
-		$position = $this->controller_position;
+		$position   = $this->controller_position;
 		switch ( $position ) {
 			case 'bottom':
 				$content .= $controller;
