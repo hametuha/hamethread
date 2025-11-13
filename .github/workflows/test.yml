@@ -46,7 +46,7 @@ jobs:
   status-check:
     name: Status Check
     runs-on: ubuntu-latest
-    needs: [ lint, test ]
+    needs: [ lint, test, assets ]
     if: always()
     steps:
       - uses: re-actors/alls-green@release/v1
