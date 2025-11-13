@@ -14,7 +14,8 @@ class TestSubscription extends WP_UnitTestCase {
 	/**
 	 * Create therad.
 	 */
-	public function setUp() {
+	public function setUp(): void {
+		parent::setUp();
 		$this->thread = wp_insert_post( [
 			'post_title'   => 'Test Thread',
 			'post_content' => 'This thread is new and clean.',
