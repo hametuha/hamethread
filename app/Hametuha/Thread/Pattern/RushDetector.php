@@ -45,7 +45,7 @@ class RushDetector {
 	public static function is_user_rushing( $user_id ) {
 		$activities = (array) get_user_meta( $user_id, 'hamethread_activity' );
 		$condition  = self::get_rushing_condition( $user_id );
-		$old        = current_time( 'timestamp' ) - $condition['minutes'] * 60;
+		$old        = time() - $condition['minutes'] * 60;
 		$activities = array_filter( $activities, function ( $time ) use ( $old ) {
 			// Drop old one.
 			return $old < $time;
@@ -62,7 +62,7 @@ class RushDetector {
 	public static function record_rush_time( $user_id ) {
 		// Save time.
 		$activities   = (array) get_user_meta( $user_id, 'hamethread_activity' );
-		$activities[] = current_time( 'timestamp' );
+		$activities[] = time();
 		$condition    = self::get_rushing_condition( $user_id );
 		$activities   = array_slice( $activities, -1 * $condition['limit'], $condition['limit'] );
 		update_user_meta( $user_id, 'hamethread_activity', $activities );

@@ -115,7 +115,7 @@ class RestThread extends RestBase {
 	 */
 	protected function handle_delete( $request ) {
 		$current_status = get_post_status( $request->get_param( 'thread_id' ) );
-		if ( 'private' == $current_status ) {
+		if ( 'private' === $current_status ) {
 			$new_status = 'publish';
 		} else {
 			$new_status = 'private';

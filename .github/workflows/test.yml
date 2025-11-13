@@ -23,6 +23,26 @@ jobs:
     with:
       version: 7.4
 
+  assets:
+    name: Assets Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM Packages
+        run: npm install
+
+      - name: Check JS & CSS syntax
+        run: npm run lint
+
+      - name: Build Succeed
+        run: npm run build
+
   status-check:
     name: Status Check
     runs-on: ubuntu-latest

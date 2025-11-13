@@ -30,7 +30,11 @@ class StructuredData extends Singleton {
 			return;
 		}
 		$json = $this->get_json( get_queried_object() );
-		if ( ! $json || ! ( $json = json_encode( $json ) ) ) {
+		if ( ! $json ) {
+			return;
+		}
+		$json = json_encode( $json );
+		if ( ! $json ) {
 			return;
 		}
 		echo <<<HTML

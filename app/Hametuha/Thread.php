@@ -52,21 +52,21 @@ class Thread extends Singleton {
 		$dependencies = json_decode( file_get_contents( $json ), true );
 		if ( $dependencies ) {
 			foreach ( $dependencies as $dependency ) {
-				if ( empty( $dependency['path']) ) {
+				if ( empty( $dependency['path'] ) ) {
 					continue;
 				}
-				switch ( $dependency[ 'ext' ] ) {
+				switch ( $dependency['ext'] ) {
 					case 'js':
 						$footer = [
-							'in_footer' => $dependency[ 'footer' ],
+							'in_footer' => $dependency['footer'],
 						];
-						if ( ! empty( $dependency[ 'strategy' ] ) ) {
-							$footer[ 'strategy' ] = $dependency[ 'strategy' ];
+						if ( ! empty( $dependency['strategy'] ) ) {
+							$footer['strategy'] = $dependency['strategy'];
 						}
-						wp_register_script( $dependency[ 'handle' ], hamethread_asset_url( $dependency[ 'path' ] ), $dependency[ 'deps' ], $dependency[ 'hash' ], $footer );
+						wp_register_script( $dependency['handle'], hamethread_asset_url( $dependency['path'] ), $dependency['deps'], $dependency['hash'], $footer );
 						break;
 					case 'css':
-						wp_register_style( $dependency[ 'handle' ], hamethread_asset_url( $dependency[ 'path' ] ), $dependency[ 'deps' ], $dependency[ 'hash' ], $dependency[ 'media' ] );
+						wp_register_style( $dependency['handle'], hamethread_asset_url( $dependency['path'] ), $dependency['deps'], $dependency['hash'], $dependency['media'] );
 						break;
 				}
 			}

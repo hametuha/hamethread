@@ -86,7 +86,7 @@ class PostType extends Singleton {
 		}
 		$current   = hamethread_is_resolved( $post );
 		$new_value = (bool) filter_input( INPUT_POST, 'hamethread-resolved' );
-		if ( $current == $new_value ) {
+		if ( $current === $new_value ) {
 			// No change.
 			return;
 		}

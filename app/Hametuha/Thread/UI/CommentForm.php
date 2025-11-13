@@ -30,7 +30,7 @@ class CommentForm extends AbstractUI {
 	public function is_supported( $post_type ) {
 		if ( ! PostType::get_instance()->is_supported( $post_type ) ) {
 			$post_types = apply_filters( 'hamethread_dynamic_comment_post_types', [] );
-			if ( ! in_array( $post_type, $post_types ) ) {
+			if ( ! in_array( $post_type, $post_types, true ) ) {
 				return false;
 			}
 		}
@@ -103,7 +103,7 @@ class CommentForm extends AbstractUI {
 	 */
 	public function user_can_edit_comment( $comment ) {
 		$comment = get_comment( $comment );
-		if ( $comment->user_id == get_current_user_id() ) {
+		if ( get_current_user_id() === $comment->user_id ) {
 			// Comment owner
 			$can = true;
 		} elseif ( current_user_can( 'moderate_comments' ) ) {

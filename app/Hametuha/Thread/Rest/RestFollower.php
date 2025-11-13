@@ -65,7 +65,7 @@ class RestFollower extends RestBase {
 		$thread_id   = $request->get_param( 'thread_id' );
 		$subscribers = $this->notification->get_subscribers( $thread_id );
 		return new \WP_REST_Response( [
-			'subscribing' => in_array( $user_id, $subscribers ),
+			'subscribing' => in_array( $user_id, $subscribers, true ),
 		] );
 	}
 

@@ -43,7 +43,7 @@ class Command extends \WP_CLI_Command {
 		\WP_CLI::success( sprintf(
 			__( '%1$s will be automatically closed %2$s', 'hamethread' ),
 			sprintf( _n( '%d thread', '%d threads', count( $posts ), 'hamethread' ), count( $posts ) ),
-			$diff ? sprintf( _x( 'in %d day', 'in %d days', $diff, 'hamethread' ), count( $posts ) ) : __( 'just now', 'hamethread' )
+			$diff ? sprintf( _n( 'in %d day', 'in %d days', $diff, 'hamethread' ), $diff ) : __( 'just now', 'hamethread' )
 		) );
 	}
 

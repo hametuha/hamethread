@@ -17,7 +17,7 @@ use Hametuha\Thread\Hooks\BestAnswer;
  */
 function hamethread_file_path( $name, $slug = '' ) {
 	$existing_path = '';
-	$files = [ $name . '.php' ];
+	$files         = [ $name . '.php' ];
 	if ( $slug ) {
 		$files[] = "{$name}-{$slug}.php";
 	}
@@ -56,9 +56,10 @@ function hamethread_template( $name, $slug = '', $echo = true, $args = [], $defa
 	// Extract args.
 	$args = array_merge( $default, $args );
 	if ( $args ) {
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $args );
 	}
-	if ( ! $echo  ) {
+	if ( ! $echo ) {
 		ob_start();
 		include $existing_path;
 		$content = ob_get_contents();
@@ -87,10 +88,10 @@ function hamethread_post_type() {
  */
 function hamethread_recently_commented( $offset = 7, $post = null ) {
 	$latest_date = hamethread_get_latest_comment_date( $post );
-	if ( !$latest_date ) {
+	if ( ! $latest_date ) {
 		return false;
 	}
-	return (boolean) ( ( time() - strtotime( $latest_date ) ) < 60 * 60 * 24 * $offset );
+	return (bool) ( ( time() - strtotime( $latest_date ) ) < 60 * 60 * 24 * $offset );
 }
 
 /**
@@ -105,6 +106,7 @@ function hamethread_get_author_thread_count( $user_id ) {
 	$sql = <<<EOS
 		SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s AND post_status = 'publish'
 EOS;
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $sql, $user_id, hamethread_post_type() ) );
 }
 
@@ -118,11 +120,12 @@ EOS;
 function hamethread_get_latest_comment_date( $post = null ) {
 	global $wpdb;
 	$post = get_post( $post );
-	$sql = <<<EOS
+	$sql  = <<<EOS
 		SELECT comment_date FROM {$wpdb->comments}
 		WHERE comment_post_ID = %d
 		LIMIT 1
 EOS;
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return $wpdb->get_var( $wpdb->prepare( $sql, $post->ID ) );
 }
 
@@ -141,6 +144,7 @@ function hamethread_get_author_response_count( $user_id ) {
 		ON c.comment_post_ID = p.ID
 		WHERE p.post_type = 'thread' AND c.user_id = %d
 EOS;
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
 }
 
@@ -262,7 +266,7 @@ function hamethread_edit_logs( $post = null ) {
  */
 function hamethread_current_user_can_comment( $post = null ) {
 	$can = is_user_logged_in();
-	return apply_filters( 'hamethread_user_can_comment', $can, $post  );
+	return apply_filters( 'hamethread_user_can_comment', $can, $post );
 }
 
 /**
@@ -272,7 +276,7 @@ function hamethread_current_user_can_comment( $post = null ) {
  * @return array
  */
 function hamethread_comment_actions( $comment ) {
-	$post = get_post( $comment->comment_post_ID );
+	$post    = get_post( $comment->comment_post_ID );
 	$actions = [];
 
 	// スレッドが開いている場合のみ返信ボタンを表示
@@ -287,7 +291,7 @@ function hamethread_comment_actions( $comment ) {
 
 	$actions['upvote'] = sprintf(
 		'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="fa fa-thumbs-up"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
-		\Hametuha\Thread\Rest\RestVote::get_instance()->is_voted( $comment->comment_ID, get_current_user_id() ) ? ' active' : '' ,
+		\Hametuha\Thread\Rest\RestVote::get_instance()->is_voted( $comment->comment_ID, get_current_user_id() ) ? ' active' : '',
 		$comment->comment_ID,
 		esc_html__( 'Upvote', 'hamethread' )
 	);
@@ -303,8 +307,8 @@ function hamethread_comment_actions( $comment ) {
  */
 function hamethread_is_edited( $comment ) {
 	$comment = get_comment( $comment );
-	$metas = get_comment_meta( $comment->comment_ID, '_comment_diff' );
-	usort( $metas, function( $a, $b ) {
+	$metas   = get_comment_meta( $comment->comment_ID, '_comment_diff' );
+	usort( $metas, function ( $a, $b ) {
 		if ( $a['updated'] === $b['updated'] ) {
 			return 0;
 		} else {
@@ -323,8 +327,8 @@ function hamethread_is_edited( $comment ) {
  */
 function hamethread_commentor_label( $comment ) {
 	static $loaded = false;
-	$user = get_userdata( $comment->user_id );
-	$label = '';
+	$user          = get_userdata( $comment->user_id );
+	$label         = '';
 	if ( $user ) {
 		global $wp_roles;
 		$role = current( $user->roles );
@@ -393,7 +397,7 @@ function hamethread_comment_links() {
 		'type' => 'array',
 	] );
 	if ( $link ) {
-		$link = array_map( function( $l ) {
+		$link = array_map( function ( $l ) {
 			$classes = [ 'page-item' ];
 			if ( false !== strpos( $l, 'current' ) ) {
 				$classes[] = 'active';
@@ -432,6 +436,7 @@ function hamethread_upvote_count( $post = null ) {
 		WHERE cm.meta_key = '_user_upvote'
 		  AND c.comment_post_ID = %d
 SQL;
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $post->ID ) );
 }
 
@@ -449,7 +454,7 @@ function hamethread_comment_upvoted_count( $comment = null ) {
 		WHERE comment_id = %d
 		  AND meta_key   = '_user_upvote'
 SQL;
-
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $comment->comment_ID ) );
 }
 

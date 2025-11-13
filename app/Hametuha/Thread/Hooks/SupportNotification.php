@@ -12,7 +12,7 @@ use Hametuha\Thread;
  * @package Hametuha\Thread\Hooks
  */
 class SupportNotification extends Singleton {
-	
+
 	/**
 	 * Register hooks.
 	 */
@@ -20,7 +20,7 @@ class SupportNotification extends Singleton {
 		add_action( 'hamethread_new_comment_inserted', [ $this, 'new_comment_created' ], 10, 3 );
 		add_action( 'hamethread_automatically_closed', [ $this, 'auto_close_notification' ], 10, 2 );
 	}
-	
+
 	/**
 	 * Send notification if comment created.
 	 *
@@ -32,7 +32,7 @@ class SupportNotification extends Singleton {
 	 */
 	public function new_comment_created( $comment_id, $comment_param, $request ) {
 		$comment = get_comment( $comment_id );
-		$users = $this->get_notify_to( $comment );
+		$users   = $this->get_notify_to( $comment );
 		if ( ! $users ) {
 			// No user, do nothing.
 			return;
@@ -49,10 +49,14 @@ class SupportNotification extends Singleton {
 		 * @param string      $subject
 		 * @param \WP_Comment $comment
 		 */
-		$subject = apply_filters( 'hamethread_notification_title', sprintf(
-			__( '%s - A new comment is posted to your subscribing thread.', 'hamethread' ), // translator: %s is site title.
-			get_bloginfo( 'name' ) ),
-		$comment );
+		$subject = apply_filters(
+			'hamethread_notification_title',
+			sprintf(
+				__( '%s - A new comment is posted to your subscribing thread.', 'hamethread' ), // translator: %s is site title.
+				get_bloginfo( 'name' )
+			),
+			$comment
+		);
 
 		// translators: %1$s is user name, %2$s is comment author, %3$s is thread title, %4$s is URL of thread.
 		$body = __( 'Dear %1$s,
@@ -93,12 +97,19 @@ To change notification setting, please go to thread page.
 				'%3$s' => $thread_title,
 				'%4$s' => $thread_url,
 				'%5$s' => $comment->comment_content,
-					  ] as $str => $replaced ) {
+			] as $str => $replaced ) {
 				$body = str_replace( $str, $replaced, $body );
 			}
-			hamail_simple_mail( array_map( function( \WP_User $user ) {
-				return $user->ID;
-			}, $users ), $subject, $body );
+			hamail_simple_mail(
+				array_map(
+					function ( \WP_User $user ) {
+						return $user->ID;
+					},
+					$users
+				),
+				$subject,
+				$body
+			);
 		} else {
 			// Send notification email 1 by 1.
 			foreach ( $users as $user ) {
@@ -116,7 +127,7 @@ To change notification setting, please go to thread page.
 	 * @return \WP_User[]
 	 */
 	public function get_notify_to( $comment ) {
-		$comment = get_comment( $comment );
+		$comment     = get_comment( $comment );
 		$subscribers = $this->get_subscribers( $comment->comment_post_ID );
 		// If this is reply, add comment parent.
 		if ( $comment->comment_parent ) {
@@ -128,9 +139,12 @@ To change notification setting, please go to thread page.
 		}
 		// Filter commenter ID.
 		$commenter_id = $comment->user_id;
-		$subscribers = array_filter( $subscribers, function( $user_id ) use ( $commenter_id ) {
-			return $user_id != $commenter_id;
-		} );
+		$subscribers  = array_filter(
+			$subscribers,
+			function ( $user_id ) use ( $commenter_id ) {
+				return $commenter_id !== $user_id;
+			}
+		);
 		if ( ! $subscribers ) {
 			return [];
 		} else {
@@ -141,7 +155,7 @@ To change notification setting, please go to thread page.
 			return $query->get_results();
 		}
 	}
-	
+
 	/**
 	 * Send notification if thread is automatically closed.
 	 *
@@ -153,7 +167,7 @@ To change notification setting, please go to thread page.
 			// Do nothing.
 			return;
 		}
-		$users = [
+		$users       = [
 			$post->post_author => new \WP_User( $post->post_author ),
 		];
 		$subscribers = $this->get_subscribers( $post );
@@ -168,7 +182,7 @@ To change notification setting, please go to thread page.
 			$post->ID
 		), $post, $already_closed );
 		// translator: %1$s is user name, %2$s is date passed, %3$s is title, %4$s is URL.
-		$body = __( 'Dear %1$s,
+		$body     = __( 'Dear %1$s,
 
 Since %2$s been passed from last comment,
 The thread you are subscribing has been closed.
@@ -177,15 +191,22 @@ The thread you are subscribing has been closed.
 URL: %4$s
 
 ', 'hamethread' );
-		$title  = get_the_title( $post );
-		$url    = get_permalink( $post );
+		$title    = get_the_title( $post );
+		$url      = get_permalink( $post );
 		$duration = AutoClose::get_instance()->get_duration( $post->ID );
-		$passed = sprintf( _n( '%d day has', '%d days have', $duration, 'hamethread' ), $duration );
-		$body = sprintf( $body, '-name-', $passed, $title, $url );
+		$passed   = sprintf( _n( '%d day has', '%d days have', $duration, 'hamethread' ), $duration );
+		$body     = sprintf( $body, '-name-', $passed, $title, $url );
 		if ( function_exists( 'hamail_simple_mail' ) ) {
-			hamail_simple_mail( array_map( function( \WP_User $user ) {
-				return $user->ID;
-			}, $users ), $subject, $body );
+			hamail_simple_mail(
+				array_map(
+					function ( \WP_User $user ) {
+						return $user->ID;
+					},
+					$users
+				),
+				$subject,
+				$body
+			);
 		} else {
 			foreach ( $users as $user ) {
 				wp_mail( $user->user_email, $subject, str_replace( '-name-', $user->display_name, $body ) );
@@ -200,11 +221,16 @@ URL: %4$s
 	 * @return int[]
 	 */
 	public function get_subscribers( $post = null ) {
-		$post = get_post( $post );
-		$subscribers = array_filter( array_map( function( $var ) {
-			$user_id = trim( $var );
-			return is_numeric( $user_id ) ? (int) $user_id : '';
-		}, explode( ',', (string) get_post_meta( $post->ID, '_hamethread_subscribers', true ) ) ) );
+		$post        = get_post( $post );
+		$subscribers = array_filter(
+			array_map(
+				function ( $var ) {
+					$user_id = trim( $var );
+					return is_numeric( $user_id ) ? (int) $user_id : '';
+				},
+				explode( ',', (string) get_post_meta( $post->ID, '_hamethread_subscribers', true ) )
+			)
+		);
 		/**
 		 * hamethread_subscribers
 		 *
@@ -236,7 +262,7 @@ URL: %4$s
 			] );
 		}
 		$subscribers = $this->get_subscribers( $thread );
-		if ( in_array( $user_id, $subscribers ) ) {
+		if ( in_array( $user_id, $subscribers, true ) ) {
 			return new \WP_Error( 'already_subscribed', __( 'Already subscribing this thread.', 'hamethread' ), [
 				'response' => 400,
 				'status'   => 400,
@@ -267,7 +293,7 @@ URL: %4$s
 			] );
 		}
 		$subscribers = $this->get_subscribers( $thread );
-		if ( ! in_array( $user_id, $subscribers ) ) {
+		if ( ! in_array( $user_id, $subscribers, true ) ) {
 			return new \WP_Error( 'not_in_list', __( 'Not in the list of subscribers.', 'hamethread' ), [
 				'response' => 404,
 				'status'   => 404,
@@ -275,7 +301,7 @@ URL: %4$s
 		}
 		$filtered = [];
 		foreach ( $subscribers as $id ) {
-			if ( $id == $user_id ) {
+			if ( $user_id === $id ) {
 				continue;
 			}
 			$filtered[] = $id;

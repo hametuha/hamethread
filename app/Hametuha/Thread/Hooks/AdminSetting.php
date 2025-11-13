@@ -63,7 +63,7 @@ class AdminSetting extends Singleton {
 			<label style="display: inline-block; margin: 0 10px 10px 0;">
 				<input name="<?php echo esc_attr( $key ); ?>[]" type="checkbox"
 						value="<?php echo esc_attr( $post_type->name ); ?>"
-					<?php checked( in_array( $post_type->name, (array) get_option( $key, [] ) ) ); ?> />
+					<?php checked( in_array( $post_type->name, (array) get_option( $key, [] ), true ) ); ?> />
 				<?php echo esc_html( $post_type->label ); ?>
 			</label>
 			<?php endforeach; ?>

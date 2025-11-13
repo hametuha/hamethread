@@ -43,7 +43,7 @@ class BestAnswer extends Singleton {
 					$caps = [ 'do_not_allow' ];
 					break;
 				}
-				if ( $user_id == $thread->post_author ) {
+				if ( $user_id === (int) $thread->post_author ) {
 					$caps = [ 'edit_posts' ];
 				} else {
 					$caps = [ 'edit_others_posts' ];

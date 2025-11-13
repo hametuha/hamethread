@@ -85,7 +85,7 @@ class ThreadModel {
 	 */
 	public static function can_edit( $user_id, $post ) {
 		$post = get_post( $post );
-		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( (int) $post->post_author === $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
 	}
 
@@ -98,7 +98,7 @@ class ThreadModel {
 	 */
 	public static function can_archive( $user_id, $post ) {
 		$post = get_post( $post );
-		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( (int) $post->post_author === $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_archive_post', $can, $user_id, $post );
 	}
 
@@ -126,7 +126,7 @@ class ThreadModel {
 	 */
 	public static function can_resolve( $user_id, $post ) {
 		$post = get_post( $post );
-		$can  = ( $post->post_author == $user_id ) || user_can( $user_id, 'edit_others_posts' );
+		$can  = ( (int) $post->post_author === $user_id ) || user_can( $user_id, 'edit_others_posts' );
 		return (bool) apply_filters( 'hamethread_user_can_resolve_post', $can, $user_id, $post );
 	}
 
