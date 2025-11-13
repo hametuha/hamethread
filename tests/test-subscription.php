@@ -4,7 +4,7 @@
  */
 
 
-class TestSubscription extends WP_UnitTestCase {
+class Test_Subscription extends WP_UnitTestCase {
 
 	/**
 	 * @var WP_Post Post for test.
