@@ -27,7 +27,7 @@ W.I.P
 
 ### 1.2.0
 
-* Bump minimum version.
+* Bump minimum PHP version to 7.4.
 
 ### 1.1.0
 
