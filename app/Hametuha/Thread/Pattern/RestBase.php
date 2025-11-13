@@ -3,10 +3,10 @@
 namespace Hametuha\Thread\Pattern;
 
 
-use Hametuha\Pattern\RestApi;
+use \Hametuha\RestPattern\RestApiBase;
 use Hametuha\Thread\Hooks\PostType;
 
-abstract class RestBase extends RestApi {
+abstract class RestBase extends RestApiBase {
 
 	protected $namespace = 'hamethread';
 
