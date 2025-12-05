@@ -198,6 +198,22 @@ $small-screen: 480px;
 			text-decoration: underline;
 		}
 	}
+
+	&-default {
+		color: #333;
+		background-color: #fff;
+		border-color: #ccc;
+
+		&:hover {
+			background-color: #e6e6e6;
+			border-color: #adadad;
+		}
+	}
+}
+
+// Utilities
+.hamethread-text-muted {
+	color: #6c757d;
 }
 
 // Badge
@@ -630,5 +646,64 @@ ul.children ul.children {
 			}
 		}
 	}
+}
 
+// My Threads (WooCommerce)
+.hamethread-my-threads {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	&-item {
+		padding: 1em;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		margin-bottom: 0.5em;
+		background: #fff;
+	}
+
+	&-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1em;
+	}
+
+	&-title {
+		margin: 0 0 0.5em;
+		font-size: 1.1em;
+
+		.dashicons {
+			color: #999;
+			margin-right: 0.25em;
+		}
+	}
+
+	&-date {
+		color: #6c757d;
+		white-space: nowrap;
+	}
+
+	&-meta {
+		margin: 0 0 0.5em;
+		color: #666;
+
+		.dashicons {
+			font-size: 1em;
+			width: 1em;
+			height: 1em;
+			vertical-align: middle;
+		}
+	}
+
+	&-updated {
+		color: #6c757d;
+
+		.dashicons {
+			font-size: 1em;
+			width: 1em;
+			height: 1em;
+			vertical-align: middle;
+		}
+	}
 }
