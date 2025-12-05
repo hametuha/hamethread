@@ -155,8 +155,8 @@ $( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
 	const method = $button.attr( 'data-method' );
 	const message =
 		'POST' === method
-			? HameThreadComment.chooseBa
-			: HameThreadComment.cancelBa;
+			? __( 'Are you sure to choose this comment as the best answer?', 'hamethread' )
+			: __( 'Are you sure to unmark the best answer?', 'hamethread' );
 	if ( ! window.confirm( message ) ) {
 		return;
 	}
@@ -179,7 +179,7 @@ $( document ).on(
 	'a[data-hamethread="comment-delete"]',
 	function ( e ) {
 		e.preventDefault();
-		if ( ! confirm( HameThreadComment.confirm ) ) {
+		if ( ! confirm( __( 'Are you sure to delete comment?', 'hamethread' ) ) ) {
 			return false;
 		}
 		const $comment = $( this ).closest(

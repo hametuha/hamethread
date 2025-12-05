@@ -39,8 +39,8 @@ function hamethread_init() {
 		require __DIR__ . '/vendor/autoload.php';
 		\Hametuha\Thread::get_instance();
 		// Initialize Hashboard in local environment.
-		if ( 'local' === wp_get_environment_type() && class_exists( 'Hametuha\Hashboard' ) ) {
-			\Hametuha\Hashboard::get_instance();
+		if ( file_exists( __DIR__ . '/tests/hashboard-local.php' ) ) {
+			require_once __DIR__ . '/tests/hashboard-local.php';
 		}
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );

@@ -3,7 +3,7 @@
 	<div class="hamethread-form-container">
 
 		<h2 class="hamethread-form-title">
-			<?php echo $title; ?>
+			<?php echo esc_html( $title ); ?>
 		</h2>
 
 		<?php if ( ! empty( $parent_comment ) ) : ?>

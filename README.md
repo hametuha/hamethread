@@ -15,6 +15,10 @@ Form plugin for hametuha.
 
 W.I.P
 
+### Customization
+
+W.I.P
+
 ##  Installation
 
 W.I.P

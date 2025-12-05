@@ -143,7 +143,7 @@ function hamethread_post_type() {
 }
 
 /**
- * Is comment recently editted.
+ * Is comment recently edited.
  *
  * @param int $offset Initial value 7
  * @param object $post

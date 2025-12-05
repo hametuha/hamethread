@@ -106,13 +106,13 @@ class BestAnswer extends Singleton {
 		$method  = $toggle ? 'DELETE' : 'POST';
 		$action  = sprintf( 'best-answer/%d', $comment->comment_ID );
 		$label   = $toggle ? __( 'Cancel Best Answer', 'hamethread' ) : __( 'Best Answer', 'hamethread' );
-		$icon    = $toggle ? 'times-circle' : 'star';
+		$icon    = $toggle ? 'dissmiss' : 'star-empty';
 		$actions = array_merge( [
 			'ba' => sprintf(
-				'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s"><i class="fa fa-%s"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
+				'<button class="hamethread-ba-toggle" data-path="%s" data-method="%s">%s <span class="hamethread-comment-actions-label">%s</span></button>',
 				esc_attr( $action ),
 				esc_attr( $method ),
-				$icon,
+				hamethread_icon( $icon ),
 				esc_html( $label )
 			),
 		], $actions );
