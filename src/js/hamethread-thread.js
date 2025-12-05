@@ -10,6 +10,42 @@
 	'use strict';
 
 	//
+	// Dropdown toggle for thread controller
+	//
+	$( document ).on( 'click', '.hamethread-controller-toggle', function ( e ) {
+		e.preventDefault();
+		e.stopPropagation();
+		const $toggle = $( this );
+		const $menu = $toggle.siblings( '.hamethread-controller-menu' );
+		const isOpen = $menu.hasClass( 'is-open' );
+
+		// Close all other open menus first
+		$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
+		$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' );
+
+		if ( ! isOpen ) {
+			$menu.addClass( 'is-open' );
+			$toggle.attr( 'aria-expanded', 'true' );
+		}
+	} );
+
+	// Close dropdown when clicking outside
+	$( document ).on( 'click', function ( e ) {
+		if ( ! $( e.target ).closest( '.hamethread-controller-dropdown' ).length ) {
+			$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
+			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' );
+		}
+	} );
+
+	// Close dropdown on Escape key
+	$( document ).on( 'keydown', function ( e ) {
+		if ( e.key === 'Escape' ) {
+			$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
+			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' ).focus();
+		}
+	} );
+
+	//
 	// Call form button
 	//
 	$( document ).on(

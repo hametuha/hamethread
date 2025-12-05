@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+/*!
+ * Hamethread main styles
+ *
+ * @handle hamethread
+ * @deps dashicons
+ */
+
 $small-screen: 480px;
 
 .hamethread-form {
@@ -290,19 +297,89 @@ ul.children ul.children {
 }
 
 .hamethread-controller {
+	display: flex;
+	justify-content: flex-end;
 
-	.btn-group {
-		float: right;
+	&-dropdown {
+		position: relative;
+		display: inline-block;
+	}
 
-		.btn-link {
-			color: #ccc;
-			text-decoration: none;
-			transition: color 0.3s linear, transform 0.3s linear;
-			transform: rotate(0deg);
+	&-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: none;
+		background: transparent;
+		color: #999;
+		cursor: pointer;
+		border-radius: 4px;
+		transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 
-			&:hover {
-				color: #888;
+		&:hover,
+		&:focus {
+			color: #333;
+			background-color: rgba(0, 0, 0, 0.05);
+			outline: none;
+		}
+
+		&[aria-expanded="true"] {
+			color: #333;
+			background-color: rgba(0, 0, 0, 0.1);
+
+			.dashicons {
 				transform: rotate(90deg);
+			}
+		}
+
+		.dashicons {
+			font-size: 20px;
+			width: 20px;
+			height: 20px;
+			transition: transform 0.2s ease;
+		}
+	}
+
+	&-menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		z-index: 1000;
+		display: none;
+		min-width: 160px;
+		margin: 4px 0 0;
+		padding: 8px 0;
+		list-style: none;
+		background: #fff;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+		&.is-open {
+			display: block;
+		}
+	}
+
+	&-item {
+		margin: 0;
+		padding: 0;
+
+		a {
+			display: block;
+			padding: 8px 16px;
+			color: #333;
+			text-decoration: none;
+			white-space: nowrap;
+			transition: background-color 0.15s ease;
+
+			&:hover,
+			&:focus {
+				background-color: #f5f5f5;
+				color: #000;
+				outline: none;
 			}
 		}
 	}

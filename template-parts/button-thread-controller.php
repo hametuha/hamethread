@@ -14,10 +14,10 @@ $lists = [];
 ob_start();
 if ( $can_edit ) {
 	?>
-	<li class="dropdown-item">
+	<li class="hamethread-controller-item">
 		<a href="#" data-hamethread="create" data-post-id="<?php echo esc_attr( $post->ID ) ?>"><?php esc_html_e( 'Edit', 'hamethread' ) ?></a>
 	</li>
-	<li class="dropdown-item">
+	<li class="hamethread-controller-item">
 		<?php
 		$resolved = \Hametuha\Thread::is_resolved();
 		$resolve_label = $resolved ? __( 'Unmark resolved', 'hamethread' ) : __( 'Mark as resolved', 'hamethread' );
@@ -32,12 +32,12 @@ if ( $can_edit ) {
 }
 if ( $can_archive ) {
 	?>
-	<li class="dropdown-item">
+	<li class="hamethread-controller-item">
 		<a href="<?php echo rest_url( 'hamethread/v1/thread/' . $post->ID ) ?>" rel="nofollow" data-hamethread="<?php echo esc_attr( $key ) ?>" data-post-id="<?php echo esc_attr( $post->ID ) ?>">
 			<?php echo esc_html( $label ) ?>
 		</a>
 	</li>
-	<li class="dropdown-item">
+	<li class="hamethread-controller-item">
 		<a href="<?php echo rest_url( 'hamethread/v1/thread/lock/' . $post->ID ) ?>" rel="nofollow" data-hamethread="<?php echo comments_open( $post ) ? 'lock' : 'reopen' ?>">
 			<?php echo esc_html( $lock_action ) ?>
 		</a>
@@ -53,10 +53,13 @@ if ( ! $lists ) {
 	return;
 }
 ?>
-<div class="hamethread-controller btn-toolbar justify-content-end">
-	<div class="btn-group right">
-		<button class="btn btn-link" data-bs-toggle="dropdown" type="button"><i class="fa fa-cog"></i></button>
-		<ul class="dropdown-menu dropdown-menu-end">
+<div class="hamethread-controller">
+	<div class="hamethread-controller-dropdown">
+		<button class="hamethread-controller-toggle" type="button" aria-expanded="false" aria-haspopup="true">
+			<?php echo hamethread_icon( 'cog' ); ?>
+			<span class="screen-reader-text"><?php esc_html_e( 'Thread actions', 'hamethread' ); ?></span>
+		</button>
+		<ul class="hamethread-controller-menu">
 			<?php foreach ( $lists as $list ) {
 				echo $list;
 			} ?>
