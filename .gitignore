@@ -1,10 +1,13 @@
 /vendor/
 /node_modules/
 /wordpress/
+composer.lock
 
 # AI
 .claude/settings.local.json
 
+# Build files
 assets
-composer.lock
 wp-dependencies.json
+languages/*.mo
+languages/*.json

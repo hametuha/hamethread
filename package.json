@@ -20,7 +20,7 @@
 		"log:tail": "wp-env run cli tail -f /var/www/html/wp-content/debug.log",
 		"cli:test": "wp-env run tests-cli wp",
 		"test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
-		"build": "npm run build:css && npm run build:js && npm run dump",
+		"build": "npm run build:css && npm run build:js && npm run dump && npm run i18n:compile",
 		"dump": "grab-deps dump assets",
 		"build:js": "grab-deps js src/js assets/js js",
 		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
@@ -29,7 +29,13 @@
 		"lint:css": "wp-scripts lint-style 'src/**/*.scss'",
 		"fix:js": "wp-scripts format src/js --resolve-plugins-relative-to .",
 		"fix:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
-		"watch": "npm-watch"
+		"watch": "npm-watch",
+		"i18n:pot": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- --require=$RESULT/bin/wp-cli-memory.php i18n make-pot $RESULT $RESULT/languages/hamethread.pot --exclude=src,wordpress,.git,node_moduels,vendor --slug=hamethread",
+		"i18n:po": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- --require=$RESULT/bin/wp-cli-memory.php i18n update-po $RESULT/languages/hamethread.pot $RESULT/languages",
+		"i18n:mo": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-mo $RESULT/languages",
+		"i18n:json": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-json $RESULT/languages $RESULT/languages --no-purge",
+		"i18n": "npm run i18n:pot && npm run i18n:po",
+		"i18n:compile": "npm run i18n:mo && npm run i18n:json"
 	},
 	"author": "Hametuha INC.",
 	"license": "GPL-3.0",
@@ -67,6 +73,29 @@
 			"patterns": [
 				"assets/js",
 				"assets/css"
+			]
+		},
+		"i18n:pot": {
+			"extensions": "js,php",
+			"patterns": [
+				"assets/js",
+				"app",
+				"includes",
+				"template-parts",
+				"functions.php",
+				"hamethread.php"
+			]
+		},
+		"i18n:po": {
+			"extensions": "pot",
+			"patterns": [
+				"languages"
+			]
+		},
+		"i18n:compile": {
+			"extensions": "po",
+			"patterns": [
+				"languages"
 			]
 		}
 	}
