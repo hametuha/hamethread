@@ -6,7 +6,7 @@ if ( 'local' !== wp_get_environment_type() ) {
 	return;
 }
 
-const HAMETUHA_LOGGED_IN_AS = 'admin';
+const HAMETUHA_LOGGED_IN_AS = 'testuser1';
 
 /**
  * Local login for
