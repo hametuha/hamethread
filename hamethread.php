@@ -6,12 +6,12 @@
  * Version:           1.2.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
- * Author:          Hametuha INC.
- * Author URI:      https://hametuha.co.jp
- * Text Domain:     hamethread
- * Domain Path:     /languages
- * License:         GPL3 or Later
- * @package         hamethread
+ * Author:            Hametuha INC.
+ * Author URI:        https://hametuha.co.jp
+ * Text Domain:       hamethread
+ * Domain Path:       /languages
+ * License:           GPL3 or Later
+ * @package           hamethread
  */
 
 // Do not load directory.
@@ -38,6 +38,10 @@ function hamethread_init() {
 		// Load composer.
 		require __DIR__ . '/vendor/autoload.php';
 		\Hametuha\Thread::get_instance();
+		// Initialize Hashboard in local environment.
+		if ( 'local' === wp_get_environment_type() && class_exists( 'Hametuha\Hashboard' ) ) {
+			\Hametuha\Hashboard::get_instance();
+		}
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
 	}

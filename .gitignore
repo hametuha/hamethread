@@ -1,6 +1,10 @@
-vendor
-node_modules
+/vendor/
+/node_modules/
+/wordpress/
+
+# AI
+.claude/settings.local.json
+
 assets
 composer.lock
-package-lock.json
 wp-dependencies.json
