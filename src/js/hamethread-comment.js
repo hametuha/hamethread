@@ -8,6 +8,7 @@
 /*global HameThreadComment: false*/
 
 const $ = jQuery;
+const { __ } = wp.i18n;
 
 const updateCommentCount = function () {
 	$( '.hamethread-comments' ).each( function ( index, comments ) {
@@ -214,15 +215,16 @@ $( document ).ready( function () {
 		let html = '';
 		if ( following ) {
 			html =
-				'<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' +
-				HameThreadComment.following +
+				'<button class="hamethread-btn hamethread-btn-success hamethread-btn-following">' +
+				'<span class="on"><span class="dashicons dashicons-yes-alt"></span> ' +
+				__( 'Following', 'hamethread' ) +
 				'</span><span class="hover">' +
-				HameThreadComment.unfollow +
+				__( 'Unfollow This Thread', 'hamethread' ) +
 				'</span></button>';
 		} else {
 			html =
-				'<button class="btn btn-default">' +
-				HameThreadComment.follow +
+				'<button class="hamethread-btn hamethread-btn-default">' +
+				__( 'Follow This Thread', 'hamethread' ) +
 				'</button>';
 		}
 		if ( HameThreadComment.buttonCallback ) {
@@ -242,7 +244,7 @@ $( document ).ready( function () {
 	$button.on( 'click', 'button', function ( e ) {
 		e.preventDefault();
 		let method;
-		if ( $( this ).hasClass( 'btn-following' ) ) {
+		if ( $( this ).hasClass( 'hamethread-btn-following' ) ) {
 			method = 'DELETE';
 		} else {
 			method = 'POST';

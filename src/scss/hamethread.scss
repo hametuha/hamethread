@@ -209,6 +209,46 @@ $small-screen: 480px;
 			border-color: #adadad;
 		}
 	}
+
+	&-success {
+		color: #fff;
+		background-color: #28a745;
+		border-color: #28a745;
+
+		&:hover {
+			background-color: #218838;
+			border-color: #1e7e34;
+		}
+	}
+
+	&-following {
+
+		.on {
+			display: inline;
+		}
+
+		.hover {
+			display: none;
+		}
+
+		&:hover {
+
+			.on {
+				display: none;
+			}
+
+			.hover {
+				display: inline;
+			}
+		}
+
+		.dashicons {
+			font-size: 1em;
+			width: 1em;
+			height: 1em;
+			vertical-align: middle;
+		}
+	}
 }
 
 // Utilities
@@ -623,28 +663,6 @@ ul.children ul.children {
 	&-toggle {
 		text-align: right;
 		margin-bottom: 20px;
-	}
-
-	.btn-following {
-
-		.on {
-			display: inline;
-		}
-
-		.hover {
-			display: none;
-		}
-
-		&:hover {
-
-			.on {
-				display: none;
-			}
-
-			.hover {
-				display: inline;
-			}
-		}
 	}
 }
 
