@@ -535,6 +535,12 @@ ul.children ul.children {
 		background-color: #f8f9fa;
 		border-color: #eee;
 	}
+
+	&-warning {
+		color: #856404;
+		background-color: #fff3cd;
+		border-color: #ffeeba;
+	}
 }
 
 .hamethread-watchers {
