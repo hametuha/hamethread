@@ -6,6 +6,21 @@
 			<?php echo $title; ?>
 		</h2>
 
+		<?php if ( ! empty( $parent_comment ) ) : ?>
+		<blockquote class="hamethread-form-quote">
+			<cite class="hamethread-form-quote-author">
+				<?php echo get_avatar( $parent_comment, 24 ); ?>
+				<?php echo esc_html( get_comment_author( $parent_comment ) ); ?>
+				<time datetime="<?php echo esc_attr( get_comment_date( 'c', $parent_comment ) ); ?>">
+					<?php echo esc_html( get_comment_date( '', $parent_comment ) ); ?>
+				</time>
+			</cite>
+			<div class="hamethread-form-quote-content">
+				<?php echo wpautop( esc_html( $parent_comment->comment_content ) ); ?>
+			</div>
+		</blockquote>
+		<?php endif; ?>
+
 		<?php if ( isset( $reply_to ) && $reply_to ) : ?>
 			<input type="hidden" name="reply_to" value="<?php echo esc_html( $reply_to ); ?>" />
 		<?php endif; ?>

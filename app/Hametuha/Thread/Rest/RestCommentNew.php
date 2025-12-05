@@ -80,16 +80,18 @@ class RestCommentNew extends RestBase {
 	 * @return array
 	 */
 	public function handle_get( $request ) {
-		$post_id  = $request->get_param( 'thread_id' );
-		$reply_to = $request->get_param( 'reply_to' );
-		$args     = [
-			'title'    => $reply_to
+		$post_id        = $request->get_param( 'thread_id' );
+		$reply_to       = $request->get_param( 'reply_to' );
+		$parent_comment = $reply_to ? get_comment( $reply_to ) : null;
+		$args           = [
+			'title'          => $reply_to
 				? esc_html( sprintf( __( 'Reply to %s', 'hamethread' ), get_comment_author( $reply_to ) ) )
 				: esc_html__( 'Post comment', 'hamethread' ),
-			'post'     => get_post( $post_id ),
-			'action'   => sprintf( 'comment/%d/new', $post_id ),
-			'comment'  => null,
-			'reply_to' => $reply_to,
+			'post'           => get_post( $post_id ),
+			'action'         => sprintf( 'comment/%d/new', $post_id ),
+			'comment'        => null,
+			'reply_to'       => $reply_to,
+			'parent_comment' => $parent_comment,
 		];
 		$form     = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
 		return [
