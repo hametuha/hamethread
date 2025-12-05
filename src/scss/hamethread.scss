@@ -361,6 +361,11 @@ ul.children ul.children {
 		border-bottom-right-radius: 0;
 	}
 
+	&-best-answer {
+		color: #28a745;
+		margin: 0 0 1em;
+	}
+
 	&-actions {
 		box-sizing: border-box;
 		display: flex;
