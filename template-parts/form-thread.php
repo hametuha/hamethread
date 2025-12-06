@@ -19,7 +19,7 @@
 				<span class="hamethread-badge-required"><?php esc_html_e( 'Required', 'hamethread' ); ?></span>
 			</label>
 			<input type="text" class="hamethread-form-control" name="thread_title" id="thread_title" value="<?php echo $post ? esc_attr( get_the_title( $post ) ) : ''; ?>"
-				   placeholder="<?php esc_attr_e( 'e.g. What does "dark matter" mean?', 'hamethread' ); ?>"/>
+					placeholder="<?php esc_attr_e( 'e.g. What does "dark matter" mean?', 'hamethread' ); ?>"/>
 		</div>
 
 		<div class="hamethread-form-group">
@@ -28,7 +28,7 @@
 				<span class="hamethread-badge-required"><?php esc_html_e( 'Required', 'hamethread' ); ?></span>
 			</label>
 			<textarea class="hamethread-form-control" rows="8" name="thread_content" id="thread_content"
-					  placeholder="<?php esc_attr_e( 'e.g. Yesterday, I read an article about galaxy. But I can\'t understand nor even imagine what "dark matter" is. Please ask my question.', 'hamethread' ); ?>"><?php echo $post ? esc_textarea( $post->post_content ) : ''; ?></textarea>
+						placeholder="<?php esc_attr_e( 'e.g. Yesterday, I read an article about galaxy. But I can\'t understand nor even imagine what "dark matter" is. Please ask my question.', 'hamethread' ); ?>"><?php echo $post ? esc_textarea( $post->post_content ) : ''; ?></textarea>
 		</div>
 
 		<div class="hamethread-form-group">
@@ -69,7 +69,7 @@
 		<div class="hamethread-form-submit">
 			<button type="button" class="hamethread-form-cancel hamethread-btn hamethread-btn-link"><?php esc_html_e( 'Cancel', 'hamethread' ); ?></button>
 			<input type="submit" class="hamethread-btn hamethread-btn-primary"
-			   value="<?php esc_attr_e( 'Submit', 'hamethread' ); ?>"/>
+				value="<?php esc_attr_e( 'Submit', 'hamethread' ); ?>"/>
 		</div>
 	</div>
 

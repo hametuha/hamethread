@@ -93,7 +93,7 @@ class RestCommentNew extends RestBase {
 			'reply_to'       => $reply_to,
 			'parent_comment' => $parent_comment,
 		];
-		$form     = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
+		$form           = apply_filters( 'hamethread_form_comment', hamethread_template( 'form-comment', '', false, $args ), $request );
 		return [
 			'html' => $form,
 		];

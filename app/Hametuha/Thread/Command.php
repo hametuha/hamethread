@@ -160,7 +160,7 @@ class Command extends \WP_CLI_Command {
 				continue;
 			}
 
-			$created_posts++;
+			++$created_posts;
 
 			// Add random comments (0-5) from random existing users.
 			$comment_count = wp_rand( 0, 5 );
@@ -193,7 +193,7 @@ class Command extends \WP_CLI_Command {
 				}
 			}
 
-			if ( $created_posts % 10 === 0 ) {
+			if ( 0 === $created_posts % 10 ) {
 				\WP_CLI::log( sprintf( '  Created %d threads...', $created_posts ) );
 			}
 		}

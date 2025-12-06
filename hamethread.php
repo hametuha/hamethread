@@ -22,7 +22,7 @@ add_action( 'plugins_loaded', 'hamethread_init' );
 
 function hamethread_init() {
 	// i18n.
-	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'hamethread', false, basename( __DIR__ ) . '/languages' );
 	if ( version_compare( phpversion(), '7.4.0', '>=' ) ) {
 		// Load functions.
 		require __DIR__ . '/functions.php';
@@ -77,9 +77,9 @@ function hamethread_version() {
 	static $version = null;
 	if ( is_null( $version ) ) {
 		$file_info = get_file_data( __FILE__, [
-			'version' => 'Version'
+			'version' => 'Version',
 		] );
-		$version = trim( $file_info['version'] );
+		$version   = trim( $file_info['version'] );
 	}
 	return $version;
 }

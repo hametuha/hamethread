@@ -59,6 +59,7 @@ wp-dependencies.jsonで依存関係を管理:
 ### @kunoichi/grab-deps
 
 JS/CSSファイルのヘッダーコメントから依存関係を抽出し、`wp-dependencies.json` を生成する。
+コメントは `/*!` ではじめないと、トランスパイル時に消されてしまいます。
 
 **JSファイルヘッダー例:**
 ```javascript
@@ -67,8 +68,6 @@ JS/CSSファイルのヘッダーコメントから依存関係を抽出し、`w
  * @deps jquery-effects-highlight, wp-i18n
  */
 ```
-
-コメントは `/*!` ではじめないと、トランスパイル時に消されてしまいます。
 
 **SCSSファイルヘッダー例:**
 ```scss
@@ -97,12 +96,18 @@ npm run watch
 
 # Lint
 npm run lint         # CSS + JS lint
+npm run fix:js       # JS auto fix
+npm run fix:css      # Sass auto fix
 composer lint        # PHP lint (PHPCS)
 composer fix         # PHP auto-fix (PHPCBF)
 
 # テスト
 composer test        # PHPUnit
-npm run test         # wp-env経由でPHPUnit
+npm run test         # wp-env経由でPHPUnit（ローカル開発用）
+
+## 翻訳ファイル生成（ローカル用）
+npm run i18n         # poファイルの生成
+npm run i18n:compile # poファイルを元にmoと翻訳用JSONを生成
 ```
 
 ## PHP構造
@@ -129,12 +134,13 @@ npm run test         # wp-env経由でPHPUnit
 
 ### PHPUnit
 
-```bash
-# テスト環境セットアップ（初回のみ）
-bash bin/install-wp-tests.sh <db-name> <db-user> <db-pass>
+PHPのバージョンを揃えるため、Docker内で実行します。
 
+```bash
+# Docker起動（起動していない場合のみ）
+npm start
 # テスト実行
-composer test
+npm test
 ```
 
 テストファイルは `tests/` に配置。プレフィックス `Test` + サフィックス `.php`。

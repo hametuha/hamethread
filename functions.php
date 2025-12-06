@@ -17,29 +17,29 @@ use Hametuha\Thread\Hooks\BestAnswer;
 function hamethread_icon( $name, $attr = [] ) {
 	// Map common icon names to Dashicons.
 	$dashicon_map = [
-		'cog'        => 'dashicons-admin-generic',
-		'settings'   => 'dashicons-admin-generic',
-		'edit'       => 'dashicons-edit',
-		'reply'      => 'dashicons-undo',
-		'thumbs-up'  => 'dashicons-thumbs-up',
-		'thumbs-down'=> 'dashicons-thumbs-down',
-		'lock'       => 'dashicons-lock',
-		'unlock'     => 'dashicons-unlock',
-		'check'      => 'dashicons-yes',
-		'close'      => 'dashicons-no',
-		'comment'    => 'dashicons-admin-comments',
-		'user'       => 'dashicons-admin-users',
-		'time'       => 'dashicons-clock',
-		'star'       => 'dashicons-star-filled',
-		'star-empty' => 'dashicons-star-empty',
-		'warning'    => 'dashicons-warning',
-		'info'       => 'dashicons-info',
-		'visibility' => 'dashicons-visibility',
-		'hidden'     => 'dashicons-hidden',
-		'plus'       => 'dashicons-plus',
-		'minus'      => 'dashicons-minus',
-		'arrow-up'   => 'dashicons-arrow-up-alt',
-		'arrow-down' => 'dashicons-arrow-down-alt',
+		'cog'         => 'dashicons-admin-generic',
+		'settings'    => 'dashicons-admin-generic',
+		'edit'        => 'dashicons-edit',
+		'reply'       => 'dashicons-undo',
+		'thumbs-up'   => 'dashicons-thumbs-up',
+		'thumbs-down' => 'dashicons-thumbs-down',
+		'lock'        => 'dashicons-lock',
+		'unlock'      => 'dashicons-unlock',
+		'check'       => 'dashicons-yes',
+		'close'       => 'dashicons-no',
+		'comment'     => 'dashicons-admin-comments',
+		'user'        => 'dashicons-admin-users',
+		'time'        => 'dashicons-clock',
+		'star'        => 'dashicons-star-filled',
+		'star-empty'  => 'dashicons-star-empty',
+		'warning'     => 'dashicons-warning',
+		'info'        => 'dashicons-info',
+		'visibility'  => 'dashicons-visibility',
+		'hidden'      => 'dashicons-hidden',
+		'plus'        => 'dashicons-plus',
+		'minus'       => 'dashicons-minus',
+		'arrow-up'    => 'dashicons-arrow-up-alt',
+		'arrow-down'  => 'dashicons-arrow-down-alt',
 	];
 
 	// Get the Dashicon class.
@@ -50,7 +50,7 @@ function hamethread_icon( $name, $attr = [] ) {
 		'class'       => 'dashicons ' . $dashicon_class,
 		'aria-hidden' => 'true',
 	];
-	$attr = array_merge( $default_attr, $attr );
+	$attr         = array_merge( $default_attr, $attr );
 
 	// Build attribute string.
 	$attr_str = '';

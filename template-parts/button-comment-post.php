@@ -2,7 +2,7 @@
 	<?php if ( hamethread_current_user_can_comment() ) : ?>
 	<button class="button hamethread-post-button" data-hamethread="comment" data-end-point="<?php printf( 'comment/%d/new', get_the_ID() ); ?>">
 		<?php echo hamethread_icon( 'plus-alt' ); ?>
-		<?php esc_html_e( 'Post Comment', 'hamethread' ) ?>
+		<?php esc_html_e( 'Post Comment', 'hamethread' ); ?>
 	</button>
 	<?php else : ?>
 	<div class="hamethread-alert hamethread-alert-warning">

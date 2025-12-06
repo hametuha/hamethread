@@ -21,15 +21,15 @@ function hamethread_get_best_answer( $post = null ) {
 		return null;
 	}
 	foreach ( get_comments( [
-		'post_id' => $post->ID,
-		'number'  => 1,
+		'post_id'    => $post->ID,
+		'number'     => 1,
 		'meta_query' => [
 			[
 				'key'     => BestAnswer::BA_KEY,
 				'value'   => 0,
 				'compare' => '>',
-				'type'    => 'numeric'
-			]
+				'type'    => 'numeric',
+			],
 		],
 	] ) as $comment ) {
 		return $comment;
@@ -47,7 +47,7 @@ function hamethread_get_best_answer( $post = null ) {
  */
 function hamethread_best_answer_supported( $post_type ) {
 	$post_types = (array) get_option( AdminSetting::OPTION_POST_TYPE, [] );
-	return in_array( $post_type, $post_types );
+	return in_array( $post_type, $post_types, true );
 }
 
 
