@@ -5,6 +5,8 @@
  * @deps wp-element, wp-api-fetch, wp-i18n, hb-components-loading, hb-components-pagination, hb-plugins-toast
  */
 
+/* global hb */
+
 const { useState, useEffect, useMemo, createRoot } = wp.element;
 const { __, _x } = wp.i18n;
 const apiFetch = wp.apiFetch;
@@ -54,10 +56,14 @@ const ThreadList = () => {
 				setThreads( data );
 			} )
 			.catch( ( error ) => {
-				toast( __( 'Failed to fetch threads:', 'hamethread' ) + error.message, {
-					type: 'danger',
-					icon: 'error',
-				} );
+				toast(
+					__( 'Failed to fetch threads:', 'hamethread' ) +
+						error.message,
+					{
+						type: 'danger',
+						icon: 'error',
+					}
+				);
 			} )
 			.finally( () => {
 				setLoading( false );
@@ -66,6 +72,7 @@ const ThreadList = () => {
 
 	useEffect( () => {
 		fetchThreads( 1 );
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );
 
 	const handleUpdate = () => {
@@ -81,12 +88,12 @@ const ThreadList = () => {
 		const options =
 			format === 'long'
 				? {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-						hour: '2-digit',
-						minute: '2-digit',
-				  }
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit',
+				}
 				: { year: 'numeric', month: 'long', day: 'numeric' };
 		return date.toLocaleDateString( undefined, options );
 	};
@@ -105,11 +112,19 @@ const ThreadList = () => {
 						<select
 							value={ resolved }
 							className="form-select"
-							onChange={ ( e ) => setResolved( parseInt( e.target.value, 10 ) ) }
+							onChange={ ( e ) =>
+								setResolved( parseInt( e.target.value, 10 ) )
+							}
 						>
-							<option value="0">{ __( 'All Status', 'hamethread' ) }</option>
-							<option value="1">{ __( 'Resolved', 'hamethread' ) }</option>
-							<option value="-1">{ __( 'Not Resolved', 'hamethread' ) }</option>
+							<option value="0">
+								{ __( 'All Status', 'hamethread' ) }
+							</option>
+							<option value="1">
+								{ __( 'Resolved', 'hamethread' ) }
+							</option>
+							<option value="-1">
+								{ __( 'Not Resolved', 'hamethread' ) }
+							</option>
 						</select>
 					</div>
 					<div className="form-group">
@@ -119,9 +134,14 @@ const ThreadList = () => {
 								type="checkbox"
 								checked={ isPrivate }
 								id="hamethread-private"
-								onChange={ ( e ) => setIsPrivate( e.target.checked ) }
+								onChange={ ( e ) =>
+									setIsPrivate( e.target.checked )
+								}
 							/>
-							<label className="form-check-label" htmlFor="hamethread-private">
+							<label
+								className="form-check-label"
+								htmlFor="hamethread-private"
+							>
 								{ __( 'Only private', 'hamethread' ) }
 							</label>
 						</div>
@@ -131,8 +151,14 @@ const ThreadList = () => {
 							type="search"
 							value={ search }
 							className="form-control"
-							placeholder={ __( 'Search keyword...', 'hamethread' ) }
-							aria-label={ __( 'Search keyword...', 'hamethread' ) }
+							placeholder={ __(
+								'Search keyword…',
+								'hamethread'
+							) }
+							aria-label={ __(
+								'Search keyword…',
+								'hamethread'
+							) }
 							onChange={ ( e ) => setSearch( e.target.value ) }
 						/>
 					</div>
@@ -149,36 +175,58 @@ const ThreadList = () => {
 					<>
 						<ul className="hamethread-list-items list-group">
 							{ threads.map( ( thread ) => (
-								<li key={ thread.id } className="hamethread-list-item list-group-item">
+								<li
+									key={ thread.id }
+									className="hamethread-list-item list-group-item"
+								>
 									<div className="d-flex w-100 justify-content-between">
 										<h5 className="mb-2 mt-0">
 											{ thread.status === 'private' && (
-												<i className="material-icons">lock</i>
+												<i className="material-icons">
+													lock
+												</i>
 											) }
-											<a href={ thread.link }>{ thread.title }</a>
+											<a href={ thread.link }>
+												{ thread.title }
+											</a>
 										</h5>
-										<small>{ formatDate( thread.date_atom ) }</small>
+										<small>
+											{ formatDate( thread.date_atom ) }
+										</small>
 									</div>
 									<p className="mb-1">
-										<i className="material-icons">comment</i>
-										{ ' ' }
-										{ thread.count.approved }
-										{ ' ' }
+										<i className="material-icons">
+											comment
+										</i>{ ' ' }
+										{ thread.count.approved }{ ' ' }
 										{ thread.count.approved > 1
-											? _x( 'comments', 'thread-comment-count', 'hamethread' )
-											: _x( 'comment', 'thread-comment-count', 'hamethread' ) }
+											? _x(
+												'comments',
+												'thread-comment-count',
+												'hamethread'
+											)
+											: _x(
+												'comment',
+												'thread-comment-count',
+												'hamethread'
+											) }
 										{ thread.resolved && (
 											<span className="ms-2 text-success">
-												<i className="material-icons text-success">check_circle</i>
-												{ ' ' }
-												{ __( 'Resolved', 'hamethread' ) }
+												<i className="material-icons text-success">
+													check_circle
+												</i>{ ' ' }
+												{ __(
+													'Resolved',
+													'hamethread'
+												) }
 											</span>
 										) }
 									</p>
 									<small className="text-muted">
-										<i className="material-icons">access_time</i>
-										{ ' ' }
-										{ __( 'Last Updated: ', 'hamethread' ) }
+										<i className="material-icons">
+											access_time
+										</i>{ ' ' }
+										{ __( 'Last Updated:', 'hamethread' ) }
 										{ formatDate( thread.latest, 'long' ) }
 									</small>
 								</li>
@@ -197,7 +245,10 @@ const ThreadList = () => {
 				) : (
 					! loading && (
 						<div className="alert alert-secondary">
-							{ __( 'No thread is found for your criteria.', 'hamethread' ) }
+							{ __(
+								'No thread is found for your criteria.',
+								'hamethread'
+							) }
 						</div>
 					)
 				) }

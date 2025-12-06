@@ -35,7 +35,8 @@
 		"i18n:mo": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-mo $RESULT/languages",
 		"i18n:json": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-json $RESULT/languages $RESULT/languages --no-purge",
 		"i18n": "npm run i18n:pot && npm run i18n:po",
-		"i18n:compile": "npm run i18n:mo && npm run i18n:json"
+		"i18n:compile": "npm run i18n:mo && npm run i18n:json",
+		"prepare": "husky"
 	},
 	"author": "Hametuha INC.",
 	"license": "GPL-3.0",
@@ -46,6 +47,7 @@
 		"@kunoichi/grab-deps": "^2.0.1",
 		"@wordpress/env": "^10.36.0",
 		"@wordpress/scripts": "^30.27.0",
+		"husky": "^9.1.7",
 		"npm-watch": "^0.13.0",
 		"postcss": "^8.5.3",
 		"postcss-cli": "^11.0.1",

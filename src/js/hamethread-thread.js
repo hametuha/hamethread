@@ -6,13 +6,13 @@
 
 /*global HameThread: true*/
 
-( function ( $ ) {
+( function( $ ) {
 	'use strict';
 
 	//
 	// Dropdown toggle for thread controller
 	//
-	$( document ).on( 'click', '.hamethread-controller-toggle', function ( e ) {
+	$( document ).on( 'click', '.hamethread-controller-toggle', function( e ) {
 		e.preventDefault();
 		e.stopPropagation();
 		const $toggle = $( this );
@@ -21,7 +21,10 @@
 
 		// Close all other open menus first
 		$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
-		$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' );
+		$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr(
+			'aria-expanded',
+			'false'
+		);
 
 		if ( ! isOpen ) {
 			$menu.addClass( 'is-open' );
@@ -30,18 +33,25 @@
 	} );
 
 	// Close dropdown when clicking outside
-	$( document ).on( 'click', function ( e ) {
-		if ( ! $( e.target ).closest( '.hamethread-controller-dropdown' ).length ) {
+	$( document ).on( 'click', function( e ) {
+		if (
+			! $( e.target ).closest( '.hamethread-controller-dropdown' ).length
+		) {
 			$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
-			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' );
+			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr(
+				'aria-expanded',
+				'false'
+			);
 		}
 	} );
 
 	// Close dropdown on Escape key
-	$( document ).on( 'keydown', function ( e ) {
+	$( document ).on( 'keydown', function( e ) {
 		if ( e.key === 'Escape' ) {
 			$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
-			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr( 'aria-expanded', 'false' ).focus();
+			$( '.hamethread-controller-toggle[aria-expanded="true"]' )
+				.attr( 'aria-expanded', 'false' )
+				.focus();
 		}
 	} );
 
@@ -51,7 +61,7 @@
 	$( document ).on(
 		'click',
 		'button[data-hamethread="create"], a[data-hamethread="create"]',
-		function ( e ) {
+		function( e ) {
 			e.preventDefault();
 			const $button = $( this );
 			if ( $button.attr( 'disabled' ) ) {
@@ -74,11 +84,11 @@
 			}
 			$button.addClass( 'disabled' ).attr( 'disabled', true );
 			$.get( HameThread.endpoint + '/thread/new', query )
-				.done( function ( response ) {
+				.done( function( response ) {
 					$( 'body' ).append( response.html );
 				} )
 				.fail( HameThread.errorHandler )
-				.always( function () {
+				.always( function() {
 					$button.removeClass( 'disabled' ).attr( 'disabled', false );
 				} );
 		}
@@ -87,13 +97,13 @@
 	//
 	// Click Post Action.
 	//
-	$( document ).on( 'submit', '#hamethread-add', function ( e ) {
+	$( document ).on( 'submit', '#hamethread-add', function( e ) {
 		e.preventDefault();
 		const $form = $( this );
 		const data = {};
 		$form
 			.find( 'input[name], select[name], textarea[name]' )
-			.each( function ( index, input ) {
+			.each( function( index, input ) {
 				if (
 					'checkbox' === $( input ).attr( 'type' ) &&
 					! input.checked
@@ -105,16 +115,16 @@
 		data._wpnonce = HameThread.nonce;
 		$form.addClass( 'loading' );
 		$.post( $form.attr( 'action' ), data )
-			.done( function ( response ) {
+			.done( function( response ) {
 				window.location.href = response.link;
 			} )
 			.fail( HameThread.errorHandler )
-			.always( function () {
+			.always( function() {
 				$form.removeClass( 'loading' );
 			} );
 	} );
 
-	$( document ).on( 'click', 'a[data-hamethread]', function ( e ) {
+	$( document ).on( 'click', 'a[data-hamethread]', function( e ) {
 		e.preventDefault();
 		const $button = $( this );
 		const action = $button.attr( 'data-hamethread' );
@@ -136,12 +146,12 @@
 						$.param( query ),
 					method: 'put',
 				} )
-					.done( function ( response ) {
+					.done( function( response ) {
 						alert( response.message );
 						window.location.href = response.url;
 					} )
 					.fail( HameThread.errorhandler )
-					.always( function () {
+					.always( function() {
 						$button
 							.removeclass( 'disabled' )
 							.attr( 'disabled', false );
@@ -161,12 +171,12 @@
 					url: $button.attr( 'href' ) + '?' + $.param( query ),
 					method: 'delete',
 				} )
-					.done( function ( response ) {
+					.done( function( response ) {
 						alert( response.message );
 						window.location.href = response.url;
 					} )
 					.fail( HameThread.errorHandler )
-					.always( function () {
+					.always( function() {
 						$button
 							.removeClass( 'disabled' )
 							.attr( 'disabled', false );
@@ -196,12 +206,12 @@
 					url: $button.attr( 'href' ) + '?' + $.param( query ),
 					method,
 				} )
-					.done( function ( response ) {
+					.done( function( response ) {
 						alert( response.message );
 						window.location.href = response.url;
 					} )
 					.fail( HameThread.errorHandler )
-					.always( function () {
+					.always( function() {
 						$button
 							.removeClass( 'disabled' )
 							.attr( 'disabled', false );
@@ -209,4 +219,4 @@
 				break;
 		}
 	} );
-} )( jQuery );
+}( jQuery ) );
