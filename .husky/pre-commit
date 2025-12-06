@@ -1,2 +1,16 @@
-npm run lint
-composer lint
+#!/bin/sh
+
+# Get staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+
+# Check for JS/SCSS files
+if echo "$STAGED_FILES" | grep -qE '\.(js|scss)$'; then
+  echo "Running npm lint..."
+  npm run lint
+fi
+
+# Check for PHP files
+if echo "$STAGED_FILES" | grep -qE '\.php$'; then
+  echo "Running composer lint..."
+  composer lint
+fi
