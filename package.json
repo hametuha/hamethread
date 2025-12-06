@@ -20,7 +20,7 @@
 		"log:tail": "wp-env run cli tail -f /var/www/html/wp-content/debug.log",
 		"cli:test": "wp-env run tests-cli wp",
 		"test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
-		"build": "npm run build:css && npm run build:js && npm run dump && npm run i18n:compile",
+		"build": "npm run build:css && npm run build:js && npm run dump",
 		"dump": "grab-deps dump assets",
 		"build:js": "grab-deps js src/js assets/js js",
 		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
