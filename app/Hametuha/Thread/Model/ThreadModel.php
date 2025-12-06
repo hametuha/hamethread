@@ -38,6 +38,7 @@ class ThreadModel {
 		}
 		setup_postdata( $this->post );
 		$array = [
+			'id'          => $this->post->ID,
 			'title'       => get_the_title( $this->post ),
 			'content'     => apply_filters( 'the_content', $this->post->post_content ),
 			'raw_content' => $this->post->post_content,

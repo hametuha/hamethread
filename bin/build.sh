@@ -15,6 +15,11 @@ composer install --no-dev --prefer-dist
 npm install
 npm run build
 
+# Compile translations (MO and JSON files)
+echo "Compiling translations..."
+wp i18n make-mo languages
+wp i18n make-json languages languages --no-purge
+
 # Create README.txt
 curl -L https://raw.githubusercontent.com/fumikito/wp-readme/master/wp-readme.php | php
 

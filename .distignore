@@ -1,10 +1,12 @@
 .browserslistrc
+.claude
 .editorconfig
 .eslintrc
 .distignore
 .git
 .github
 .gitignore
+.husky
 .node-version
 .stylelintrc.json
 .wordpress-org

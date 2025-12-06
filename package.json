@@ -1,69 +1,104 @@
 {
-  "name": "hamethread",
-  "version": "1.0.0",
-  "homepage": "https://github.com/hametuha/hamethread",
-  "description": "Thread plugin",
-  "main": "gulpfile.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hametuha/hamethread.git"
-  },
-  "bugs": {
-    "url": "https://github.com/hametuha/hamethread/issues"
-  },
-  "scripts": {
-    "start": "wp-env start",
-    "update": "wp-env start --update",
-    "stop": "wp-env stop",
-    "cli": "wp-env run cli wp",
-    "cli:test": "wp-env run tests-cli wp",
-    "test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
-    "build": "npm run build:css && npm run build:js && npm run dump",
-    "dump": "grab-deps dump assets",
-    "build:js": "grab-deps js src/js assets/js js",
-    "build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
-    "lint": "npm run lint:css && npm run lint:js",
-    "lint:js": "wp-scripts lint-js 'src/js/**/*.js' --resolve-plugins-relative-to .",
-    "lint:css": "wp-scripts lint-style 'src/**/*.scss'",
-    "fix:js": "wp-scripts format src/js --resolve-plugins-relative-to .",
-    "fix:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
-    "watch": "npm-watch"
-  },
-  "author": "Hametuha INC.",
-  "license": "GPL-3.0",
-  "engines": {
-    "node": ">=20"
-  },
-  "devDependencies": {
-    "@kunoichi/grab-deps": "^2.0.1",
-    "@wordpress/scripts": "^30.27.0",
-    "npm-watch": "^0.13.0",
-    "postcss": "^8.5.3",
-    "postcss-cli": "^11.0.1",
-    "sass": "^1.86.0"
-  },
-  "volta": {
-    "node": "20.19.5"
-  },
-  "watch": {
-    "build:css": {
-      "extensions": "scss",
-      "patterns": [
-        "src/scss"
-      ]
-    },
-    "build:js": {
-      "extensions": "js",
-      "patterns": [
-        "src/js"
-      ]
-    },
-    "dump": {
-      "extensions": "js,css",
-      "patterns": [
-        "assets/js",
-        "assets/css"
-      ]
-    }
-  }
+	"name": "hamethread",
+	"version": "1.0.0",
+	"homepage": "https://github.com/hametuha/hamethread",
+	"description": "Thread plugin",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hametuha/hamethread.git"
+	},
+	"bugs": {
+		"url": "https://github.com/hametuha/hamethread/issues"
+	},
+	"scripts": {
+		"start": "wp-env start",
+		"update": "wp-env start --update",
+		"stop": "wp-env stop",
+		"cli": "wp-env run cli wp",
+		"log": "wp-env run cli cat /var/www/html/wp-content/debug.log",
+		"log:tail": "wp-env run cli tail -f /var/www/html/wp-content/debug.log",
+		"cli:test": "wp-env run tests-cli wp",
+		"test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
+		"build": "npm run build:css && npm run build:js && npm run dump",
+		"dump": "grab-deps dump assets",
+		"build:js": "grab-deps js src/js assets/js js",
+		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
+		"lint": "npm run lint:css && npm run lint:js",
+		"lint:js": "wp-scripts lint-js 'src/js/**/*.js' --resolve-plugins-relative-to .",
+		"lint:css": "wp-scripts lint-style 'src/**/*.scss'",
+		"fix:js": "wp-scripts format src/js --resolve-plugins-relative-to .",
+		"fix:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
+		"watch": "npm-watch",
+		"i18n:pot": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- --require=$RESULT/bin/wp-cli-memory.php i18n make-pot $RESULT $RESULT/languages/hamethread.pot --exclude=src,wordpress,.git,node_moduels,vendor --slug=hamethread",
+		"i18n:po": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- --require=$RESULT/bin/wp-cli-memory.php i18n update-po $RESULT/languages/hamethread.pot $RESULT/languages",
+		"i18n:mo": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-mo $RESULT/languages",
+		"i18n:json": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- i18n make-json $RESULT/languages $RESULT/languages --no-purge",
+		"i18n": "npm run i18n:pot && npm run i18n:po",
+		"i18n:compile": "npm run i18n:mo && npm run i18n:json",
+		"prepare": "husky"
+	},
+	"author": "Hametuha INC.",
+	"license": "GPL-3.0",
+	"engines": {
+		"node": ">=24"
+	},
+	"devDependencies": {
+		"@kunoichi/grab-deps": "^2.0.1",
+		"@wordpress/env": "^10.36.0",
+		"@wordpress/scripts": "^30.27.0",
+		"husky": "^9.1.7",
+		"npm-watch": "^0.13.0",
+		"postcss": "^8.5.3",
+		"postcss-cli": "^11.0.1",
+		"sass": "^1.86.0"
+	},
+	"engineStrict": true,
+	"volta": {
+		"node": "24.11.1"
+	},
+	"watch": {
+		"build:css": {
+			"extensions": "scss",
+			"patterns": [
+				"src/scss"
+			]
+		},
+		"build:js": {
+			"extensions": "js",
+			"patterns": [
+				"src/js"
+			]
+		},
+		"dump": {
+			"extensions": "js,css",
+			"patterns": [
+				"assets/js",
+				"assets/css"
+			]
+		},
+		"i18n:pot": {
+			"extensions": "js,php",
+			"patterns": [
+				"assets/js",
+				"app",
+				"includes",
+				"template-parts",
+				"functions.php",
+				"hamethread.php"
+			]
+		},
+		"i18n:po": {
+			"extensions": "pot",
+			"patterns": [
+				"languages"
+			]
+		},
+		"i18n:compile": {
+			"extensions": "po",
+			"patterns": [
+				"languages"
+			]
+		}
+	}
 }

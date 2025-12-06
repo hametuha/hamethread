@@ -1,80 +1,82 @@
-#, fuzzy
+# Copyright (C) 2025 Hametuha INC.
+# This file is distributed under the GPL3 or Later.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: HameThread\n"
-"POT-Creation-Date: 2019-09-10 16:12+0900\n"
-"PO-Revision-Date: 2018-09-14 01:27+0900\n"
-"Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
-"Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
+"Project-Id-Version: HameThread 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hamethread\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: hamethread.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Poedit-SearchPathExcluded-1: assets\n"
-"X-Poedit-SearchPathExcluded-2: src\n"
-"X-Poedit-SearchPathExcluded-3: vendor\n"
-"X-Poedit-SearchPathExcluded-4: node_modules\n"
+"POT-Creation-Date: 2025-12-06T01:23:38+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: hamethread\n"
 
-#: app/Hametuha/Thread.php:51
+#. Plugin Name of the plugin
+msgid "HameThread"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/extend/plugins/hamethread"
+msgstr ""
+
+#. Description of the plugin
+msgid "Forum plugin by Hametuha."
+msgstr ""
+
+#. Author of the plugin
+msgid "Hametuha INC."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://hametuha.co.jp"
+msgstr ""
+
+#: app/Hametuha/Thread.php:81
+#: assets/js/hamethread.js:1
 msgid "Sorry but request failed."
 msgstr ""
 
-#: app/Hametuha/Thread.php:52
+#: app/Hametuha/Thread.php:82
 msgid "Are you sure to make this thread private?"
 msgstr ""
 
-#: app/Hametuha/Thread.php:53
-msgid ""
-"Are you sure to make this thread public? Please confirm your comments are "
-"ready to be public."
+#: app/Hametuha/Thread.php:83
+msgid "Are you sure to make this thread public? Please confirm your comments are ready to be public."
 msgstr ""
 
-#: app/Hametuha/Thread.php:55
-msgid ""
-"Are you sure to lock this thread? None can post new comment on this thread."
+#: app/Hametuha/Thread.php:85
+msgid "Are you sure to lock this thread? None can post new comment on this thread."
 msgstr ""
 
-#: app/Hametuha/Thread.php:56
-msgid ""
-"Are you sure to reopen this thread? Uses can post new comment on this "
-"thread."
+#: app/Hametuha/Thread.php:86
+msgid "Are you sure to reopen this thread? Uses can post new comment on this thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Command.php:44
-#, php-format
-msgid "%s will be automatically closed %s"
+#: app/Hametuha/Thread/Command.php:46
+msgid "%1$s will be automatically closed %2$s"
 msgstr ""
 
-#: app/Hametuha/Thread/Command.php:45
-#, php-format
+#: app/Hametuha/Thread/Command.php:47
 msgid "%d thread"
 msgid_plural "%d threads"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/Hametuha/Thread/Command.php:46
-#, php-format
-msgctxt "in %d days"
+#: app/Hametuha/Thread/Command.php:48
 msgid "in %d day"
-msgstr ""
+msgid_plural "in %d days"
+msgstr[0] ""
+msgstr[1] ""
 
-#: app/Hametuha/Thread/Command.php:46
+#: app/Hametuha/Thread/Command.php:48
 msgid "just now"
 msgstr ""
 
-#: app/Hametuha/Thread/Command.php:59
-#, php-format
-msgid "Automacally closed: %d"
+#: app/Hametuha/Thread/Command.php:61
+msgid "Automatically closed: %d"
 msgstr ""
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:39
@@ -83,40 +85,36 @@ msgstr ""
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:50
 #: app/Hametuha/Thread/Hooks/BestAnswer.php:108
-#: template-parts/comment-loop.php:44
+#: template-parts/comment-loop.php:51
 msgid "Best Answer"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:71
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:72
 msgid "Choose post types to enable best answer in."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:83
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:84
 msgid "Auto Close Duration"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:90
-msgid ""
-"Auto close duration in daiy. The thread will be automatically closed if "
-"this thread is more than 0."
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:91
+msgid "Auto close duration in daiy. The thread will be automatically closed if this thread is more than 0."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:96
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:97
 msgid "Prolongation"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:100
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:101
 msgid "Close anyway."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:101
-msgid ""
-"Count down just after thread creation and prolong prolong with new comment."
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:102
+msgid "Count down just after thread creation and prolong prolong with new comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:102
-msgid ""
-"Count down just after first comment submission and prolong with new comment."
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:103
+msgid "Count down just after first comment submission and prolong with new comment."
 msgstr ""
 
 #: app/Hametuha/Thread/Hooks/AutoClose.php:227
@@ -127,11 +125,11 @@ msgstr ""
 msgid "Cancel Best Answer"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:132
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:134
 msgid "This comment is already best answer."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/BestAnswer.php:175
+#: app/Hametuha/Thread/Hooks/BestAnswer.php:177
 msgid "No comment found."
 msgstr ""
 
@@ -139,25 +137,25 @@ msgstr ""
 msgid "Thread"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/PostType.php:70 template-parts/form-thread.php:30
+#: app/Hametuha/Thread/Hooks/PostType.php:70
+#: template-parts/form-thread.php:36
 msgid "Topic"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/PostType.php:111
+#: app/Hametuha/Thread/Hooks/PostType.php:110
 msgid "This thread is resolved"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/PostType.php:128
+#: app/Hametuha/Thread/Hooks/PostType.php:127
 msgid "Parent"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:53
-#, php-format
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:55
 msgid "%s - A new comment is posted to your subscribing thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:58
-#, php-format
+#. translators: %1$s is user name, %2$s is comment author, %3$s is thread title, %4$s is URL of thread.
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:62
 msgid ""
 "Dear %1$s,\n"
 "\n"
@@ -173,19 +171,18 @@ msgid ""
 "\n"
 "You get this notification because you subscribed thread.\n"
 "To change notification setting, please go to thread page.\n"
+""
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:85
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:89
 msgid "A guest"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:166
-#, php-format
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:180
 msgid "%1$s - Thread #%2$d is automatically closed."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:171
-#, php-format
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:185
 msgid ""
 "Dear %1$s,\n"
 "\n"
@@ -195,25 +192,25 @@ msgid ""
 "%3$s\n"
 "URL: %4$s\n"
 "\n"
+""
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:183
-#, php-format
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:197
 msgid "%d day has"
 msgid_plural "%d days have"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:233
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:264
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:259
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:290
 msgid "Thread or user not found."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:240
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:266
 msgid "Already subscribing this thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/SupportNotification.php:271
+#: app/Hametuha/Thread/Hooks/SupportNotification.php:297
 msgid "Not in the list of subscribers."
 msgstr ""
 
@@ -225,7 +222,7 @@ msgstr ""
 msgid "Sorry, but no thread found."
 msgstr ""
 
-#: app/Hametuha/Thread/Model/ThreadModel.php:145
+#: app/Hametuha/Thread/Model/ThreadModel.php:146
 msgid "No post found."
 msgstr ""
 
@@ -234,7 +231,6 @@ msgid "Topic is not specified."
 msgstr ""
 
 #: app/Hametuha/Thread/Pattern/RushDetector.php:34
-#, php-format
 msgid "You posted more than %1$d comments in %2$d minutes. Please be patient."
 msgstr ""
 
@@ -277,16 +273,15 @@ msgstr ""
 msgid "You have no permission to post comment to the specified thread."
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestCommentNew.php:87
-#, php-format
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:88
 msgid "Reply to %s"
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestCommentNew.php:88
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:89
 msgid "Post comment"
 msgstr ""
 
-#: app/Hametuha/Thread/Rest/RestCommentNew.php:137
+#: app/Hametuha/Thread/Rest/RestCommentNew.php:139
 msgid "Sorry, but failed to insert comment."
 msgstr ""
 
@@ -299,12 +294,10 @@ msgid "Thread is marked as resolved."
 msgstr ""
 
 #: app/Hametuha/Thread/Rest/RestThread.php:137
-#, php-format
 msgid "Thread %s has been successfully private."
 msgstr ""
 
 #: app/Hametuha/Thread/Rest/RestThread.php:139
-#, php-format
 msgid "Thread %s has been successfully published."
 msgstr ""
 
@@ -348,100 +341,29 @@ msgstr ""
 msgid "Threads"
 msgstr ""
 
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:39
-msgid "All Status"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:40
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:90
-#: template-parts/woocommerce-my-account.php:23
-msgid "Resolved"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:41
-msgid "Not Resolved"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:52
-msgid "Only private"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:61
-msgid "Search keyword..."
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:65
-msgid "Search"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:87
-msgctxt "thread-comment-count"
-msgid "comments"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:88
-msgctxt "thread-comment-count"
-msgid "comment"
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:95
-#: template-parts/woocommerce-my-account.php:29
-msgid "Last Updated: "
-msgstr ""
-
-#: app/Hametuha/Thread/Screen/HashboardScreen.php:105
-msgid "No thread is found for your criteria."
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:61
-msgid "Are you sure to delete comment?"
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:62
-msgid "Follow This Thread"
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:63
-msgid "Following"
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:64
-msgid "Unfollow This Thread"
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:65
-msgid "Are you sure to choose this comment as the best answer?"
-msgstr ""
-
-#: app/Hametuha/Thread/UI/CommentForm.php:66
-msgid "Are you sure to unmark the best answer?"
-msgstr ""
-
-#: functions.php:180
+#: functions.php:248
 msgid "Start new thread"
 msgstr ""
 
-#: functions.php:278
+#: functions.php:352
 msgid "Reply"
 msgstr ""
 
-#: functions.php:284
+#: functions.php:361
 msgid "Upvote"
 msgstr ""
 
-#: functions.php:331
+#: functions.php:409
 msgid "Guest"
 msgstr ""
 
-#: functions.php:398
+#: functions.php:476
 msgid "Comments Pagination"
 msgstr ""
 
-#: hamethread.php:51
-#, php-format
-msgid ""
-"HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider "
-"upgrade."
+#. translators: %1$s required PHP version, %2$s current PHP version.
+#: hamethread.php:57
+msgid "HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider upgrade."
 msgstr ""
 
 #: template-parts/button-comment-post.php:5
@@ -449,9 +371,7 @@ msgid "Post Comment"
 msgstr ""
 
 #: template-parts/button-comment-post.php:9
-#, php-format
-msgid ""
-"Please <a class=\"alert-link\" href=\"%s\">log in</a> to post a comment."
+msgid "Please <a href=\"%s\">log in</a> to post a comment."
 msgstr ""
 
 #: template-parts/button-thread-controller.php:7
@@ -471,7 +391,7 @@ msgid "Reopen thread"
 msgstr ""
 
 #: template-parts/button-thread-controller.php:18
-#: template-parts/comment-loop.php:13
+#: template-parts/comment-loop.php:20
 msgid "Edit"
 msgstr ""
 
@@ -483,151 +403,191 @@ msgstr ""
 msgid "Mark as resolved"
 msgstr ""
 
-#: template-parts/button-thread.php:16
-#, php-format
-msgid ""
-"To start thread, please <a class=\"alert-link\" rel=\"nofollow\" href=\"%s"
-"\">log in</a>."
+#: template-parts/button-thread-controller.php:60
+msgid "Thread actions"
 msgstr ""
 
-#: template-parts/comment-loop.php:19
+#: template-parts/button-thread.php:22
+msgid "To start thread, please <a rel=\"nofollow\" href=\"%s\">log in</a>."
+msgstr ""
+
+#: template-parts/comment-loop.php:14
+msgid "Comment actions"
+msgstr ""
+
+#: template-parts/comment-loop.php:26
 msgid "Delete"
 msgstr ""
 
-#: template-parts/comment-loop.php:37
+#: template-parts/comment-loop.php:44
 msgid "(edited)"
 msgstr ""
 
-#: template-parts/comment-watcher.php:3
+#: template-parts/comment-watcher.php:8
 msgid "People Following This Thread"
 msgstr ""
 
-#: template-parts/comment-watcher.php:11
-#, php-format
-msgid ""
-"Please <a href=\"%s\" rel=\"nofollow\">login</a> to follow this thread."
+#: template-parts/comment-watcher.php:16
+msgid "Please <a href=\"%s\" rel=\"nofollow\">login</a> to follow this thread."
 msgstr ""
 
-#: template-parts/comment-watcher.php:18
-#, php-format
-msgid "1 people following."
+#: template-parts/comment-watcher.php:26
+msgid "%d people following."
 msgid_plural "%d people following."
 msgstr[0] ""
 msgstr[1] ""
 
-#: template-parts/comment-watcher.php:34
+#: template-parts/comment-watcher.php:44
 msgid "No one is following this thread."
 msgstr ""
 
 #: template-parts/comments-no.php:2
-#, php-format
 msgid "This %s has no comment."
 msgstr ""
 
-#: template-parts/form-comment.php:16
+#: template-parts/form-comment.php:31
 msgid "Comment"
 msgstr ""
 
-#: template-parts/form-comment.php:18
-msgid "e.g. Your opinion is collect."
+#: template-parts/form-comment.php:33
+msgid "e.g. I have another opinion."
 msgstr ""
 
-#: template-parts/form-comment.php:24 template-parts/form-thread.php:64
+#: template-parts/form-comment.php:39
+#: template-parts/form-thread.php:70
 msgid "Cancel"
 msgstr ""
 
-#: template-parts/form-comment.php:26 template-parts/form-thread.php:66
+#: template-parts/form-comment.php:41
+#: template-parts/form-thread.php:72
 msgid "Submit"
 msgstr ""
 
 #: template-parts/form-nocap.php:3
-#, php-format
-msgid ""
-"You have no permission to comment. Please <a href=\"%s\" class=\"alert-link"
-"\">log in</a> and continue."
+msgid "You have no permission to comment. Please <a href=\"%s\">log in</a> and continue."
 msgstr ""
 
 #: template-parts/form-nocap.php:5
 msgid "Comments are closed."
 msgstr ""
 
-#: template-parts/form-thread.php:5
+#: template-parts/form-thread.php:11
 msgid "Create New Thread"
 msgstr ""
 
-#: template-parts/form-thread.php:12
+#: template-parts/form-thread.php:18
 msgid "Thread Title"
 msgstr ""
 
-#: template-parts/form-thread.php:13 template-parts/form-thread.php:22
-#: template-parts/form-thread.php:32
+#: template-parts/form-thread.php:19
+#: template-parts/form-thread.php:28
+#: template-parts/form-thread.php:38
 msgid "Required"
 msgstr ""
 
-#: template-parts/form-thread.php:16
+#: template-parts/form-thread.php:22
 msgid "e.g. What does \"dark matter\" mean?"
 msgstr ""
 
-#: template-parts/form-thread.php:21
+#: template-parts/form-thread.php:27
 msgid "Description"
 msgstr ""
 
-#: template-parts/form-thread.php:25
-msgid ""
-"e.g. Yesterday, I read an article about galaxy. But I can't understand nor "
-"even imagine what \"dark matter\" is. Please ask my question."
+#: template-parts/form-thread.php:31
+msgid "e.g. Yesterday, I read an article about galaxy. But I can't understand nor even imagine what \"dark matter\" is. Please ask my question."
 msgstr ""
 
-#: template-parts/form-thread.php:36
+#: template-parts/form-thread.php:42
 msgid "Please select topic"
 msgstr ""
 
-#: template-parts/form-thread.php:49
+#: template-parts/form-thread.php:55
 msgid "Make this thread private"
 msgstr ""
 
-#: template-parts/form-thread.php:53
-#, php-format
+#: template-parts/form-thread.php:59
 msgid "Author of %s and invited people can see private thread."
 msgstr ""
 
-#: template-parts/form-thread.php:55
+#: template-parts/form-thread.php:61
 msgid "Only invited people can see private thread."
 msgstr ""
 
 #: template-parts/woocommerce-my-account.php:6
-#, php-format
 msgid "You have %s."
 msgstr ""
 
 #: template-parts/woocommerce-my-account.php:6
-#, php-format
 msgctxt "owning-thread"
 msgid "%d thread"
 msgid_plural "%d threads"
 msgstr[0] ""
 msgstr[1] ""
 
-#: template-parts/woocommerce-my-account.php:44
+#: template-parts/woocommerce-my-account.php:26
+#: assets/js/hamethread-hashboard.js:1
+msgid "Resolved"
+msgstr ""
+
+#: template-parts/woocommerce-my-account.php:32
+#: assets/js/hamethread-hashboard.js:1
+msgid "Last Updated: "
+msgstr ""
+
+#: template-parts/woocommerce-my-account.php:49
 msgid "You have no thread yet."
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "HameThread"
+#: assets/js/hamethread-comment.js:1
+msgid "Are you sure to delete comment?"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://wordpress.org/extend/plugins/hamethread"
+#: assets/js/hamethread-comment.js:1
+msgid "Following"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid "Forum plugin by Hametuha."
+#: assets/js/hamethread-comment.js:1
+msgid "Unfollow This Thread"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "Hametuna INC."
+#: assets/js/hamethread-comment.js:1
+msgid "Follow This Thread"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "https://hametuha.co.jp"
+#: assets/js/hamethread-hashboard.js:1
+msgid "Failed to fetch threads:"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "All Status"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "Not Resolved"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "Only private"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "Search keyword..."
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "Filter"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgctxt "thread-comment-count"
+msgid "comments"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgctxt "thread-comment-count"
+msgid "comment"
+msgstr ""
+
+#: assets/js/hamethread-hashboard.js:1
+msgid "No thread is found for your criteria."
 msgstr ""

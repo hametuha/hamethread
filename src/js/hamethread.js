@@ -23,7 +23,7 @@ $.extend( HameThread, {
 	removeElement( elem, callback ) {
 		return $( elem )
 			.effect( 'highlight', {}, 300 )
-			.fadeOut( 300, function () {
+			.fadeOut( 300, function() {
 				$( elem ).remove();
 				if ( callback ) {
 					callback();
@@ -74,7 +74,7 @@ $.extend( HameThread, {
 } );
 
 // Form cancel
-$( document ).on( 'click', '.hamethread-form-cancel', function ( e ) {
+$( document ).on( 'click', '.hamethread-form-cancel', function( e ) {
 	e.preventDefault();
 	$( this ).parents( '.hamethread-form' ).remove();
 } );

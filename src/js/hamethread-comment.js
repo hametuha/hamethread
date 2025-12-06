@@ -8,9 +8,10 @@
 /*global HameThreadComment: false*/
 
 const $ = jQuery;
+const { __ } = wp.i18n;
 
-const updateCommentCount = function () {
-	$( '.hamethread-comments' ).each( function ( index, comments ) {
+const updateCommentCount = function() {
+	$( '.hamethread-comments' ).each( function( index, comments ) {
 		$( comments ).attr(
 			'data-comment-count',
 			$( comments ).find( '.hamethread-comment-item-wrapper' ).length
@@ -19,56 +20,56 @@ const updateCommentCount = function () {
 };
 
 // Initialize comment count.
-$( document ).ready( function () {
+$( document ).ready( function() {
 	updateCommentCount();
 } );
 
 // Get comment form.
-$( document ).on( 'click', 'button[data-hamethread="comment"]', function ( e ) {
+$( document ).on( 'click', 'button[data-hamethread="comment"]', function( e ) {
 	e.preventDefault();
 	const $button = $( this );
 	$button.addClass( 'disabled' ).attr( 'disabled', true );
 	HameThread.request( 'GET', $button.attr( 'data-end-point' ) )
-		.done( function ( response ) {
+		.done( function( response ) {
 			$( 'body' ).append( response.html );
 		} )
-		.always( function () {
+		.always( function() {
 			$button.removeClass( 'disabled' ).attr( 'disabled', null );
 		} );
 } );
 
 // Get reply form.
-$( document ).on( 'click', '.hamethread-reply', function ( e ) {
+$( document ).on( 'click', '.hamethread-reply', function( e ) {
 	e.preventDefault();
 	const $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
 	$comment.addClass( 'loading' );
 	HameThread.request( 'GET', $( this ).attr( 'data-path' ), {
 		reply_to: $( this ).attr( 'data-reply-to' ),
 	} )
-		.done( function ( response ) {
+		.done( function( response ) {
 			$( 'body' ).append( response.html );
 		} )
-		.always( function () {
+		.always( function() {
 			$comment.removeClass( 'loading' );
 		} );
 } );
 
 // Get edit form.
-$( document ).on( 'click', 'a[data-hamethread="comment-edit"]', function ( e ) {
+$( document ).on( 'click', 'a[data-hamethread="comment-edit"]', function( e ) {
 	e.preventDefault();
 	const $comment = $( this ).closest( '.hamethread-comment-item-wrapper' );
 	$comment.addClass( 'loading' );
 	HameThread.request( 'GET', $( this ).attr( 'href' ) )
-		.done( function ( response ) {
+		.done( function( response ) {
 			$( 'body' ).append( response.html );
 		} )
-		.always( function () {
+		.always( function() {
 			$comment.removeClass( 'loading' );
 		} );
 } );
 
 // Voting
-$( document ).on( 'click', '.hamethread-upvote', function ( e ) {
+$( document ).on( 'click', '.hamethread-upvote', function( e ) {
 	e.preventDefault();
 	const $button = $( this );
 	if ( $button.hasClass( 'disabled' ) ) {
@@ -79,7 +80,7 @@ $( document ).on( 'click', '.hamethread-upvote', function ( e ) {
 	const method = isActive ? 'DELETE' : 'POST';
 	$button.attr( 'disabled', true ).addClass( 'disabled' );
 	HameThread.request( method, path )
-		.done( function () {
+		.done( function() {
 			// Do something.
 			if ( isActive ) {
 				$button.removeClass( 'active' );
@@ -87,19 +88,19 @@ $( document ).on( 'click', '.hamethread-upvote', function ( e ) {
 				$button.addClass( 'active' );
 			}
 		} )
-		.always( function () {
+		.always( function() {
 			$button.attr( 'disabled', null ).removeClass( 'disabled' );
 		} );
 } );
 
 // Post comment.
-$( document ).on( 'submit', '#hamethread-comment', function ( e ) {
+$( document ).on( 'submit', '#hamethread-comment', function( e ) {
 	e.preventDefault();
 	const $form = $( this );
 	const data = {};
 	$form
 		.find( 'input[name], select[name], textarea[name]' )
-		.each( function ( index, input ) {
+		.each( function( index, input ) {
 			if ( 'checkbox' === $( input ).attr( 'type' ) && ! input.checked ) {
 				return true;
 			}
@@ -107,7 +108,7 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 		} );
 	$form.addClass( 'loading' );
 	HameThread.request( 'POST', $form.attr( 'action' ), data )
-		.done( function ( response ) {
+		.done( function( response ) {
 			$form.trigger( 'commented', [ response ] );
 			const $comment = $( response.html );
 			// If comment exists, get it.
@@ -142,20 +143,23 @@ $( document ).on( 'submit', '#hamethread-comment', function ( e ) {
 			$form.remove();
 			updateCommentCount();
 		} )
-		.always( function () {
+		.always( function() {
 			$form.removeClass( 'loading' );
 		} );
 } );
 
 // Best answer.
-$( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
+$( document ).on( 'click', '.hamethread-ba-toggle', function( e ) {
 	e.preventDefault();
 	const $button = $( this );
 	const method = $button.attr( 'data-method' );
 	const message =
 		'POST' === method
-			? HameThreadComment.chooseBa
-			: HameThreadComment.cancelBa;
+			? __(
+				'Are you sure to choose this comment as the best answer?',
+				'hamethread'
+			)
+			: __( 'Are you sure to unmark the best answer?', 'hamethread' );
 	if ( ! window.confirm( message ) ) {
 		return;
 	}
@@ -163,11 +167,11 @@ $( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
 	const path = $button.attr( 'data-path' );
 	$comment.addClass( 'loading' );
 	HameThread.request( method, path )
-		.done( function ( response ) {
+		.done( function( response ) {
 			alert( response.message );
 			window.location.href = response.url;
 		} )
-		.always( function () {
+		.always( function() {
 			$comment.removeClass( 'loading' );
 		} );
 } );
@@ -176,9 +180,11 @@ $( document ).on( 'click', '.hamethread-ba-toggle', function ( e ) {
 $( document ).on(
 	'click',
 	'a[data-hamethread="comment-delete"]',
-	function ( e ) {
+	function( e ) {
 		e.preventDefault();
-		if ( ! confirm( HameThreadComment.confirm ) ) {
+		if (
+			! confirm( __( 'Are you sure to delete comment?', 'hamethread' ) )
+		) {
 			return false;
 		}
 		const $comment = $( this ).closest(
@@ -186,43 +192,44 @@ $( document ).on(
 		);
 		$comment.addClass( 'loading' );
 		HameThread.request( 'DELETE', $( this ).attr( 'href' ) )
-			.done( function ( response ) {
+			.done( function( response ) {
 				const $children = $comment.children( 'ul.children' );
 				if ( $children.length ) {
 					// Move children to after comments.
 					$comment.after( $children.children( 'li' ) );
 				}
 				alert( response.message );
-				HameThread.removeElement( $comment, function () {
+				HameThread.removeElement( $comment, function() {
 					updateCommentCount();
 				} );
 			} )
-			.always( function () {
+			.always( function() {
 				$comment.removeClass( 'loading' );
 			} );
 	}
 );
 
 // Update following status.
-$( document ).ready( function () {
+$( document ).ready( function() {
 	const $button = $( '#hamthread-watchers-toggle' );
 	if ( ! $button.length ) {
 		// Do nothing.
 		return true;
 	}
-	const setFollowStatus = function ( following ) {
+	const setFollowStatus = function( following ) {
 		let html = '';
 		if ( following ) {
 			html =
-				'<button class="btn btn-success btn-following"><span class="on"><i class="fa fa-check-circle"></i> ' +
-				HameThreadComment.following +
+				'<button class="hamethread-btn hamethread-btn-success hamethread-btn-following">' +
+				'<span class="on"><span class="dashicons dashicons-yes-alt"></span> ' +
+				__( 'Following', 'hamethread' ) +
 				'</span><span class="hover">' +
-				HameThreadComment.unfollow +
+				__( 'Unfollow This Thread', 'hamethread' ) +
 				'</span></button>';
 		} else {
 			html =
-				'<button class="btn btn-default">' +
-				HameThreadComment.follow +
+				'<button class="hamethread-btn hamethread-btn-default">' +
+				__( 'Follow This Thread', 'hamethread' ) +
 				'</button>';
 		}
 		if ( HameThreadComment.buttonCallback ) {
@@ -234,15 +241,15 @@ $( document ).ready( function () {
 	// Check current status.
 	HameThread.request( 'GET', 'follower/in/' + $button.attr( 'data-id' ), {
 		user_id: 'me',
-	} ).done( function ( response ) {
+	} ).done( function( response ) {
 		setFollowStatus( response.subscribing );
 	} );
 
 	// Toggle information.
-	$button.on( 'click', 'button', function ( e ) {
+	$button.on( 'click', 'button', function( e ) {
 		e.preventDefault();
 		let method;
-		if ( $( this ).hasClass( 'btn-following' ) ) {
+		if ( $( this ).hasClass( 'hamethread-btn-following' ) ) {
 			method = 'DELETE';
 		} else {
 			method = 'POST';
@@ -253,7 +260,7 @@ $( document ).ready( function () {
 			{
 				user_id: 'me',
 			}
-		).done( function ( response ) {
+		).done( function( response ) {
 			setFollowStatus( response.subscribing );
 		} );
 	} );

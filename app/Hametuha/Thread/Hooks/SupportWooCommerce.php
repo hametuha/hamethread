@@ -85,8 +85,8 @@ class SupportWooCommerce extends Singleton {
 			'base'      => untrailingslashit( wc_get_page_permalink( 'myaccount' ) ) . '/support/%_%',
 			'format'    => '%#%',
 			'total'     => $query->max_num_pages,
-			'prev_text' => '<i class="fa fa-chevron-left"></i>',
-			'next_text' => '<i class="fa fa-chevron-right"></i>',
+			'prev_text' => '<span class="dashicons dashicons-arrow-left-alt2"></span>',
+			'next_text' => '<span class="dashicons dashicons-arrow-right-alt2"></span>',
 			'current'   => max( 1, get_query_var( 'hamethread-support' ) ),
 			'type'      => 'array',
 		] );

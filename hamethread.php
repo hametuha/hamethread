@@ -6,12 +6,12 @@
  * Version:           1.2.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
- * Author:          Hametuha INC.
- * Author URI:      https://hametuha.co.jp
- * Text Domain:     hamethread
- * Domain Path:     /languages
- * License:         GPL3 or Later
- * @package         hamethread
+ * Author:            Hametuha INC.
+ * Author URI:        https://hametuha.co.jp
+ * Text Domain:       hamethread
+ * Domain Path:       /languages
+ * License:           GPL3 or Later
+ * @package           hamethread
  */
 
 // Do not load directory.
@@ -22,7 +22,7 @@ add_action( 'plugins_loaded', 'hamethread_init' );
 
 function hamethread_init() {
 	// i18n.
-	load_plugin_textdomain( 'hamethread', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'hamethread', false, basename( __DIR__ ) . '/languages' );
 	if ( version_compare( phpversion(), '7.4.0', '>=' ) ) {
 		// Load functions.
 		require __DIR__ . '/functions.php';
@@ -38,6 +38,10 @@ function hamethread_init() {
 		// Load composer.
 		require __DIR__ . '/vendor/autoload.php';
 		\Hametuha\Thread::get_instance();
+		// Initialize Hashboard in local environment.
+		if ( file_exists( __DIR__ . '/tests/hashboard-local.php' ) ) {
+			require_once __DIR__ . '/tests/hashboard-local.php';
+		}
 	} else {
 		add_action( 'admin_notices', 'hamethread_version_error' );
 	}
@@ -73,9 +77,9 @@ function hamethread_version() {
 	static $version = null;
 	if ( is_null( $version ) ) {
 		$file_info = get_file_data( __FILE__, [
-			'version' => 'Version'
+			'version' => 'Version',
 		] );
-		$version = trim( $file_info['version'] );
+		$version   = trim( $file_info['version'] );
 	}
 	return $version;
 }

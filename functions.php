@@ -8,6 +8,69 @@
 use Hametuha\Thread\Hooks\BestAnswer;
 
 /**
+ * Get icon HTML.
+ *
+ * @param string $name Icon name (e.g., 'cog', 'reply', 'thumbs-up').
+ * @param array  $attr Additional attributes for the icon element.
+ * @return string Icon HTML.
+ */
+function hamethread_icon( $name, $attr = [] ) {
+	// Map common icon names to Dashicons.
+	$dashicon_map = [
+		'cog'         => 'dashicons-admin-generic',
+		'settings'    => 'dashicons-admin-generic',
+		'edit'        => 'dashicons-edit',
+		'reply'       => 'dashicons-undo',
+		'thumbs-up'   => 'dashicons-thumbs-up',
+		'thumbs-down' => 'dashicons-thumbs-down',
+		'lock'        => 'dashicons-lock',
+		'unlock'      => 'dashicons-unlock',
+		'check'       => 'dashicons-yes',
+		'close'       => 'dashicons-no',
+		'comment'     => 'dashicons-admin-comments',
+		'user'        => 'dashicons-admin-users',
+		'time'        => 'dashicons-clock',
+		'star'        => 'dashicons-star-filled',
+		'star-empty'  => 'dashicons-star-empty',
+		'warning'     => 'dashicons-warning',
+		'info'        => 'dashicons-info',
+		'visibility'  => 'dashicons-visibility',
+		'hidden'      => 'dashicons-hidden',
+		'plus'        => 'dashicons-plus',
+		'minus'       => 'dashicons-minus',
+		'arrow-up'    => 'dashicons-arrow-up-alt',
+		'arrow-down'  => 'dashicons-arrow-down-alt',
+	];
+
+	// Get the Dashicon class.
+	$dashicon_class = isset( $dashicon_map[ $name ] ) ? $dashicon_map[ $name ] : 'dashicons-' . $name;
+
+	// Build default HTML.
+	$default_attr = [
+		'class'       => 'dashicons ' . $dashicon_class,
+		'aria-hidden' => 'true',
+	];
+	$attr         = array_merge( $default_attr, $attr );
+
+	// Build attribute string.
+	$attr_str = '';
+	foreach ( $attr as $key => $value ) {
+		$attr_str .= sprintf( ' %s="%s"', esc_attr( $key ), esc_attr( $value ) );
+	}
+
+	$html = sprintf( '<span%s></span>', $attr_str );
+
+	/**
+	 * Filter the icon HTML output.
+	 *
+	 * @param string $html Icon HTML.
+	 * @param string $name Icon name.
+	 * @param array  $attr Icon attributes.
+	 */
+	return apply_filters( 'hamethread_icon', $html, $name, $attr );
+}
+
+/**
  * Get file path.
  *
  * @param string $name
@@ -80,7 +143,7 @@ function hamethread_post_type() {
 }
 
 /**
- * Is comment recently editted.
+ * Is comment recently edited.
  *
  * @param int $offset Initial value 7
  * @param object $post
@@ -282,17 +345,19 @@ function hamethread_comment_actions( $comment ) {
 	// スレッドが開いている場合のみ返信ボタンを表示
 	if ( comments_open( $post ) ) {
 		$actions['reply'] = sprintf(
-			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d"><i class="fa fa-reply"></i> <span class="hamethread-comment-actions-label">%s</spanc></button>',
+			'<button class="hamethread-reply" data-path="comment/%d/new" data-reply-to="%d">%s <span class="hamethread-comment-actions-label">%s</span></button>',
 			$comment->comment_post_ID,
 			$comment->comment_ID,
+			hamethread_icon( 'reply' ),
 			esc_html__( 'Reply', 'hamethread' )
 		);
 	}
 
 	$actions['upvote'] = sprintf(
-		'<button class="hamethread-upvote%s" data-path="vote/%d"><i class="fa fa-thumbs-up"></i> <span class="hamethread-comment-actions-label">%s</span></button>',
+		'<button class="hamethread-upvote%s" data-path="vote/%d">%s <span class="hamethread-comment-actions-label">%s</span></button>',
 		\Hametuha\Thread\Rest\RestVote::get_instance()->is_voted( $comment->comment_ID, get_current_user_id() ) ? ' active' : '',
 		$comment->comment_ID,
+		hamethread_icon( 'thumbs-up' ),
 		esc_html__( 'Upvote', 'hamethread' )
 	);
 
