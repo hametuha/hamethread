@@ -47,13 +47,29 @@ HTML;
 	/**
 	 * Get data to display.
 	 *
-	 * @param \WP_Post $post
+	 * Dispatches to the appropriate method based on the structured data type setting.
+	 *
+	 * @param \WP_Post $post Post object.
 	 * @return array
 	 */
 	public function get_json( $post ) {
 		if ( ! $this->post_type->is_supported( $post->post_type ) ) {
 			return [];
 		}
+		$type = get_option( AdminSetting::OPTION_STRUCTURED_DATA_TYPE, 'qa' );
+		if ( 'discussion' === $type ) {
+			return $this->get_discussion_json( $post );
+		}
+		return $this->get_qa_json( $post );
+	}
+
+	/**
+	 * Get QAPage structured data.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @return array
+	 */
+	private function get_qa_json( $post ) {
 		$json           = [
 			'@context'   => 'https://schema.org',
 			'@type'      => 'QAPage',
@@ -64,10 +80,7 @@ HTML;
 				'answerCount' => get_comments_number( $post->ID ),
 				'upvoteCount' => hamethread_upvote_count( $post ),
 				'dateCreated' => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
-				'author'      => [
-					'@type' => 'Person',
-					'name'  => get_the_author_meta( 'display_name', $post->post_author ),
-				],
+				'author'      => $this->get_person_json( get_the_author_meta( 'display_name', $post->post_author ), $post->post_author ),
 			],
 		];
 		$best_answer    = hamethread_get_best_answer( $post );
@@ -94,9 +107,66 @@ HTML;
 	}
 
 	/**
-	 * Get comments.
+	 * Get DiscussionForumPosting structured data.
 	 *
-	 * @param \WP_Comment $comment
+	 * @param \WP_Post $post Post object.
+	 * @return array
+	 */
+	private function get_discussion_json( $post ) {
+		$json     = [
+			'@context'             => 'https://schema.org',
+			'@type'                => 'DiscussionForumPosting',
+			'headline'             => get_the_title( $post ),
+			'text'                 => strip_tags( $post->post_content ),
+			'url'                  => get_permalink( $post ),
+			'datePublished'        => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
+			'author'               => $this->get_person_json( get_the_author_meta( 'display_name', $post->post_author ), $post->post_author ),
+			'interactionStatistic' => [
+				'@type'                => 'InteractionCounter',
+				'interactionType'      => 'https://schema.org/LikeAction',
+				'userInteractionCount' => hamethread_upvote_count( $post ),
+			],
+		];
+		$comments = get_comments( [
+			'post_id' => $post->ID,
+			'status'  => 'approve',
+		] );
+		if ( $comments ) {
+			$json['comment'] = array_map( function ( $comment ) {
+				return [
+					'@type'         => 'Comment',
+					'text'          => $comment->comment_content,
+					'datePublished' => mysql2date( \DateTime::ISO8601, $comment->comment_date_gmt ),
+					'author'        => $this->get_person_json( $comment->comment_author, $comment->user_id ),
+					'url'           => get_permalink( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
+				];
+			}, $comments );
+		}
+		return apply_filters( 'hamethread_json_ld', $json, $post );
+	}
+
+	/**
+	 * Get Person structured data.
+	 *
+	 * @param string $name    Display name.
+	 * @param int    $user_id User ID.
+	 * @return array
+	 */
+	private function get_person_json( $name, $user_id = 0 ) {
+		$person = [
+			'@type' => 'Person',
+			'name'  => $name,
+		];
+		if ( $user_id ) {
+			$person['url'] = get_author_posts_url( $user_id );
+		}
+		return $person;
+	}
+
+	/**
+	 * Get answer data for QAPage.
+	 *
+	 * @param \WP_Comment $comment Comment object.
 	 * @return array
 	 */
 	private function get_answer_json( $comment ) {
@@ -106,10 +176,7 @@ HTML;
 			'dateCreated' => mysql2date( \DateTime::ISO8601, $comment->comment_date_gmt ),
 			'upvoteCount' => hamethread_comment_upvoted_count( $comment ),
 			'url'         => get_permalink( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
-			'author'      => [
-				'@type' => 'Person',
-				'name'  => $comment->comment_author,
-			],
+			'author'      => $this->get_person_json( $comment->comment_author, $comment->user_id ),
 		];
 	}
 
@@ -117,7 +184,7 @@ HTML;
 	/**
 	 * Getter
 	 *
-	 * @param string $name
+	 * @param string $name Property name.
 	 * @return mixed
 	 */
 	public function __get( $name ) {

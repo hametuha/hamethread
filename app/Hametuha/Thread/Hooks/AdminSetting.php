@@ -22,6 +22,8 @@ class AdminSetting extends Singleton {
 
 	const OPTION_AUTO_CLOSE_PROLONG = 'hamethread_auto_close_prolong';
 
+	const OPTION_STRUCTURED_DATA_TYPE = 'hamethread_structured_data_type';
+
 	/**
 	 * Add setting section for hamail.
 	 */
@@ -29,6 +31,7 @@ class AdminSetting extends Singleton {
 		add_action( 'admin_init', [ $this, 'setting_section' ] );
 		add_action( 'admin_init', [ $this, 'best_answer_setting' ] );
 		add_action( 'admin_init', [ $this, 'auto_close_setting' ] );
+		add_action( 'admin_init', [ $this, 'structured_data_setting' ] );
 	}
 
 	/**
@@ -112,5 +115,33 @@ class AdminSetting extends Singleton {
 			}
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_AUTO_CLOSE_PROLONG ] );
 		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_PROLONG );
+	}
+
+	/**
+	 * Add structured data type setting.
+	 */
+	public function structured_data_setting() {
+		add_settings_field( self::OPTION_STRUCTURED_DATA_TYPE, __( 'Structured Data Type', 'hamethread' ), function ( $args ) {
+			$key     = $args['key'];
+			$current = get_option( $key, 'qa' );
+			foreach ( [
+				'qa'         => __( 'QAPage — Suitable for Q&A style forums.', 'hamethread' ),
+				'discussion' => __( 'DiscussionForumPosting — Suitable for general discussion forums.', 'hamethread' ),
+			] as $value => $label ) {
+				printf(
+					'<p><label><input type="radio" name="%s" value="%s" %s/> %s</label></p>',
+					esc_attr( $key ),
+					esc_attr( $value ),
+					checked( $value, $current, false ),
+					esc_html( $label )
+				);
+			}
+			?>
+			<p class="description">
+				<?php esc_html_e( 'Choose the structured data type for JSON-LD output on thread pages.', 'hamethread' ); ?>
+			</p>
+			<?php
+		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_STRUCTURED_DATA_TYPE ] );
+		register_setting( self::PAGE, self::OPTION_STRUCTURED_DATA_TYPE );
 	}
 }
