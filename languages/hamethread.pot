@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-08T03:45:20+00:00\n"
+"POT-Creation-Date: 2026-02-10T08:27:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: hamethread\n"
@@ -79,58 +79,71 @@ msgstr ""
 msgid "Automatically closed: %d"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:42
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:46
 msgid "Thread Setting"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:53
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:57
 #: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 #: template-parts/comment-loop.php:51
 msgid "Best Answer"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:75
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:79
 msgid "Choose post types to enable best answer in."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:87
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:91
 msgid "Auto Close Duration"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:94
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:98
 msgid "Auto close duration in daiy. The thread will be automatically closed if this thread is more than 0."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:100
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:104
 msgid "Prolongation"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:104
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:108
 msgid "Close anyway."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:105
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:109
 msgid "Count down just after thread creation and prolong prolong with new comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:106
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:110
 msgid "Count down just after first comment submission and prolong with new comment."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:124
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:128
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:167
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:189
 msgid "Structured Data Type"
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:128
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:132
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:160
 msgid "QAPage — Suitable for Q&A style forums."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:129
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:133
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:161
 msgid "DiscussionForumPosting — Suitable for general discussion forums."
 msgstr ""
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:141
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:145
 msgid "Choose the structured data type for JSON-LD output on thread pages."
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:159
+msgid "Default (use global setting)"
+msgstr ""
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:179
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:202
+msgid "Override the global structured data type for threads in this topic."
 msgstr ""
 
 #: app/Hametuha/Thread/Hooks/AutoClose.php:227

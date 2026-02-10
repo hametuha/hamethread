@@ -56,11 +56,32 @@ HTML;
 		if ( ! $this->post_type->is_supported( $post->post_type ) ) {
 			return [];
 		}
-		$type = get_option( AdminSetting::OPTION_STRUCTURED_DATA_TYPE, 'qa' );
+		$type = $this->get_structured_data_type( $post );
 		if ( 'discussion' === $type ) {
 			return $this->get_discussion_json( $post );
 		}
 		return $this->get_qa_json( $post );
+	}
+
+	/**
+	 * Get structured data type for a post.
+	 *
+	 * Checks term meta first, then falls back to global option.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @return string 'qa' or 'discussion'.
+	 */
+	private function get_structured_data_type( $post ) {
+		$terms = get_the_terms( $post->ID, $this->post_type->taxonomy );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$type = get_term_meta( $term->term_id, AdminSetting::TERM_META_STRUCTURED_DATA_TYPE, true );
+				if ( $type ) {
+					return $type;
+				}
+			}
+		}
+		return get_option( AdminSetting::OPTION_STRUCTURED_DATA_TYPE, 'qa' );
 	}
 
 	/**

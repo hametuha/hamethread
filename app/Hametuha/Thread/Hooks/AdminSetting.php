@@ -4,6 +4,7 @@ namespace Hametuha\Thread\Hooks;
 
 
 use Hametuha\Pattern\Singleton;
+use Hametuha\Thread\Hooks\PostType;
 
 /**
  * Admin settings.
@@ -24,6 +25,8 @@ class AdminSetting extends Singleton {
 
 	const OPTION_STRUCTURED_DATA_TYPE = 'hamethread_structured_data_type';
 
+	const TERM_META_STRUCTURED_DATA_TYPE = '_hamethread_structured_data_type';
+
 	/**
 	 * Add setting section for hamail.
 	 */
@@ -32,6 +35,7 @@ class AdminSetting extends Singleton {
 		add_action( 'admin_init', [ $this, 'best_answer_setting' ] );
 		add_action( 'admin_init', [ $this, 'auto_close_setting' ] );
 		add_action( 'admin_init', [ $this, 'structured_data_setting' ] );
+		add_action( 'admin_init', [ $this, 'term_structured_data_setting' ] );
 	}
 
 	/**
@@ -143,5 +147,90 @@ class AdminSetting extends Singleton {
 			<?php
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_STRUCTURED_DATA_TYPE ] );
 		register_setting( self::PAGE, self::OPTION_STRUCTURED_DATA_TYPE );
+	}
+
+	/**
+	 * Add structured data type setting for topic terms.
+	 */
+	public function term_structured_data_setting() {
+		$taxonomy = PostType::get_instance()->taxonomy;
+		$meta_key = self::TERM_META_STRUCTURED_DATA_TYPE;
+		$choices  = [
+			''           => __( 'Default (use global setting)', 'hamethread' ),
+			'qa'         => __( 'QAPage — Suitable for Q&A style forums.', 'hamethread' ),
+			'discussion' => __( 'DiscussionForumPosting — Suitable for general discussion forums.', 'hamethread' ),
+		];
+		// Add form fields for new term.
+		add_action( "{$taxonomy}_add_form_fields", function () use ( $meta_key, $choices ) {
+			?>
+			<div class="form-field">
+				<label><?php esc_html_e( 'Structured Data Type', 'hamethread' ); ?></label>
+				<?php foreach ( $choices as $value => $label ) : ?>
+					<p>
+						<label>
+							<input type="radio" name="<?php echo esc_attr( $meta_key ); ?>"
+								value="<?php echo esc_attr( $value ); ?>"
+								<?php checked( $value, '' ); ?> />
+							<?php echo esc_html( $label ); ?>
+						</label>
+					</p>
+				<?php endforeach; ?>
+				<p class="description">
+					<?php esc_html_e( 'Override the global structured data type for threads in this topic.', 'hamethread' ); ?>
+				</p>
+			</div>
+			<?php
+		} );
+		// Edit form fields for existing term.
+		add_action( "{$taxonomy}_edit_form_fields", function ( $term ) use ( $meta_key, $choices ) {
+			$current = get_term_meta( $term->term_id, $meta_key, true );
+			?>
+			<tr class="form-field">
+				<th><label><?php esc_html_e( 'Structured Data Type', 'hamethread' ); ?></label></th>
+				<td>
+					<?php foreach ( $choices as $value => $label ) : ?>
+						<p>
+							<label>
+								<input type="radio" name="<?php echo esc_attr( $meta_key ); ?>"
+									value="<?php echo esc_attr( $value ); ?>"
+									<?php checked( $value, $current ); ?> />
+								<?php echo esc_html( $label ); ?>
+							</label>
+						</p>
+					<?php endforeach; ?>
+					<p class="description">
+						<?php esc_html_e( 'Override the global structured data type for threads in this topic.', 'hamethread' ); ?>
+					</p>
+				</td>
+			</tr>
+			<?php
+		} );
+		// Save term meta on create.
+		add_action( "created_{$taxonomy}", function ( $term_id ) use ( $meta_key ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( $_POST[ $meta_key ] ) : '';
+			if ( '' === $value ) {
+				delete_term_meta( $term_id, $meta_key );
+			} else {
+				update_term_meta( $term_id, $meta_key, $value );
+			}
+		} );
+		// Save term meta on edit.
+		add_action( "edited_{$taxonomy}", function ( $term_id ) use ( $meta_key ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( $_POST[ $meta_key ] ) : '';
+			if ( '' === $value ) {
+				delete_term_meta( $term_id, $meta_key );
+			} else {
+				update_term_meta( $term_id, $meta_key, $value );
+			}
+		} );
+		// Register term meta.
+		register_term_meta( $taxonomy, $meta_key, [
+			'type'              => 'string',
+			'single'            => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => false,
+		] );
 	}
 }
