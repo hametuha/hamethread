@@ -631,27 +631,27 @@ msgstr[0] "%d人がフォローしています。"
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:167
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:189
 msgid "Structured Data Type"
-msgstr ""
+msgstr "構造化データの種類"
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:132
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:160
 msgid "QAPage — Suitable for Q&A style forums."
-msgstr ""
+msgstr "QAPage — Q&A形式のフォーラムに適しています。"
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:133
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:161
 msgid "DiscussionForumPosting — Suitable for general discussion forums."
-msgstr ""
+msgstr "DiscussionForumPosting — 一般的なディスカッションフォーラムに適しています。"
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:145
 msgid "Choose the structured data type for JSON-LD output on thread pages."
-msgstr ""
+msgstr "スレッドページのJSON-LD出力に使用する構造化データの種類を選択してください。"
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:159
 msgid "Default (use global setting)"
-msgstr ""
+msgstr "デフォルト（グローバル設定に従う）"
 
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:179
 #: app/Hametuha/Thread/Hooks/AdminSetting.php:202
 msgid "Override the global structured data type for threads in this topic."
-msgstr ""
+msgstr "このトピックに属するスレッドの構造化データの種類をグローバル設定から上書きします。"
