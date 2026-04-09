@@ -1,0 +1,361 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_wp_error\(\) with int\<0, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Hametuha/Thread/Command.php
+
+		-
+			message: '#^Call to method display\(\) on an unknown class cli\\Table\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Hametuha/Thread/Command.php
+
+		-
+			message: '#^Call to method setHeaders\(\) on an unknown class cli\\Table\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Hametuha/Thread/Command.php
+
+		-
+			message: '#^Call to method setRows\(\) on an unknown class cli\\Table\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Hametuha/Thread/Command.php
+
+		-
+			message: '#^Instantiated class cli\\Table not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Hametuha/Thread/Command.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Hametuha/Thread/Hooks/AdminSetting.php
+
+		-
+			message: '#^Parameter \#2 \$output of function get_post_types expects ''names''\|''objects'', ''OBJECT'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AdminSetting.php
+
+		-
+			message: '#^Action callback returns int but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AutoClose.php
+
+		-
+			message: '#^Callback expects 1 parameter, \$accepted_args is set to 2\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AutoClose.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$request$#'
+			identifier: parameter.notFound
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AutoClose.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$thread$#'
+			identifier: parameter.notFound
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AutoClose.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_post expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/AutoClose.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of function delete_comment_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of function get_comment_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of function update_comment_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_post_type expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$post of function hamethread_get_best_answer expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$post of function hamethread_has_best_answer expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$thread_id of static method Hametuha\\Thread\\Model\\ThreadModel\:\:is_resolved\(\) expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$thread_id of static method Hametuha\\Thread\\Model\\ThreadModel\:\:set_resolved\(\) expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/BestAnswer.php
+
+		-
+			message: '#^Result of function edit_post_link \(void\) is used\.$#'
+			identifier: function.void
+			count: 1
+			path: app/Hametuha/Thread/Hooks/PostType.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 3
+			path: app/Hametuha/Thread/Hooks/PostType.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/StructuredData.php
+
+		-
+			message: '#^Parameter \#2 \$user_id of function get_the_author_meta expects int\|false, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/StructuredData.php
+
+		-
+			message: '#^Call to function array_unique\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportNotification.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportNotification.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_the_title expects int\|WP_Post, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportNotification.php
+
+		-
+			message: '#^Parameter \#1 \$post of method Hametuha\\Thread\\Hooks\\SupportNotification\:\:get_subscribers\(\) expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportNotification.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportNotification.php
+
+		-
+			message: '#^Function wc_get_page_permalink not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: app/Hametuha/Thread/Hooks/SupportWooCommerce.php
+
+		-
+			message: '#^Call to function is_null\(\) with null will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Hametuha/Thread/Model/ThreadModel.php
+
+		-
+			message: '#^Method Hametuha\\Thread\\Model\\ThreadModel\:\:change_resolution_status\(\) should return bool\|WP_Error but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Hametuha/Thread/Model/ThreadModel.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 2
+			path: app/Hametuha/Thread/Pattern/AbstractUI.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Hametuha/Thread/Pattern/RestBase.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Hametuha/Thread/Rest/RestBestAnswer.php
+
+		-
+			message: '#^Parameter \#1 \$post_id of function wp_update_comment_count_now expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestComment.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\<string, int\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestComment.php
+
+		-
+			message: '#^Parameter \#2 \$user_id of function hamethread_user_can_comment expects null, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestCommentNew.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, array\<string, int\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestCommentNew.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 3
+			path: app/Hametuha/Thread/Rest/RestFollower.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with int\<0, max\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThread.php
+
+		-
+			message: '#^Method Hametuha\\Thread\\Rest\\RestThread\:\:permission_callback\(\) should return bool\|WP_Error but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThread.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 4
+			path: app/Hametuha/Thread/Rest/RestThread.php
+
+		-
+			message: '#^Argument of an invalid type true supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThreadNew.php
+
+		-
+			message: '#^Expected 4 @param tags, found 3\.$#'
+			identifier: paramTag.count
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThreadNew.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of static method Hametuha\\Thread\\Model\\ThreadModel\:\:can_post\(\) expects null, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThreadNew.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 3
+			path: app/Hametuha/Thread/Rest/RestThreadNew.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, Closure\(mixed\)\: \(stdClass\|null\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestThreads.php
+
+		-
+			message: '#^Action callback returns int\|false but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: app/Hametuha/Thread/Rest/RestVote.php
+
+		-
+			message: '#^Parameter \#3 \$post of function comment_class expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Hametuha/Thread/UI/CommentForm.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between int\<0, max\> and string will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Hametuha/Thread/UI/CommentForm.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 2
+			path: app/Hametuha/Thread/UI/ThreadEditor.php
+
+		-
+			message: '#^Function hamethread_last_commented\(\) should return bool\|int\|string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Function hamethread_template\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Function wc_get_page_permalink not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of function get_comment_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of method Hametuha\\Thread\\Rest\\RestVote\:\:is_voted\(\) expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_post expects int\|WP_Post\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Parameter \#1 \$user_id of function get_userdata expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: functions.php
+
+		-
+			message: '#^Parameter \#1 \$comment_id of function get_comment_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/best-answer.php
