@@ -20,7 +20,7 @@ phpunit.xml.dist
 README.md
 Development.md
 webpack.config.js
-wordpress
+/wordpress
 bin
 tests
 hamethread.php.bak
