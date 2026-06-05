@@ -2,19 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-10 16:12+0900\n"
-"PO-Revision-Date: 2025-12-06 10:24+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-09-10 16:12+0900\n"
+"PO-Revision-Date: 2025-12-06 10:24+0900\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: .\n"
 
-#: app/Hametuha/Thread.php:81 assets/js/hamethread.js:1
+#: app/Hametuha/Thread.php:81
+#: assets/js/hamethread.js:1
 msgid "Sorry but request failed."
 msgstr "申し訳ございません。リクエストに失敗しました。"
 
@@ -44,41 +45,41 @@ msgstr[0] "%d件のスレッド"
 msgid "just now"
 msgstr "たったいま"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:39
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:46
 msgid "Thread Setting"
 msgstr "スレッド設定"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:50
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:57
 #: app/Hametuha/Thread/Hooks/BestAnswer.php:108
 #: template-parts/comment-loop.php:51
 msgid "Best Answer"
 msgstr "ベストアンサー"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:72
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:79
 msgid "Choose post types to enable best answer in."
 msgstr "ベストアンサーを有効にする投稿タイプを選んでください。"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:84
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:91
 msgid "Auto Close Duration"
 msgstr "自動で閉じる日数"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:91
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:98
 msgid "Auto close duration in daiy. The thread will be automatically closed if this thread is more than 0."
 msgstr "自動で閉じる日数。この値が0より大きい場合、スレッドは自動的に閉じられます。"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:97
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:104
 msgid "Prolongation"
 msgstr "延長"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:101
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:108
 msgid "Close anyway."
 msgstr "とにかく閉鎖。"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:102
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:109
 msgid "Count down just after thread creation and prolong prolong with new comment."
 msgstr "スレッド作成からカウントダウンを開始し、新しいコメントがあった場合に延長する。"
 
-#: app/Hametuha/Thread/Hooks/AdminSetting.php:103
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:110
 msgid "Count down just after first comment submission and prolong with new comment."
 msgstr "最初のコメント投稿からカウントダウンを開始し、新しいコメントがあった場合に延長する。"
 
@@ -102,7 +103,8 @@ msgstr "コメントが見つかりません。"
 msgid "Thread"
 msgstr "スレッド"
 
-#: app/Hametuha/Thread/Hooks/PostType.php:70 template-parts/form-thread.php:36
+#: app/Hametuha/Thread/Hooks/PostType.php:70
+#: template-parts/form-thread.php:36
 msgid "Topic"
 msgstr "トピック"
 
@@ -137,6 +139,7 @@ msgid ""
 "\n"
 "You get this notification because you subscribed thread.\n"
 "To change notification setting, please go to thread page.\n"
+""
 msgstr ""
 "%1$s,さん\n"
 "\n"
@@ -152,6 +155,7 @@ msgstr ""
 "\n"
 "スレッドを購読している方にこのお知らせをお届けしています。\n"
 "通知設定を変更するには、スレッドページへ行ってください。\n"
+""
 
 #: app/Hametuha/Thread/Hooks/SupportNotification.php:89
 msgid "A guest"
@@ -173,6 +177,7 @@ msgid ""
 "%3$s\n"
 "URL: %4$s\n"
 "\n"
+""
 msgstr ""
 "%1$sさん\n"
 "\n"
@@ -182,6 +187,7 @@ msgstr ""
 "%3$s\n"
 "URL: %4$s\n"
 "\n"
+""
 
 #: app/Hametuha/Thread/Hooks/SupportNotification.php:197
 #, php-format
@@ -478,11 +484,13 @@ msgstr "この%sにはまだコメントがありません。"
 msgid "Comment"
 msgstr "コメント"
 
-#: template-parts/form-comment.php:39 template-parts/form-thread.php:70
+#: template-parts/form-comment.php:39
+#: template-parts/form-thread.php:70
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: template-parts/form-comment.php:41 template-parts/form-thread.php:72
+#: template-parts/form-comment.php:41
+#: template-parts/form-thread.php:72
 msgid "Submit"
 msgstr "送信"
 
@@ -498,7 +506,8 @@ msgstr "新しいスレッドを開始する"
 msgid "Thread Title"
 msgstr "スレッドタイトル"
 
-#: template-parts/form-thread.php:19 template-parts/form-thread.php:28
+#: template-parts/form-thread.php:19
+#: template-parts/form-thread.php:28
 #: template-parts/form-thread.php:38
 msgid "Required"
 msgstr "必須"
@@ -617,3 +626,32 @@ msgstr "例）私は別の意見があります。"
 msgid "%d people following."
 msgid_plural "%d people following."
 msgstr[0] "%d人がフォローしています。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:128
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:167
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:189
+msgid "Structured Data Type"
+msgstr "構造化データの種類"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:132
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:160
+msgid "QAPage — Suitable for Q&A style forums."
+msgstr "QAPage — Q&A形式のフォーラムに適しています。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:133
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:161
+msgid "DiscussionForumPosting — Suitable for general discussion forums."
+msgstr "DiscussionForumPosting — 一般的なディスカッションフォーラムに適しています。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:145
+msgid "Choose the structured data type for JSON-LD output on thread pages."
+msgstr "スレッドページのJSON-LD出力に使用する構造化データの種類を選択してください。"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:159
+msgid "Default (use global setting)"
+msgstr "デフォルト（グローバル設定に従う）"
+
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:179
+#: app/Hametuha/Thread/Hooks/AdminSetting.php:202
+msgid "Override the global structured data type for threads in this topic."
+msgstr "このトピックに属するスレッドの構造化データの種類をグローバル設定から上書きします。"
