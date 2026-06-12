@@ -452,33 +452,56 @@ function hamethread_last_commented( $no_comment = '---', $post = null, $format =
 }
 
 /**
+ * Build pagination markup from an array of page links.
+ *
+ * Accepts the `type => array` output of `paginate_links()` /
+ * `paginate_comments_links()` and wraps it in Bootstrap-independent markup
+ * using `hamethread-pagination` classes. Styles live in `src/scss/_pagination.scss`.
+ *
+ * @param string[]|string|null $links Array of anchor/span HTML for each page,
+ *                                    as returned by paginate_links() / paginate_comments_links().
+ * @param string               $label aria-label for the <nav> element.
+ * @return string Empty string when there is nothing to paginate.
+ */
+function hamethread_pagination_html( $links, $label = '' ) {
+	if ( ! is_array( $links ) || ! $links ) {
+		return '';
+	}
+	$label = $label ? $label : __( 'Pagination', 'hamethread' );
+	$items = array_map( function ( $link ) {
+		$classes = [ 'hamethread-pagination-item' ];
+		if ( false !== strpos( $link, 'current' ) ) {
+			$classes[] = 'is-current';
+		} elseif ( false !== strpos( $link, 'dots' ) ) {
+			$classes[] = 'is-dots';
+		} elseif ( false !== strpos( $link, 'prev' ) ) {
+			$classes[] = 'is-prev';
+		} elseif ( false !== strpos( $link, 'next' ) ) {
+			$classes[] = 'is-next';
+		}
+		// Rewrite the link element's own class (the first class attribute) to ours.
+		$link = preg_replace( '/class=([\'"]).*?\1/', 'class="hamethread-pagination-link"', $link, 1 );
+		return sprintf( '<li class="%s">%s</li>', esc_attr( implode( ' ', $classes ) ), $link );
+	}, $links );
+	return sprintf(
+		'<nav class="hamethread-pagination" aria-label="%s"><ul class="hamethread-pagination-list">%s</ul></nav>',
+		esc_attr( $label ),
+		implode( '', $items )
+	);
+}
+
+/**
  * Display comment links
  *
  * @return string
  */
 function hamethread_comment_links() {
-	$link = paginate_comments_links( [
+	$links = paginate_comments_links( [
 		'echo' => false,
 		'type' => 'array',
 	] );
-	if ( $link ) {
-		$link = array_map( function ( $l ) {
-			$classes = [ 'page-item' ];
-			if ( false !== strpos( $l, 'current' ) ) {
-				$classes[] = 'active';
-			} elseif ( false !== strpos( $l, 'dot' ) ) {
-				$classes[] = 'disabled';
-			}
-
-			return sprintf( '<li class="%s">%s</li>', implode( ' ', $classes ), $l );
-		}, $link );
-		array_unshift( $link, '<ul class="pagination">' );
-		array_unshift( $link, sprintf( '<nav aria-label="%s" class="text-center">', esc_html__( 'Comments Pagination', 'hamethread' ) ) );
-		array_push( $link, '</ul>' );
-		array_push( $link, '</nav>' );
-		$link = implode( "\n", $link );
-	}
-	return apply_filters( 'hamethread_comment_links', $link );
+	$html  = hamethread_pagination_html( $links, __( 'Comments Pagination', 'hamethread' ) );
+	return apply_filters( 'hamethread_comment_links', $html );
 }
 
 /**

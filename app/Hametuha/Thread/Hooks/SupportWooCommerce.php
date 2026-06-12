@@ -80,7 +80,7 @@ class SupportWooCommerce extends Singleton {
 	 * @return string
 	 */
 	public function paginate( $pagination, $query ) {
-		$link = paginate_links( [
+		$links = paginate_links( [
 			'base'      => untrailingslashit( wc_get_page_permalink( 'myaccount' ) ) . '/support/%_%',
 			'format'    => '%#%',
 			'total'     => $query->max_num_pages,
@@ -89,23 +89,6 @@ class SupportWooCommerce extends Singleton {
 			'current'   => max( 1, get_query_var( 'hamethread-support' ) ),
 			'type'      => 'array',
 		] );
-		if ( ! $link ) {
-			return '';
-		}
-		ob_start();
-		?>
-		<nav aria-label="Page navigation example" class="mt-4">
-			<ul class="pagination">
-				<?php foreach ( $link as $l ) : ?>
-					<li class="page-item<?php echo false === strpos( $l, '<span' ) ? '' : ' active'; ?>">
-						<?php echo preg_replace( '/(?<!i) class=[\'"][^\'"]+[\'"]/u', ' class="page-link"', $l ); ?>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-		</nav>
-		<?php
-		$pagination = ob_get_contents();
-		ob_end_clean();
-		return $pagination;
+		return hamethread_pagination_html( $links );
 	}
 }
