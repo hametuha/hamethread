@@ -25,7 +25,7 @@ jobs:
           node-version: '20'
 
       - name: Build package.
-        run: bash bin/build.sh ${{ github.event.release.tag_name }}
+        run: bash bin/build.sh ${{ github.ref }}
 
       - name: Zip Archive
         run: |
