@@ -2,7 +2,8 @@
 	"plugins": [
 		".",
 		"https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip",
-		"https://downloads.wordpress.org/plugin/query-monitor.latest-stable.zip"
+		"https://downloads.wordpress.org/plugin/query-monitor.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip"
 	],
 	"mappings": {
 		"wp-content/mu-plugins/hamethread-dev.php": "./tests/hashboard.php"
