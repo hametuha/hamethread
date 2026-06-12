@@ -21,7 +21,6 @@ class SupportWooCommerce extends Singleton {
 		}
 		add_filter( 'woocommerce_account_menu_items', [ $this, 'woocommerce_link' ], 20 );
 		add_action( 'init', [ $this, 'add_endpoint' ] );
-		add_action( 'init', [ $this, 'register_assets' ] );
 		add_filter( 'query_vars', function ( $vars ) {
 			$vars[] = 'hamethread-support';
 			return $vars;
