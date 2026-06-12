@@ -11,3 +11,6 @@ assets
 wp-dependencies.json
 languages/*.mo
 languages/*.json
+
+# PHPUnit
+.phpunit.result.cache
