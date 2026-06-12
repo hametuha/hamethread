@@ -54,6 +54,25 @@ wp-dependencies.jsonで依存関係を管理:
 - `hamethread-hashboard` CSSは `bootstrap` に依存
 - `hamethread`, `hamethread-comment` はBootstrapに依存しない
 
+### WooCommerce統合について
+
+`SupportWooCommerce.php`（`Hooks/`配下なので `Thread` 初期化時に自動ロード）が、WooCommerceの**マイアカウント画面**にサポート機能を追加する。kunoichi marketでは商品サポートページとして本番利用している。
+
+- **WooCommerceがない環境**: `init()` 冒頭の `function_exists( 'WC' )` チェックで何もしない。
+- **WooCommerceがある環境**: マイアカウントに「Support」メニューとエンドポイント（`/my-account/support/`）を追加し、ログインユーザー自身の `thread` 投稿一覧をページネーション付きで表示する。
+
+| 構成要素 | 役割 |
+|----------|------|
+| `Hooks/SupportWooCommerce.php` | フック登録（`WC()` 存在時のみ起動） |
+| `template-parts/woocommerce-my-account.php` | サポート一覧テンプレート |
+| `src/scss/hamethread-woocommerce.scss` → `hamethread-woocommerce` ハンドル | 一覧用CSS（Bootstrap非依存） |
+
+アセットは個別登録せず、`Thread::register_assets()` が `wp-dependencies.json` から一括登録する（`render_support_list()` 内で `wp_enqueue_style( 'hamethread-woocommerce' )` するだけ）。**個々のHookクラスに `register_assets` を `add_action` してはいけない**（#46 のFatal errorの原因）。
+
+ローカルでの動作確認は `.wp-env.json` にWooCommerceを含めてあるため、`http://localhost:8888` で再現できる。リグレッションテストは `tests/TestWooCommerce.php`。
+
+> 既知の課題: `paginate()` がBootstrapクラス（`pagination` / `page-item` / `page-link`）のマークアップを出力するが、`hamethread-woocommerce` CSSはBootstrap非依存。ストアフロントにBootstrapが無い環境ではページネーションが未スタイルになる（別途issue化予定）。
+
 ## ビルドシステム
 
 ### @kunoichi/grab-deps
