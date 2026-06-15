@@ -31,6 +31,7 @@ class RushDetector {
 	 */
 	public static function rushing_message( $user_id = 0 ) {
 		$condition = self::get_rushing_condition( $user_id );
+		// translators: %1$d is the comment limit, %2$d is the time window in minutes.
 		return sprintf( __( 'You posted more than %1$d comments in %2$d minutes. Please be patient.', 'hamethread' ), $condition['limit'], $condition['minutes'] );
 	}
 

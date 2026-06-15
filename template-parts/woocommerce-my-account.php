@@ -4,7 +4,16 @@ defined( 'ABSPATH' ) || die();
 if ( $query->have_posts() ) :
 	?>
 
-<p class="hamethread-text-muted"><?php printf( __( 'You have %s.', 'hamethread' ), sprintf( _nx( '%d thread', '%d threads', $query->found_posts, 'owning-thread', 'hamethread' ), $query->found_posts ) ); ?></p>
+	<?php
+	// translators: %d is the number of threads the user owns.
+	$thread_count = sprintf( _nx( '%d thread', '%d threads', $query->found_posts, 'owning-thread', 'hamethread' ), $query->found_posts );
+	?>
+<p class="hamethread-text-muted">
+	<?php
+	// translators: %s is the number of threads (e.g. "3 threads").
+	printf( __( 'You have %s.', 'hamethread' ), $thread_count );
+	?>
+</p>
 
 <ul class="hamethread-my-threads">
 	<?php

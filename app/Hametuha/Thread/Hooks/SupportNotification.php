@@ -52,7 +52,8 @@ class SupportNotification extends Singleton {
 		$subject = apply_filters(
 			'hamethread_notification_title',
 			sprintf(
-				__( '%s - A new comment is posted to your subscribing thread.', 'hamethread' ), // translator: %s is site title.
+				// translators: %s is the site title.
+				__( '%s - A new comment is posted to your subscribing thread.', 'hamethread' ),
 				get_bloginfo( 'name' )
 			),
 			$comment
@@ -177,11 +178,12 @@ To change notification setting, please go to thread page.
 			}
 		}
 		$subject = apply_filters( 'hamethread_auto_close_notification_title', sprintf(
-			__( '%1$s - Thread #%2$d is automatically closed.', 'hamethread' ), // translator: %1$s is site title, %2$d is post ID.
+			// translators: %1$s is the site title, %2$d is the post ID.
+			__( '%1$s - Thread #%2$d is automatically closed.', 'hamethread' ),
 			get_bloginfo( 'name' ),
 			$post->ID
 		), $post, $already_closed );
-		// translator: %1$s is user name, %2$s is date passed, %3$s is title, %4$s is URL.
+		// translators: %1$s is the user name, %2$s is the date passed, %3$s is the title, %4$s is the URL.
 		$body     = __( 'Dear %1$s,
 
 Since %2$s been passed from last comment,
@@ -194,8 +196,9 @@ URL: %4$s
 		$title    = get_the_title( $post );
 		$url      = get_permalink( $post );
 		$duration = AutoClose::get_instance()->get_duration( $post->ID );
-		$passed   = sprintf( _n( '%d day has', '%d days have', $duration, 'hamethread' ), $duration );
-		$body     = sprintf( $body, '-name-', $passed, $title, $url );
+		// translators: %d is the number of days passed.
+		$passed = sprintf( _n( '%d day has', '%d days have', $duration, 'hamethread' ), $duration );
+		$body   = sprintf( $body, '-name-', $passed, $title, $url );
 		if ( function_exists( 'hamail_simple_mail' ) ) {
 			hamail_simple_mail(
 				array_map(

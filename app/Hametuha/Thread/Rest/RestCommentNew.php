@@ -85,6 +85,7 @@ class RestCommentNew extends RestBase {
 		$parent_comment = $reply_to ? get_comment( $reply_to ) : null;
 		$args           = [
 			'title'          => $reply_to
+				// translators: %s is the comment author name.
 				? esc_html( sprintf( __( 'Reply to %s', 'hamethread' ), get_comment_author( $reply_to ) ) )
 				: esc_html__( 'Post comment', 'hamethread' ),
 			'post'           => get_post( $post_id ),
