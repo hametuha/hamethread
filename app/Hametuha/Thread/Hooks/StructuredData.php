@@ -60,7 +60,7 @@ HTML;
 			'mainEntity' => [
 				'@type'       => 'Question',
 				'name'        => get_the_title( $post ),
-				'text'        => strip_tags( $post->post_content ),
+				'text'        => wp_strip_all_tags( $post->post_content ),
 				'answerCount' => get_comments_number( $post->ID ),
 				'upvoteCount' => hamethread_upvote_count( $post ),
 				'dateCreated' => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
