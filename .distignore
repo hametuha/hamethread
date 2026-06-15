@@ -1,7 +1,11 @@
 .browserslistrc
+.DS_Store
+.idea
+.phpunit.result.cache
 .claude
 .editorconfig
 .eslintrc
+.eslintrc.js
 .distignore
 .git
 .github
