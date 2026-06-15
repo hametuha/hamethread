@@ -54,7 +54,7 @@ function hamethread_init() {
  */
 function hamethread_version_error() {
 	// translators: %1$s required PHP version, %2$s current PHP version.
-	printf( '<div class="error"><p>%s</p></div>', sprintf( esc_html__( 'HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider upgrade.', 'hamethread' ), '7.4', phpversion() ) );
+	echo wp_kses_post( sprintf( '<div class="error"><p>%s</p></div>', sprintf( esc_html__( 'HameThread requires PHP %1$s, but your PHP version is %2$s. Please consider upgrade.', 'hamethread' ), '7.4', phpversion() ) ) );
 }
 
 /**

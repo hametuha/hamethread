@@ -14,7 +14,7 @@ $attr = wp_parse_args( $attr, [
 ?>
 
 <?php if ( hamethread_user_can_start() ) : ?>
-<button data-hamethread="create" class="<?php echo esc_attr( $attr['class'] ); ?>" data-parent="<?php printf( '%d', $parent ); ?>" data-private="<?php echo (int) $private; ?>">
+<button data-hamethread="create" class="<?php echo esc_attr( $attr['class'] ); ?>" data-parent="<?php echo (int) $parent; ?>" data-private="<?php echo (int) $private; ?>">
 	<?php echo wp_kses_post( $attr['prefix'] ); ?>
 	<?php echo esc_html( $label ); ?>
 </button>

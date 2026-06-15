@@ -84,6 +84,7 @@ class CommentForm extends AbstractUI {
 			$html .= "</{$tag}>";
 		}
 		if ( $echo ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML composed from comment_class() and the escaped comment-loop template part.
 			echo $html;
 		}
 		return $html;

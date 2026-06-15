@@ -1,8 +1,11 @@
 <?php defined( 'ABSPATH' ) || die(); ?>
 <div class="hamethread-post-comment">
 	<?php if ( hamethread_current_user_can_comment() ) : ?>
-	<button class="button hamethread-post-button" data-hamethread="comment" data-end-point="<?php printf( 'comment/%d/new', get_the_ID() ); ?>">
-		<?php echo hamethread_icon( 'plus-alt' ); ?>
+	<button class="button hamethread-post-button" data-hamethread="comment" data-end-point="<?php echo esc_attr( sprintf( 'comment/%d/new', get_the_ID() ) ); ?>">
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
+		echo hamethread_icon( 'plus-alt' );
+		?>
 		<?php esc_html_e( 'Post Comment', 'hamethread' ); ?>
 	</button>
 	<?php else : ?>

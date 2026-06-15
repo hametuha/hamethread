@@ -33,15 +33,12 @@ class StructuredData extends Singleton {
 		if ( ! $json ) {
 			return;
 		}
-		$json = json_encode( $json );
-		if ( ! $json ) {
+		$encoded = wp_json_encode( $json, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );
+		if ( ! $encoded ) {
 			return;
 		}
-		echo <<<HTML
-<script type="application/ld+json">
-{$json}
-</script>
-HTML;
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON encoded with JSON_HEX_* flags prevents </script> breakout; wrapper is a hardcoded literal.
+		echo '<script type="application/ld+json">' . $encoded . '</script>';
 	}
 
 	/**

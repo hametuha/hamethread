@@ -15,7 +15,10 @@ if ( hamethread_user_can_comment() && comments_open() ) : ?>
 		] );
 		?>
 
-		<?php echo hamethread_comment_links(); ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_pagination_html() (via hamethread_comment_links()).
+		echo hamethread_comment_links();
+		?>
 	<?php endif; ?>
 </ul>
 
