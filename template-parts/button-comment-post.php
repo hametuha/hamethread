@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) || die(); ?>
 <div class="hamethread-post-comment">
 	<?php if ( hamethread_current_user_can_comment() ) : ?>
 	<button class="button hamethread-post-button" data-hamethread="comment" data-end-point="<?php printf( 'comment/%d/new', get_the_ID() ); ?>">

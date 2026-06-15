@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) || die(); ?>
 <form class="hamethread-form" id="hamethread-comment" method="post" action="<?php echo esc_attr( $action ); ?>">
 
 	<div class="hamethread-form-container">

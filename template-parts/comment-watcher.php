@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /**
  * Comment watcher list.
  */

@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 if ( ! $can_edit && ! $can_archive ) {
 	return;
 }

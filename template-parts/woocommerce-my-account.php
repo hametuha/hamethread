@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /** @var WP_Query $query */
 if ( $query->have_posts() ) :
 	?>
