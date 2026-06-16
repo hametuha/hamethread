@@ -1,0 +1,44 @@
+name: Plugin Check
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  plugin-check:
+    name: WordPress Plugin Check (build artifact)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # vendor/autoload.php must exist in the artifact because Plugin Check
+      # activates the plugin (which loads composer's autoloader).
+      - name: Install Composer dependencies (production only)
+        run: composer install --no-dev --no-progress
+
+      # readme.txt is generated at build time from README.md (same tool as bin/build.sh).
+      # Without it, Plugin Check reports `no_plugin_readme`.
+      - name: Generate readme.txt
+        run: curl -sL https://raw.githubusercontent.com/fumikito/wp-readme/master/wp-readme.php | php
+
+      # Assemble the shippable artifact exactly as the release build does:
+      # everything except what .distignore excludes (dev files, tests, etc.).
+      - name: Assemble shippable artifact
+        run: |
+          mkdir -p dist/hamethread
+          rsync -a --exclude-from=.distignore --exclude='dist' ./ dist/hamethread/
+
+      - name: Run Plugin Check on the artifact
+        uses: WordPress/plugin-check-action@v1.1.7
+        with:
+          build-dir: ./dist/hamethread

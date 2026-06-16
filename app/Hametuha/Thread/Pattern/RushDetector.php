@@ -52,7 +52,7 @@ class RushDetector {
 			return $old < $time;
 		} );
 		$rushing    = count( $activities ) >= $condition['limit'];
-		return (bool) apply_filters( 'hameturead_is_user_rushing', $rushing, $user_id, $activities );
+		return (bool) apply_filters( 'hamethread_is_user_rushing', $rushing, $user_id, $activities );
 	}
 
 	/**
