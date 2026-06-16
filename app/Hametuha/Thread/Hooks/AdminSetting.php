@@ -73,7 +73,12 @@ class AdminSetting extends Singleton {
 			</p>
 			<?php
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_POST_TYPE ] );
-		register_setting( self::PAGE, self::OPTION_POST_TYPE );
+		register_setting( self::PAGE, self::OPTION_POST_TYPE, [
+			'type'              => 'array',
+			'sanitize_callback' => function ( $value ) {
+				return is_array( $value ) ? array_map( 'sanitize_key', $value ) : [];
+			},
+		] );
 	}
 
 	/**
@@ -92,7 +97,10 @@ class AdminSetting extends Singleton {
 			</p>
 			<?php
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_AUTO_CLOSE_DURATION ] );
-		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_DURATION );
+		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_DURATION, [
+			'type'              => 'integer',
+			'sanitize_callback' => 'absint',
+		] );
 		// Option for auto close prolong.
 		add_settings_field( self::OPTION_AUTO_CLOSE_PROLONG, __( 'Prolongation', 'hamethread' ), function ( $args ) {
 			$key          = $args['key'];
@@ -111,6 +119,9 @@ class AdminSetting extends Singleton {
 				);
 			}
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_AUTO_CLOSE_PROLONG ] );
-		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_PROLONG );
+		register_setting( self::PAGE, self::OPTION_AUTO_CLOSE_PROLONG, [
+			'type'              => 'integer',
+			'sanitize_callback' => 'absint',
+		] );
 	}
 }

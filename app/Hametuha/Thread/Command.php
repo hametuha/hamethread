@@ -42,11 +42,13 @@ class Command extends \WP_CLI_Command {
 		}, $posts ) );
 		$table->display();
 		\WP_CLI::line( '' );
-		\WP_CLI::success( sprintf(
-			__( '%1$s will be automatically closed %2$s', 'hamethread' ),
-			sprintf( _n( '%d thread', '%d threads', count( $posts ), 'hamethread' ), count( $posts ) ),
-			$diff ? sprintf( _n( 'in %d day', 'in %d days', $diff, 'hamethread' ), $diff ) : __( 'just now', 'hamethread' )
-		) );
+		// translators: %1$s is the number of threads, %2$s is the time until they close.
+		$close_message = __( '%1$s will be automatically closed %2$s', 'hamethread' );
+		// translators: %d is the number of threads.
+		$thread_count = sprintf( _n( '%d thread', '%d threads', count( $posts ), 'hamethread' ), count( $posts ) );
+		// translators: %d is the number of days until the thread closes.
+		$close_timing = $diff ? sprintf( _n( 'in %d day', 'in %d days', $diff, 'hamethread' ), $diff ) : __( 'just now', 'hamethread' );
+		\WP_CLI::success( sprintf( $close_message, $thread_count, $close_timing ) );
 	}
 
 	/**
@@ -58,6 +60,7 @@ class Command extends \WP_CLI_Command {
 	public function close( $args ) {
 		$diff   = isset( $args[0] ) ? $args[0] : 0;
 		$closed = AutoClose::get_instance()->do_cron( $diff );
+		// translators: %d is the number of closed threads.
 		\WP_CLI::success( sprintf( __( 'Automatically closed: %d', 'hamethread' ), $closed ) );
 	}
 

@@ -144,7 +144,7 @@ class PostType extends Singleton {
 		if ( ! $parent ) {
 			echo '<span style="color: lightgrey">---</span>';
 		} else {
-			echo edit_post_link( get_the_title( $parent ), '', '', $parent );
+			edit_post_link( get_the_title( $parent ), '', '', $parent );
 		}
 	}
 

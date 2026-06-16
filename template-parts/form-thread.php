@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /**
  * Form to create thread.
  *
@@ -56,7 +57,10 @@
 			</label>
 			<small id="is_private_description" class="hamethread-form-help">
 				<?php if ( $post ) : ?>
-					<?php echo esc_html( sprintf( __( 'Author of %s and invited people can see private thread.', 'hamethread' ), get_the_title( $post ) ) ); ?>
+					<?php
+					// translators: %s is the thread title.
+					echo esc_html( sprintf( __( 'Author of %s and invited people can see private thread.', 'hamethread' ), get_the_title( $post ) ) );
+					?>
 				<?php else : ?>
 					<?php esc_html_e( 'Only invited people can see private thread.', 'hamethread' ); ?>
 				<?php endif; ?>

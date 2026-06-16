@@ -121,12 +121,6 @@ parameters:
 			path: app/Hametuha/Thread/Hooks/BestAnswer.php
 
 		-
-			message: '#^Result of function edit_post_link \(void\) is used\.$#'
-			identifier: function.void
-			count: 1
-			path: app/Hametuha/Thread/Hooks/PostType.php
-
-		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 3

@@ -134,8 +134,10 @@ class RestThread extends RestBase {
 			return $post_id;
 		}
 		if ( 'private' === $new_status ) {
+			// translators: %s is the thread title.
 			$message = __( 'Thread %s has been successfully private.', 'hamethread' );
 		} else {
+			// translators: %s is the thread title.
 			$message = __( 'Thread %s has been successfully published.', 'hamethread' );
 		}
 		return [

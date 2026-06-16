@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /**
  * Comment watcher list.
  */
@@ -13,7 +14,10 @@
 		</div>
 	<?php else : ?>
 		<p class="hamethread-text-muted">
-			<?php echo wp_kses_post( sprintf( __( 'Please <a href="%s" rel="nofollow">login</a> to follow this thread.', 'hamethread' ), hamethread_login_url( get_permalink() ) ) ); ?>
+			<?php
+			// translators: %s is the login URL.
+			echo wp_kses_post( sprintf( __( 'Please <a href="%s" rel="nofollow">login</a> to follow this thread.', 'hamethread' ), hamethread_login_url( get_permalink() ) ) );
+			?>
 		</p>
 	<?php endif; ?>
 
@@ -23,7 +27,10 @@
 		?>
 		<div class="hamethread-watchers-list">
 			<p class="hamethread-text-muted">
-				<?php echo esc_html( sprintf( _n( '%d people following.', '%d people following.', count( $followers ), 'hamethread' ), count( $followers ) ) ); ?>
+				<?php
+				// translators: %d is the number of people following the thread.
+				echo esc_html( sprintf( _n( '%d people following.', '%d people following.', count( $followers ), 'hamethread' ), count( $followers ) ) );
+				?>
 			</p>
 			<?php foreach ( $followers as $user ) : ?>
 				<div class="hamethread-watchers-item">

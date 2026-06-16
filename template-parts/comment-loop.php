@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /**
  * Comment loop for hamethread.
  *
@@ -10,18 +11,21 @@
 	<div class="hamethread-controller">
 		<div class="hamethread-controller-dropdown">
 			<button class="hamethread-controller-toggle" type="button" aria-expanded="false" aria-haspopup="true">
-				<?php echo hamethread_icon( 'cog' ); ?>
+				<?php
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
+					echo hamethread_icon( 'cog' );
+				?>
 				<span class="screen-reader-text"><?php esc_html_e( 'Comment actions', 'hamethread' ); ?></span>
 			</button>
 			<ul class="hamethread-controller-menu">
 				<li class="hamethread-controller-item">
-					<a href="<?php printf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ); ?>"
+					<a href="<?php echo esc_url( sprintf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ) ); ?>"
 						data-hamethread="comment-edit" rel="nofollow">
 						<?php esc_html_e( 'Edit', 'hamethread' ); ?>
 					</a>
 				</li>
 				<li class="hamethread-controller-item">
-					<a href="<?php printf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ); ?>"
+					<a href="<?php echo esc_url( sprintf( 'comment/%d/%d', $comment->comment_post_ID, $comment->comment_ID ) ); ?>"
 						rel="nofollow" data-hamethread="comment-delete">
 						<?php esc_html_e( 'Delete', 'hamethread' ); ?>
 					</a>
@@ -37,7 +41,13 @@
 	<div class="hamethread-comment-body">
 		<header class="hamethread-comment-header">
 			<span class="hamethread-comment-author"><?php comment_author( $comment ); ?></span>
-			<span class="<?php echo hamethread_commentor_label_class( $comment, 'hamethread-comment-role' ); ?>"><?php echo hamethread_commentor_label( $comment ); ?></span>
+			<?php $hamethread_label_class = hamethread_commentor_label_class( $comment, 'hamethread-comment-role' ); ?>
+			<span class="<?php echo $hamethread_label_class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped via esc_attr() in hamethread_commentor_label_class(). ?>">
+				<?php
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_commentor_label().
+				echo hamethread_commentor_label( $comment );
+				?>
+			</span>
 			<span class="hamethread-comment-date">
 				<?php comment_date( '', $comment ); ?>
 				<?php if ( hamethread_is_edited( $comment ) ) : ?>
@@ -48,7 +58,11 @@
 		<div class="hamethread-comment-content">
 			<?php if ( hamethread_is_best_answer( $comment ) ) : ?>
 				<p class="hamethread-comment-best-answer">
-					<?php echo hamethread_icon( 'star' ); ?> <strong><?php esc_html_e( 'Best Answer', 'hamethread' ); ?></strong>
+					<?php
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
+						echo hamethread_icon( 'star' );
+					?>
+						<strong><?php esc_html_e( 'Best Answer', 'hamethread' ); ?></strong>
 				</p>
 			<?php endif; ?>
 			<?php comment_text(); ?>
@@ -56,6 +70,7 @@
 		<footer class="hamethread-comment-actions">
 			<?php
 			foreach ( hamethread_comment_actions( $comment ) as $action ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML (incl. data-* attrs) escaped at source in hamethread_comment_actions().
 				echo $action;
 			}
 			?>

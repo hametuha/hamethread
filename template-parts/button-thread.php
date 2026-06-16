@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /*
  * Thread buttons.
  */
@@ -13,12 +14,15 @@ $attr = wp_parse_args( $attr, [
 ?>
 
 <?php if ( hamethread_user_can_start() ) : ?>
-<button data-hamethread="create" class="<?php echo esc_attr( $attr['class'] ); ?>" data-parent="<?php printf( '%d', $parent ); ?>" data-private="<?php echo (int) $private; ?>">
+<button data-hamethread="create" class="<?php echo esc_attr( $attr['class'] ); ?>" data-parent="<?php echo (int) $parent; ?>" data-private="<?php echo (int) $private; ?>">
 	<?php echo wp_kses_post( $attr['prefix'] ); ?>
 	<?php echo esc_html( $label ); ?>
 </button>
 <?php else : ?>
 <div class="hamethread-alert hamethread-alert-warning">
-	<?php echo wp_kses_post( sprintf( __( 'To start thread, please <a rel="nofollow" href="%s">log in</a>.', 'hamethread' ), hamethread_login_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '' ) ) ); ?>
+	<?php
+	// translators: %s is the login URL.
+	echo wp_kses_post( sprintf( __( 'To start thread, please <a rel="nofollow" href="%s">log in</a>.', 'hamethread' ), hamethread_login_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '' ) ) );
+	?>
 </div>
 <?php endif; ?>

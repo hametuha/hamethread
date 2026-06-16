@@ -1,3 +1,4 @@
+<?php defined( 'ABSPATH' ) || die(); ?>
 <form class="hamethread-form" id="hamethread-comment" method="post" action="<?php echo esc_attr( $action ); ?>">
 
 	<div class="hamethread-form-container">
@@ -16,7 +17,10 @@
 				</time>
 			</cite>
 			<div class="hamethread-form-quote-content">
-				<?php echo wpautop( esc_html( $parent_comment->comment_content ) ); ?>
+				<?php
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content escaped via esc_html() before wpautop() wraps it in safe <p> tags.
+				echo wpautop( esc_html( $parent_comment->comment_content ) );
+				?>
 			</div>
 		</blockquote>
 		<?php endif; ?>

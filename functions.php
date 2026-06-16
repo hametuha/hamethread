@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || die();
 /**
  * Global functions
  *
@@ -166,9 +167,7 @@ function hamethread_recently_commented( $offset = 7, $post = null ) {
  */
 function hamethread_get_author_thread_count( $user_id ) {
 	global $wpdb;
-	$sql = <<<EOS
-		SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s AND post_status = 'publish'
-EOS;
+	$sql = "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s AND post_status = 'publish'";
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $sql, $user_id, hamethread_post_type() ) );
 }
@@ -183,11 +182,9 @@ EOS;
 function hamethread_get_latest_comment_date( $post = null ) {
 	global $wpdb;
 	$post = get_post( $post );
-	$sql  = <<<EOS
-		SELECT comment_date FROM {$wpdb->comments}
+	$sql  = "SELECT comment_date FROM {$wpdb->comments}
 		WHERE comment_post_ID = %d
-		LIMIT 1
-EOS;
+		LIMIT 1";
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return $wpdb->get_var( $wpdb->prepare( $sql, $post->ID ) );
 }
@@ -201,12 +198,10 @@ EOS;
  */
 function hamethread_get_author_response_count( $user_id ) {
 	global $wpdb;
-	$sql = <<<EOS
-		SELECT COUNT(comment_ID) FROM {$wpdb->comments} AS c
+	$sql = "SELECT COUNT(comment_ID) FROM {$wpdb->comments} AS c
 		INNER JOIN {$wpdb->posts} AS p
 		ON c.comment_post_ID = p.ID
-		WHERE p.post_type = 'thread' AND c.user_id = %d
-EOS;
+		WHERE p.post_type = 'thread' AND c.user_id = %d";
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $sql, $user_id ) );
 }
@@ -516,14 +511,12 @@ function hamethread_upvote_count( $post = null ) {
 	if ( ! $post ) {
 		return 0;
 	}
-	$query = <<<SQL
-		SELECT COUNT( cm.meta_id )
+	$query = "SELECT COUNT( cm.meta_id )
 		FROM {$wpdb->commentmeta} AS cm
 		LEFT JOIN {$wpdb->comments} AS c
 		ON cm.comment_id = c.comment_ID
 		WHERE cm.meta_key = '_user_upvote'
-		  AND c.comment_post_ID = %d
-SQL;
+		  AND c.comment_post_ID = %d";
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $post->ID ) );
 }
@@ -537,11 +530,9 @@ SQL;
 function hamethread_comment_upvoted_count( $comment = null ) {
 	$comment = get_comment( $comment );
 	global $wpdb;
-	$query = <<<SQL
-		SELECT COUNT( meta_id ) FROM {$wpdb->commentmeta}
+	$query = "SELECT COUNT( meta_id ) FROM {$wpdb->commentmeta}
 		WHERE comment_id = %d
-		  AND meta_key   = '_user_upvote'
-SQL;
+		  AND meta_key   = '_user_upvote'";
 	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	return (int) $wpdb->get_var( $wpdb->prepare( $query, $comment->comment_ID ) );
 }

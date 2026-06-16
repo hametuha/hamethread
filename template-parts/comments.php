@@ -1,4 +1,6 @@
-<?php if ( hamethread_user_can_comment() && comments_open() ) : ?>
+<?php
+defined( 'ABSPATH' ) || die();
+if ( hamethread_user_can_comment() && comments_open() ) : ?>
 	<?php hamethread_template( 'button-comment-post' ); ?>
 <?php else : ?>
 	<?php hamethread_template( 'form-nocap' ); ?>
@@ -13,7 +15,10 @@
 		] );
 		?>
 
-		<?php echo hamethread_comment_links(); ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_pagination_html() (via hamethread_comment_links()).
+		echo hamethread_comment_links();
+		?>
 	<?php endif; ?>
 </ul>
 
