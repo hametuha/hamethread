@@ -2,6 +2,8 @@
 .DS_Store
 .idea
 .phpunit.result.cache
+temp
+tasks
 .claude
 .editorconfig
 .eslintrc

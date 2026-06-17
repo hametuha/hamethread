@@ -5,6 +5,14 @@
 	<arg name="colors" />
 	<arg value="ps" />
 
+	<!-- Scan only the plugin's own PHP source (built assets, temp and scratch are not listed). -->
+	<file>hamethread.php</file>
+	<file>functions.php</file>
+	<file>app</file>
+	<file>includes</file>
+	<file>template-parts</file>
+	<file>src</file>
+
 	<rule ref="WordPress-Core">
 		<exclude name="Generic.Files.LowercasedFilename" />
 		<exclude name="Generic.Commenting.DocComment.ShortNotCapital" />

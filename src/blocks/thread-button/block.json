@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hamethread/thread-button",
+	"version": "1.0.0",
+	"title": "Thread Button",
+	"category": "widgets",
+	"icon": "format-chat",
+	"description": "Display a button that lets users start a new thread or support topic.",
+	"keywords": [ "thread", "forum", "support", "hamethread" ],
+	"textdomain": "hamethread",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"parent": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}
