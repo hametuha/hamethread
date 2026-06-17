@@ -11,13 +11,13 @@ Lightweight Q&A forum and support desk for WordPress: threads, best answers, pri
 
 ## Description
 
-HameThread turns WordPress into a thread-based **Q&A forum / support desk** without a heavyweight bbPress-style setup. Each topic is a `thread` post and replies are ordinary WordPress comments, so everything you already know about moderation, roles and the REST API keeps working.
+HameThread turns WordPress into a thread-based **Q&A forum / support desk** without a heavyweight setup. Each topic is a `thread` post and replies are ordinary WordPress comments, so everything you already know about moderation, roles and the REST API keeps working.
 
 It shines where a generic forum does not:
 
-- **WooCommerce product support** — show a "Get support" button on a product and collect purchaser questions as threads, right inside *My Account*.
+- **WooCommerce product support** — show a "Get support" button on a product and collect purchaser questions as threads, right inside _My Account_.
 - **Private threads** — let users open threads only the author, invited people and editors can read. Perfect for paid or sensitive support.
-- **Best answer** — mark the reply that resolved the question and flag the whole thread as *Resolved*.
+- **Best answer** — mark the reply that resolved the question and flag the whole thread as _Resolved_.
 - **Block-first** — drop the **Thread Button** block on any page to let visitors start a thread. No template editing, no code.
 
 ### Features
@@ -30,7 +30,7 @@ It shines where a generic forum does not:
 - Upvotes on comments
 - E-mail notifications to thread subscribers
 - JSON-LD (`QAPage`) structured data for SEO
-- WooCommerce *My Account* support page and per-product support button
+- WooCommerce _My Account_ support page and per-product support button
 - Optionally enable comment threads on any public post type
 - Admin settings under **Settings → Discussion** (no code required for common tweaks)
 
@@ -51,7 +51,7 @@ Everything else is filterable. See **For developers** below.
 3. Add the **Thread Button** block to any page or post to let visitors start a thread, or call `hamethread_button()` from a template.
 4. Threads are listed at the `thread` archive (e.g. `/thread/`).
 
-WooCommerce is optional. When it is active, a **Support** tab is added to *My Account* and a support button can be shown on product pages.
+WooCommerce is optional. When it is active, a **Support** tab is added to _My Account_ and a support button can be shown on product pages.
 
 ## Frequently Asked Questions
 
@@ -75,21 +75,21 @@ HameThread exposes a large set of filters and actions. See **For developers**.
 
 Replies are standard WordPress comments and threads are a standard post type, so core hooks apply. On top of that, HameThread exposes many filters/actions. The most useful ones:
 
-| Hook | Type | Purpose |
-|------|------|---------|
-| `hamethread_before_thread_form` / `hamethread_after_thread_form` | action | Add markup/fields to the thread form |
-| `hamethread_new_thread_post_params` | filter | Register extra REST parameters for new threads |
-| `hamethread_new_thread_post_arg` | filter | Modify the post array before a thread is inserted |
-| `hamethread_new_thread_validation` | filter | Add validation errors (`WP_Error`) |
-| `hamethread_new_thread_inserted` | action | React after a thread is created |
-| `hamethread_before_comment_form` / `hamethread_after_comment_form` | action | Add markup/fields to the comment form |
-| `hamethread_new_comment_params` | filter | Modify comment data before insert |
-| `hamethread_default_subscribers` / `hamethread_subscribers` | filter | Control who is notified |
-| `hamethread_user_can_start_private_thread` | filter | Allow private threads |
-| `hamethread_user_can_comment` / `hamethread_user_can_post` | filter | Capability checks |
-| `hamethread_dynamic_comment_post_types` | filter | Post types that get comment threads |
-| `hamethread_post_setting` / `hamethread_post_type` / `hamethread_taxonomy` | filter | Customize the post type & taxonomy |
-| `hamethread_template` | filter | Override template parts |
+| Hook                                                                       | Type   | Purpose                                           |
+| -------------------------------------------------------------------------- | ------ | ------------------------------------------------- |
+| `hamethread_before_thread_form` / `hamethread_after_thread_form`           | action | Add markup/fields to the thread form              |
+| `hamethread_new_thread_post_params`                                        | filter | Register extra REST parameters for new threads    |
+| `hamethread_new_thread_post_arg`                                           | filter | Modify the post array before a thread is inserted |
+| `hamethread_new_thread_validation`                                         | filter | Add validation errors (`WP_Error`)                |
+| `hamethread_new_thread_inserted`                                           | action | React after a thread is created                   |
+| `hamethread_before_comment_form` / `hamethread_after_comment_form`         | action | Add markup/fields to the comment form             |
+| `hamethread_new_comment_params`                                            | filter | Modify comment data before insert                 |
+| `hamethread_default_subscribers` / `hamethread_subscribers`                | filter | Control who is notified                           |
+| `hamethread_user_can_start_private_thread`                                 | filter | Allow private threads                             |
+| `hamethread_user_can_comment` / `hamethread_user_can_post`                 | filter | Capability checks                                 |
+| `hamethread_dynamic_comment_post_types`                                    | filter | Post types that get comment threads               |
+| `hamethread_post_setting` / `hamethread_post_type` / `hamethread_taxonomy` | filter | Customize the post type & taxonomy                |
+| `hamethread_template`                                                      | filter | Override template parts                           |
 
 **Example — add a field to the thread form and store it:**
 
