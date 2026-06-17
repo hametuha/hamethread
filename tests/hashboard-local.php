@@ -9,7 +9,16 @@ if ( 'local' !== wp_get_environment_type() ) {
 	return;
 }
 
-const HAMETUHA_LOGGED_IN_AS = 'admin';
+// Pseudo-login user. Defaults to 'admin' but can be overridden via wp-config,
+// e.g. `wp config set HAMETUHA_LOGGED_IN_AS false --raw` to browse as a logged-out visitor.
+if ( ! defined( 'HAMETUHA_LOGGED_IN_AS' ) ) {
+	define( 'HAMETUHA_LOGGED_IN_AS', 'admin' );
+}
+
+// A falsy value disables the pseudo-login entirely (browse as anonymous).
+if ( ! HAMETUHA_LOGGED_IN_AS ) {
+	return;
+}
 
 /**
  * Treat every request as specified user.
