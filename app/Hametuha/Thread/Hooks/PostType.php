@@ -3,6 +3,7 @@
 namespace Hametuha\Thread\Hooks;
 
 use Hametuha\Pattern\Singleton;
+use Hametuha\Thread\Model\ThreadModel;
 
 
 /**
@@ -90,6 +91,11 @@ class PostType extends Singleton {
 		if ( $current === $new_value ) {
 			// No change.
 			return;
+		}
+		if ( $new_value ) {
+			ThreadModel::set_resolved( $post_id );
+		} else {
+			ThreadModel::unset_resolved( $post_id );
 		}
 	}
 
