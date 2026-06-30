@@ -120,7 +120,7 @@ class RestCommentNew extends RestBase {
 		}
 		$user_data     = get_userdata( get_current_user_id() );
 		$comment_param = [
-			'comment_IP'           => isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '',
+			'comment_IP'           => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
 			'comment_approved'     => 1,
 			'comment_author'       => $user_data->display_name,
 			'comment_author_email' => $user_data->user_email,

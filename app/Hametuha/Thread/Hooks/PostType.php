@@ -81,11 +81,12 @@ class PostType extends Singleton {
 	 * @param \WP_Post $post
 	 */
 	public function save_post( $post_id, $post ) {
-		if ( $this->post_type !== $post->post_type || ! wp_verify_nonce( filter_input( INPUT_POST, '_hamethreadresolved' ), 'hamethread_resolved' ) ) {
+		$nonce = isset( $_POST['_hamethreadresolved'] ) ? sanitize_text_field( wp_unslash( $_POST['_hamethreadresolved'] ) ) : '';
+		if ( $this->post_type !== $post->post_type || ! wp_verify_nonce( $nonce, 'hamethread_resolved' ) ) {
 			return;
 		}
 		$current   = hamethread_is_resolved( $post );
-		$new_value = (bool) filter_input( INPUT_POST, 'hamethread-resolved' );
+		$new_value = ! empty( $_POST['hamethread-resolved'] );
 		if ( $current === $new_value ) {
 			// No change.
 			return;
