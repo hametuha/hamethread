@@ -22,7 +22,7 @@ $attr = wp_parse_args( $attr, [
 <div class="hamethread-alert hamethread-alert-warning">
 	<?php
 	// translators: %s is the login URL.
-	echo wp_kses_post( sprintf( __( 'To start thread, please <a rel="nofollow" href="%s">log in</a>.', 'hamethread' ), hamethread_login_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '' ) ) );
+	echo wp_kses_post( sprintf( __( 'To start thread, please <a rel="nofollow" href="%s">log in</a>.', 'hamethread' ), hamethread_login_url( isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' ) ) );
 	?>
 </div>
 <?php endif; ?>
