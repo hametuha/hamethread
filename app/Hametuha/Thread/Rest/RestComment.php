@@ -103,7 +103,7 @@ class RestComment extends RestCommentNew {
 		$old_content   = get_comment_text( $comment_id );
 		$comment_param = [
 			'comment_ID'      => $comment_id,
-			'comment_content' => $request->get_param( 'comment_content' ),
+			'comment_content' => hamethread_sanitize_comment_content( $request->get_param( 'comment_content' ) ),
 		];
 		$comment_param = apply_filters( 'hamethread_edit_comment_params', $comment_param, $request );
 		if ( ! wp_update_comment( $comment_param ) ) {
