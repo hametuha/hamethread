@@ -25,8 +25,7 @@ if ( $query->have_posts() ) :
 			<h5 class="hamethread-my-threads-title">
 				<?php if ( 'private' === get_post_status() ) : ?>
 					<?php
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-					echo hamethread_icon( 'lock' );
+					echo wp_kses_post( hamethread_icon( 'lock' ) );
 					?>
 				<?php endif; ?>
 				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -35,22 +34,19 @@ if ( $query->have_posts() ) :
 		</div>
 		<p class="hamethread-my-threads-meta">
 			<?php
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-			echo hamethread_icon( 'admin-comments' );
+			echo wp_kses_post( hamethread_icon( 'admin-comments' ) );
 			?>
 			<?php comments_number(); ?>
 			<?php if ( hamethread_is_resolved() ) : ?>
 				<?php
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-				echo hamethread_icon( 'yes-alt' );
+				echo wp_kses_post( hamethread_icon( 'yes-alt' ) );
 				?>
 				<?php esc_html_e( 'Resolved', 'hamethread' ); ?>
 			<?php endif; ?>
 		</p>
 		<small class="hamethread-my-threads-updated">
 			<?php
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-			echo hamethread_icon( 'clock' );
+			echo wp_kses_post( hamethread_icon( 'clock' ) );
 			?>
 			<?php
 				esc_html_e( 'Last Updated: ', 'hamethread' );
@@ -64,8 +60,7 @@ if ( $query->have_posts() ) :
 	?>
 </ul>
 	<?php
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted pagination HTML provided via the hamethread_pagination filter.
-	echo apply_filters( 'hamethread_pagination', '', $query );
+	echo wp_kses_post( apply_filters( 'hamethread_pagination', '', $query ) );
 	?>
 	<?php
 	// Query has no post.
