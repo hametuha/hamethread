@@ -125,7 +125,7 @@ class RestCommentNew extends RestBase {
 			'comment_author'       => $user_data->display_name,
 			'comment_author_email' => $user_data->user_email,
 			'comment_author_url'   => $user_data->user_url,
-			'comment_content'      => hamethread_sanitize_comment_content( $request->get_param( 'comment_content' ) ),
+			'comment_content'      => wp_slash( hamethread_sanitize_comment_content( $request->get_param( 'comment_content' ) ) ),
 			'comment_type'         => 'comment',
 			'comment_post_ID'      => $post_id,
 			'user_id'              => get_current_user_id(),

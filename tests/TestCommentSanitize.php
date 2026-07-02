@@ -53,6 +53,36 @@ class TestCommentSanitize extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Non-string input is handled without a TypeError (PHP 8.1+ safety).
+	 */
+	public function test_non_string_input_returns_empty() {
+		$this->assertSame( '', hamethread_sanitize_comment_content( null ) );
+		$this->assertSame( '', hamethread_sanitize_comment_content( [ 'x' ] ) );
+	}
+
+	/**
+	 * Backslashes survive the sanitize + slash + insert round-trip.
+	 *
+	 * wp_insert_comment() unslashes its input, so callers must wp_slash() the
+	 * sanitized content. Without it, backslashes (e.g. "C:\path", "\d+") are lost.
+	 */
+	public function test_backslashes_are_preserved_when_stored() {
+		$user = self::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+		$post_id = self::factory()->post->create( [ 'post_type' => 'thread', 'post_author' => $user ] );
+
+		$content    = 'path C:\\Users\\test and regex \\d+ end';
+		$comment_id = wp_insert_comment( [
+			'comment_post_ID'  => $post_id,
+			'comment_content'  => wp_slash( hamethread_sanitize_comment_content( $content ) ),
+			'user_id'          => $user,
+			'comment_approved' => 1,
+		] );
+
+		$this->assertSame( $content, get_comment( $comment_id )->comment_content );
+	}
+
+	/**
 	 * End-to-end: a stored comment from a subscriber exposes no script in the
 	 * REST response HTML (the path that JS injects into the DOM).
 	 */

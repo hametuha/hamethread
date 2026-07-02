@@ -337,10 +337,16 @@ function hamethread_current_user_can_comment( $post = null ) {
  * core behavior: users without the `unfiltered_html` capability get their markup
  * filtered so scripts and other XSS vectors cannot be persisted.
  *
+ * The returned value is unslashed; callers must wp_slash() it before passing to
+ * wp_insert_comment()/wp_update_comment(), which unslash their input.
+ *
  * @param string $content Raw comment content from the request (unslashed).
  * @return string Sanitized comment content.
  */
 function hamethread_sanitize_comment_content( $content ) {
+	if ( ! is_string( $content ) ) {
+		return '';
+	}
 	if ( current_user_can( 'unfiltered_html' ) ) {
 		return $content;
 	}
