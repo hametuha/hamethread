@@ -58,16 +58,14 @@ if ( ! $lists ) {
 	<div class="hamethread-controller-dropdown">
 		<button class="hamethread-controller-toggle" type="button" aria-expanded="false" aria-haspopup="true">
 			<?php
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-				echo hamethread_icon( 'cog' );
+				echo wp_kses_post( hamethread_icon( 'cog' ) );
 			?>
 			<span class="screen-reader-text"><?php esc_html_e( 'Thread actions', 'hamethread' ); ?></span>
 		</button>
 		<ul class="hamethread-controller-menu">
 			<?php
 			foreach ( $lists as $list ) {
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Composed list-item HTML escaped at source above (esc_url/esc_attr/esc_html).
-				echo $list;
+				echo wp_kses_post( $list );
 			}
 			?>
 		</ul>

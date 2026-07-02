@@ -11,10 +11,7 @@ defined( 'ABSPATH' ) || die();
 	<div class="hamethread-controller">
 		<div class="hamethread-controller-dropdown">
 			<button class="hamethread-controller-toggle" type="button" aria-expanded="false" aria-haspopup="true">
-				<?php
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-					echo hamethread_icon( 'cog' );
-				?>
+				<?php echo wp_kses_post( hamethread_icon( 'cog' ) ); ?>
 				<span class="screen-reader-text"><?php esc_html_e( 'Comment actions', 'hamethread' ); ?></span>
 			</button>
 			<ul class="hamethread-controller-menu">
@@ -42,11 +39,8 @@ defined( 'ABSPATH' ) || die();
 		<header class="hamethread-comment-header">
 			<span class="hamethread-comment-author"><?php comment_author( $comment ); ?></span>
 			<?php $hamethread_label_class = hamethread_commentor_label_class( $comment, 'hamethread-comment-role' ); ?>
-			<span class="<?php echo $hamethread_label_class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped via esc_attr() in hamethread_commentor_label_class(). ?>">
-				<?php
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_commentor_label().
-				echo hamethread_commentor_label( $comment );
-				?>
+			<span class="<?php echo esc_attr( $hamethread_label_class ); ?>">
+				<?php echo wp_kses_post( hamethread_commentor_label( $comment ) ); ?>
 			</span>
 			<span class="hamethread-comment-date">
 				<?php comment_date( '', $comment ); ?>
@@ -58,10 +52,7 @@ defined( 'ABSPATH' ) || die();
 		<div class="hamethread-comment-content">
 			<?php if ( hamethread_is_best_answer( $comment ) ) : ?>
 				<p class="hamethread-comment-best-answer">
-					<?php
-						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML escaped in hamethread_icon().
-						echo hamethread_icon( 'star' );
-					?>
+					<?php echo wp_kses_post( hamethread_icon( 'star' ) ); ?>
 						<strong><?php esc_html_e( 'Best Answer', 'hamethread' ); ?></strong>
 				</p>
 			<?php endif; ?>
@@ -70,8 +61,7 @@ defined( 'ABSPATH' ) || die();
 		<footer class="hamethread-comment-actions">
 			<?php
 			foreach ( hamethread_comment_actions( $comment ) as $action ) {
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe HTML (incl. data-* attrs) escaped at source in hamethread_comment_actions().
-				echo $action;
+				echo wp_kses_post( $action );
 			}
 			?>
 		</footer>
