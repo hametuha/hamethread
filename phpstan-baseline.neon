@@ -123,13 +123,19 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, string given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 2
 			path: app/Hametuha/Thread/Hooks/StructuredData.php
 
 		-
 			message: '#^Parameter \#2 \$user_id of function get_the_author_meta expects int\|false, string given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 2
+			path: app/Hametuha/Thread/Hooks/StructuredData.php
+
+		-
+			message: '#^Parameter \#2 \$user_id of method Hametuha\\Thread\\Hooks\\StructuredData\:\:get_person_json\(\) expects int, string given\.$#'
+			identifier: argument.type
+			count: 4
 			path: app/Hametuha/Thread/Hooks/StructuredData.php
 
 		-
