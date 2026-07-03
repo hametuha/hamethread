@@ -135,7 +135,7 @@ class StructuredData extends Singleton {
 			'@context'             => 'https://schema.org',
 			'@type'                => 'DiscussionForumPosting',
 			'headline'             => get_the_title( $post ),
-			'text'                 => strip_tags( $post->post_content ),
+			'text'                 => wp_strip_all_tags( $post->post_content ),
 			'url'                  => get_permalink( $post ),
 			'datePublished'        => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
 			'author'               => $this->get_person_json( get_the_author_meta( 'display_name', $post->post_author ), $post->post_author ),

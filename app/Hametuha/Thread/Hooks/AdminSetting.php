@@ -261,7 +261,10 @@ class AdminSetting extends Singleton {
 			</p>
 			<?php
 		}, self::PAGE, self::SECTION, [ 'key' => self::OPTION_STRUCTURED_DATA_TYPE ] );
-		register_setting( self::PAGE, self::OPTION_STRUCTURED_DATA_TYPE );
+		register_setting( self::PAGE, self::OPTION_STRUCTURED_DATA_TYPE, [
+			'type'              => 'string',
+			'sanitize_callback' => 'sanitize_key',
+		] );
 	}
 
 	/**
@@ -323,7 +326,7 @@ class AdminSetting extends Singleton {
 		// Save term meta on create.
 		add_action( "created_{$taxonomy}", function ( $term_id ) use ( $meta_key ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( $_POST[ $meta_key ] ) : '';
+			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $meta_key ] ) ) : '';
 			if ( '' === $value ) {
 				delete_term_meta( $term_id, $meta_key );
 			} else {
@@ -333,7 +336,7 @@ class AdminSetting extends Singleton {
 		// Save term meta on edit.
 		add_action( "edited_{$taxonomy}", function ( $term_id ) use ( $meta_key ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( $_POST[ $meta_key ] ) : '';
+			$value = isset( $_POST[ $meta_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $meta_key ] ) ) : '';
 			if ( '' === $value ) {
 				delete_term_meta( $term_id, $meta_key );
 			} else {
