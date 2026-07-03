@@ -67,7 +67,7 @@ class Thread extends Singleton {
 						wp_register_script( $dependency['handle'], hamethread_asset_url( $dependency['path'] ), $dependency['deps'], $dependency['hash'], $footer );
 						if ( in_array( 'wp-i18n', $dependency['deps'], true ) ) {
 							// Need translation.
-							wp_set_script_translations( $dependency['handle'], 'hamethread', dirname( __DIR__, 2 ) . '/languages' );
+							wp_set_script_translations( $dependency['handle'], 'hamethread' );
 						}
 						break;
 					case 'css':
