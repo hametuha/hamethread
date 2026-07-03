@@ -1,0 +1,16 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="avatarClip"><circle cx="82" cy="151.5" r="20"></circle></clipPath>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#222222"></rect>
+  <rect x="34" y="44" width="188" height="140" rx="30" fill="#f8f9fa"></rect>
+  <path d="M78 184 L78 222 L120 184 Z" fill="#f8f9fa"></path>
+  <rect x="62" y="80" width="132" height="15" rx="7.5" fill="#222222"></rect>
+  <rect x="62" y="112" width="132" height="15" rx="7.5" fill="#222222"></rect>
+  <circle cx="82" cy="151.5" r="20" fill="#222222"></circle>
+  <g clip-path="url(#avatarClip)">
+    <circle cx="82" cy="145" r="7" fill="#f8f9fa"></circle>
+    <circle cx="82" cy="169" r="12" fill="#f8f9fa"></circle>
+  </g>
+  <rect x="112" y="144" width="82" height="15" rx="7.5" fill="#f44336"></rect>
+</svg>
