@@ -9,7 +9,6 @@
  * Author:            Hametuha INC.
  * Author URI:        https://hametuha.co.jp
  * Text Domain:       hamethread
- * Domain Path:       /languages
  * License:           GPLv3 or later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * @package           hamethread
