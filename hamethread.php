@@ -22,8 +22,6 @@ defined( 'ABSPATH' ) || die();
 add_action( 'plugins_loaded', 'hamethread_init' );
 
 function hamethread_init() {
-	// i18n.
-	load_plugin_textdomain( 'hamethread', false, basename( __DIR__ ) . '/languages' );
 	if ( version_compare( phpversion(), '7.4.0', '>=' ) ) {
 		// Load functions.
 		require __DIR__ . '/functions.php';
