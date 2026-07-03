@@ -8,8 +8,7 @@
 # Build files
 assets
 wp-dependencies.json
-languages/*.mo
-languages/*.json
+languages/
 
 # PHPUnit
 .phpunit.result.cache
