@@ -71,6 +71,10 @@ No. WooCommerce integration is enabled automatically only when WooCommerce is ac
 
 HameThread exposes a large set of filters and actions. See **For developers**.
 
+### Where do I report security bugs found in this plugin?
+
+Please do not post it publicly. Report security bugs through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/report/wordpress/plugin/hamethread). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 ## For developers
 
 Replies are standard WordPress comments and threads are a standard post type, so core hooks apply. On top of that, HameThread exposes many filters/actions. The most useful ones:
