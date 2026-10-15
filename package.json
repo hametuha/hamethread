@@ -47,7 +47,7 @@
 		"node": ">=24.15"
 	},
 	"devDependencies": {
-		"@kunoichi/grab-deps": "^3.2.1",
+		"@kunoichi/grab-deps": "^3.3.0",
 		"@wordpress/env": "^11.14.0",
 		"@wordpress/scripts": "^36.1.0",
 		"globals": "^17.13.0",
