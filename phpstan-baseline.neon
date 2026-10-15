@@ -139,12 +139,6 @@ parameters:
 			path: app/Hametuha/Thread/Hooks/StructuredData.php
 
 		-
-			message: '#^Call to function array_unique\(\) on a separate line has no effect\.$#'
-			identifier: function.resultUnused
-			count: 1
-			path: app/Hametuha/Thread/Hooks/SupportNotification.php
-
-		-
 			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, string given\.$#'
 			identifier: argument.type
 			count: 1
