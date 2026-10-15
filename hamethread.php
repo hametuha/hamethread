@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       HameThread
- * Plugin URI:        https://wordpress.org/extend/plugins/hamethread
+ * Plugin URI:        https://wordpress.org/plugins/hamethread/
  * Description:       Forum plugin by Hametuha.
  * Version:           2.1.0
  * Requires at least: 6.6
