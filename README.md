@@ -2,7 +2,7 @@
 
 Contributors: hametuha, Takahashi_Fumiki  
 Tags: forum, support, thread, faq, woocommerce  
-Tested up to: 7.0  
+Tested up to: 7.1  
 Stable tag: 2.1.0  
 License: GPLv3 or later  
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -70,6 +70,10 @@ No. WooCommerce integration is enabled automatically only when WooCommerce is ac
 ### How do I customize the form, validation or notifications?
 
 HameThread exposes a large set of filters and actions. See **For developers**.
+
+### Where do I report security bugs found in this plugin?
+
+Please do not post it publicly. Report security bugs through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/report/wordpress/plugin/hamethread). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 ## For developers
 
