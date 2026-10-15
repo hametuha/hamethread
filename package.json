@@ -28,9 +28,9 @@
 		"watch:blocks": "wp-scripts start --source-path=src/blocks --output-path=assets/blocks",
 		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
 		"lint": "npm run lint:css && npm run lint:js",
-		"lint:js": "wp-scripts lint-js 'src/js/**/*.js' --resolve-plugins-relative-to .",
+		"lint:js": "wp-scripts lint-js 'src/js/**/*.js'",
 		"lint:css": "wp-scripts lint-style 'src/**/*.scss'",
-		"fix:js": "wp-scripts format src/js --resolve-plugins-relative-to .",
+		"fix:js": "wp-scripts lint-js 'src/js/**/*.js' --fix",
 		"fix:css": "wp-scripts lint-style 'src/**/*.scss' --fix",
 		"watch": "npm-watch",
 		"i18n:pot": "RESULT=/var/www/html/wp-content/plugins/${PWD##*/} && npm run cli -- --require=$RESULT/bin/wp-cli-memory.php i18n make-pot $RESULT $RESULT/languages/hamethread.pot --exclude=src,wordpress,.git,node_moduels,vendor --slug=hamethread",
@@ -44,21 +44,22 @@
 	"author": "Hametuha INC.",
 	"license": "GPL-3.0",
 	"engines": {
-		"node": ">=24"
+		"node": ">=24.15"
 	},
 	"devDependencies": {
-		"@kunoichi/grab-deps": "^2.0.1",
-		"@wordpress/env": "^10.36.0",
-		"@wordpress/scripts": "^30.27.0",
+		"@kunoichi/grab-deps": "^3.2.1",
+		"@wordpress/env": "^11.14.0",
+		"@wordpress/scripts": "^36.1.0",
+		"globals": "^17.13.0",
 		"husky": "^9.1.7",
 		"npm-watch": "^0.13.0",
-		"postcss": "^8.5.3",
-		"postcss-cli": "^11.0.1",
-		"sass": "^1.86.0"
+		"postcss": "^8.5.28",
+		"postcss-cli": "^12.0.0",
+		"sass": "^1.104.0"
 	},
 	"engineStrict": true,
 	"volta": {
-		"node": "24.11.1"
+		"node": "24.15.0"
 	},
 	"watch": {
 		"build:css": {

@@ -14,7 +14,7 @@ const updateCommentCount = function() {
 	$( '.hamethread-comments' ).each( function( index, comments ) {
 		$( comments ).attr(
 			'data-comment-count',
-			$( comments ).find( '.hamethread-comment-item-wrapper' ).length
+			$( comments ).find( '.hamethread-comment-item-wrapper' ).length,
 		);
 	} );
 };
@@ -157,7 +157,7 @@ $( document ).on( 'click', '.hamethread-ba-toggle', function( e ) {
 		'POST' === method
 			? __(
 				'Are you sure to choose this comment as the best answer?',
-				'hamethread'
+				'hamethread',
 			)
 			: __( 'Are you sure to unmark the best answer?', 'hamethread' );
 	if ( ! window.confirm( message ) ) {
@@ -188,7 +188,7 @@ $( document ).on(
 			return false;
 		}
 		const $comment = $( this ).closest(
-			'.hamethread-comment-item-wrapper'
+			'.hamethread-comment-item-wrapper',
 		);
 		$comment.addClass( 'loading' );
 		HameThread.request( 'DELETE', $( this ).attr( 'href' ) )
@@ -206,7 +206,7 @@ $( document ).on(
 			.always( function() {
 				$comment.removeClass( 'loading' );
 			} );
-	}
+	},
 );
 
 // Update following status.
@@ -259,7 +259,7 @@ $( document ).ready( function() {
 			'follower/in/' + $button.attr( 'data-id' ),
 			{
 				user_id: 'me',
-			}
+			},
 		).done( function( response ) {
 			setFollowStatus( response.subscribing );
 		} );

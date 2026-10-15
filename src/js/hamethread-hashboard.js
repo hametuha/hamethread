@@ -46,7 +46,7 @@ const ThreadList = () => {
 			.then( ( response ) => {
 				const totalPages = parseInt(
 					response.headers.get( 'X-WP-Max-Page' ),
-					10
+					10,
 				);
 				setTotal( totalPages || 0 );
 				return response.json();
@@ -62,7 +62,7 @@ const ThreadList = () => {
 					{
 						type: 'danger',
 						icon: 'error',
-					}
+					},
 				);
 			} )
 			.finally( () => {
@@ -153,11 +153,11 @@ const ThreadList = () => {
 							className="form-control"
 							placeholder={ __(
 								'Search keyword…',
-								'hamethread'
+								'hamethread',
 							) }
 							aria-label={ __(
 								'Search keyword…',
-								'hamethread'
+								'hamethread',
 							) }
 							onChange={ ( e ) => setSearch( e.target.value ) }
 						/>
@@ -203,12 +203,12 @@ const ThreadList = () => {
 											? _x(
 												'comments',
 												'thread-comment-count',
-												'hamethread'
+												'hamethread',
 											)
 											: _x(
 												'comment',
 												'thread-comment-count',
-												'hamethread'
+												'hamethread',
 											) }
 										{ thread.resolved && (
 											<span className="ms-2 text-success">
@@ -217,7 +217,7 @@ const ThreadList = () => {
 												</i>{ ' ' }
 												{ __(
 													'Resolved',
-													'hamethread'
+													'hamethread',
 												) }
 											</span>
 										) }
@@ -247,7 +247,7 @@ const ThreadList = () => {
 						<div className="alert alert-secondary">
 							{ __(
 								'No thread is found for your criteria.',
-								'hamethread'
+								'hamethread',
 							) }
 						</div>
 					)
