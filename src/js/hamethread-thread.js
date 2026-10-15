@@ -23,7 +23,7 @@
 		$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
 		$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr(
 			'aria-expanded',
-			'false'
+			'false',
 		);
 
 		if ( ! isOpen ) {
@@ -40,7 +40,7 @@
 			$( '.hamethread-controller-menu.is-open' ).removeClass( 'is-open' );
 			$( '.hamethread-controller-toggle[aria-expanded="true"]' ).attr(
 				'aria-expanded',
-				'false'
+				'false',
 			);
 		}
 	} );
@@ -91,7 +91,7 @@
 				.always( function() {
 					$button.removeClass( 'disabled' ).attr( 'disabled', false );
 				} );
-		}
+		},
 	);
 
 	//
