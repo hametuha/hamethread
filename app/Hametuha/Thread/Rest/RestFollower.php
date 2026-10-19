@@ -114,15 +114,17 @@ class RestFollower extends RestBase {
 	 * @return bool
 	 */
 	public function permission_callback( \WP_REST_Request $request ) {
+		// Users who cannot read the thread (e.g. private one) cannot follow it.
+		if ( ! current_user_can( 'read_post', (int) $request->get_param( 'thread_id' ) ) ) {
+			return false;
+		}
 		switch ( strtoupper( $request->get_method() ) ) {
 			case 'GET':
-				return current_user_can( 'read' );
 			case 'POST':
 			case 'DELETE':
-				return 'me' === $request->get_param( 'user_id' ) ? current_user_can( 'read' ) : current_user_can( 'edit_others_post' );
+				return 'me' === $request->get_param( 'user_id' ) ? current_user_can( 'read' ) : current_user_can( 'edit_others_posts' );
 			default:
 				return false;
-				break;
 		}
 	}
 
