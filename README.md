@@ -3,7 +3,7 @@
 Contributors: hametuha, Takahashi_Fumiki  
 Tags: forum, support, thread, faq, woocommerce  
 Tested up to: 7.1  
-Stable tag: 2.1.0  
+Stable tag: 2.1.4  
 License: GPLv3 or later  
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -134,6 +134,15 @@ A full list of hooks lives in the source. See the `app/` directory and [the GitH
 ## Changelog
 
 [![Hamethread Test](https://github.com/hametuha/hamethread/actions/workflows/test.yml/badge.svg)](https://github.com/hametuha/hamethread/actions/workflows/test.yml)
+
+### 2.1.4
+
+- **Security:** Strengthen permission checks for private threads. Updating is strongly recommended.
+- Add **DiscussionForumPosting** as a structured data type option (**Settings → Discussion**).
+- Notification emails now tell recipients not to reply to the email.
+- Add the `hamethread_notification_headers` filter to customize notification email headers.
+- Fix: commenters were notified of their own comments.
+- Tested up to WordPress 7.1.
 
 ### 2.1.0
 
