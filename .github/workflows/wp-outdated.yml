@@ -3,7 +3,11 @@ name: Latest WP Support
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 2 5 * *" # Every month on the 5th at 2am UTC
+    - cron: "0 2 * * 1" # Every Monday at 2am UTC
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   is-outdated:
@@ -11,30 +15,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@main
-
-      - name: Install Node
-        uses: actions/setup-node@master
-        with:
-          node-version: '18'
+        uses: actions/checkout@v4
 
       - name: Check wp version
         uses: tarosky/farmhand-wp-action@v1
         id: wp_version
 
-      - name: Update Issue if needed
+      - name: Create issue if needed
         if: ${{ 'true' == steps.wp_version.outputs.should_update }}
-        uses: actions-ecosystem/action-create-issue@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          title: WordPress ${{ steps.wp_version.outputs.version }} をサポートする
-          body: |
-            ## TODO
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WP_VERSION: ${{ steps.wp_version.outputs.version }}
+        run: |
+          TITLE="WordPress ${WP_VERSION} をサポートする"
+          # Skip if the same issue already exists (weekly schedule).
+          if gh issue list --state all --search "\"${TITLE}\" in:title" --json title -q '.[].title' | grep -qxF "${TITLE}"; then
+            echo "Issue already exists: ${TITLE}"
+            exit 0
+          fi
+          gh issue create --title "${TITLE}" --label wp-org --assignee fumikito --body "$(cat <<EOF
+          ## TODO
 
-            - [ ] プラグインがWordPress ${{ steps.wp_version.outputs.version }} に対応しているかチェックする
-            - [ ] README.MD の "Tested up to" を更新する
-
-          labels: |
-            wp-org
-          assignees: |
-            fumikito
+          - [ ] プラグインがWordPress ${WP_VERSION} に対応しているかチェックする
+          - [ ] README.md の "Tested up to" を更新する
+          EOF
+          )"
