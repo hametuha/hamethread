@@ -74,7 +74,7 @@ URL: %4$s
 
 You get this notification because you subscribed thread.
 To change notification setting, please go to thread page.
-', 'hamethread' );
+', 'hamethread' ) . $this->no_reply_notice();
 
 		/**
 		 * hamethread_notification_body
@@ -114,9 +114,7 @@ To change notification setting, please go to thread page.
 		} else {
 			// Send notification email 1 by 1.
 			foreach ( $users as $user ) {
-				wp_mail( $user->user_email, $subject, sprintf( $body, $user->display_name, $commenter_name, $thread_title, $thread_url, $comment->comment_content ), [
-					sprintf( 'From: %s <%s>', get_bloginfo( 'name' ), get_option( 'admin_email' ) ),
-				] );
+				wp_mail( $user->user_email, $subject, sprintf( $body, $user->display_name, $commenter_name, $thread_title, $thread_url, $comment->comment_content ), $this->mail_headers() );
 			}
 		}
 	}
@@ -134,12 +132,12 @@ To change notification setting, please go to thread page.
 		if ( $comment->comment_parent ) {
 			$parent = get_comment( $comment->comment_parent );
 			if ( $parent && $parent->user_id ) {
-				$subscribers[] = $parent->user_id;
-				array_unique( $subscribers, SORT_ASC );
+				$subscribers[] = (int) $parent->user_id;
+				$subscribers   = array_unique( $subscribers );
 			}
 		}
 		// Filter commenter ID.
-		$commenter_id = $comment->user_id;
+		$commenter_id = (int) $comment->user_id;
 		$subscribers  = array_filter(
 			$subscribers,
 			function ( $user_id ) use ( $commenter_id ) {
@@ -192,7 +190,7 @@ The thread you are subscribing has been closed.
 %3$s
 URL: %4$s
 
-', 'hamethread' );
+', 'hamethread' ) . $this->no_reply_notice();
 		$title    = get_the_title( $post );
 		$url      = get_permalink( $post );
 		$duration = AutoClose::get_instance()->get_duration( $post->ID );
@@ -212,9 +210,39 @@ URL: %4$s
 			);
 		} else {
 			foreach ( $users as $user ) {
-				wp_mail( $user->user_email, $subject, str_replace( '-name-', $user->display_name, $body ) );
+				wp_mail( $user->user_email, $subject, str_replace( '-name-', $user->display_name, $body ), $this->mail_headers() );
 			}
 		}
+	}
+
+	/**
+	 * Notice appended to notification mails.
+	 *
+	 * Users tend to reply to the notification mail directly,
+	 * but the reply never reaches the thread.
+	 *
+	 * @return string
+	 */
+	protected function no_reply_notice() {
+		return "\n" . __( 'Please do not reply to this email. Replies to this email will not be posted to the thread. To reply, please visit the thread page.', 'hamethread' ) . "\n";
+	}
+
+	/**
+	 * Mail headers for notifications.
+	 *
+	 * @return string[]
+	 */
+	protected function mail_headers() {
+		/**
+		 * hamethread_notification_headers
+		 *
+		 * Headers of notification mails. e.g. Change From or add Reply-To.
+		 *
+		 * @param string[] $headers
+		 */
+		return apply_filters( 'hamethread_notification_headers', [
+			sprintf( 'From: %s <%s>', get_bloginfo( 'name' ), get_option( 'admin_email' ) ),
+		] );
 	}
 
 	/**
