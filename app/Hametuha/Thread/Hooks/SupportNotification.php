@@ -151,8 +151,28 @@ To change notification setting, please go to thread page.
 				'include' => $subscribers,
 				'number'  => -1,
 			] );
-			return $query->get_results();
+			return $this->filter_readers( $query->get_results(), (int) $comment->comment_post_ID );
 		}
+	}
+
+	/**
+	 * Filter users who can read the thread.
+	 *
+	 * Subscribers might have lost the permission (e.g. thread became private),
+	 * so check it just before sending.
+	 *
+	 * @param \WP_User[]       $users
+	 * @param int|\WP_Post     $post
+	 * @return \WP_User[]
+	 */
+	protected function filter_readers( $users, $post ) {
+		$post = get_post( $post );
+		if ( ! $post ) {
+			return [];
+		}
+		return array_filter( $users, function ( \WP_User $user ) use ( $post ) {
+			return $user->exists() && user_can( $user, 'read_post', $post->ID );
+		} );
 	}
 
 	/**
@@ -166,14 +186,17 @@ To change notification setting, please go to thread page.
 			// Do nothing.
 			return;
 		}
-		$users       = [
+		$users = [
 			$post->post_author => new \WP_User( $post->post_author ),
 		];
-		$subscribers = $this->get_subscribers( $post );
 		foreach ( $this->get_subscribers( $post ) as $user_id ) {
 			if ( ! isset( $users[ $user_id ] ) ) {
 				$users[ $user_id ] = new \WP_User( $user_id );
 			}
+		}
+		$users = $this->filter_readers( $users, $post );
+		if ( ! $users ) {
+			return;
 		}
 		$subject = apply_filters( 'hamethread_auto_close_notification_title', sprintf(
 			// translators: %1$s is the site title, %2$d is the post ID.

@@ -63,7 +63,7 @@ class CommentModel {
 		if ( is_null( $user_id ) ) {
 			$user_id = get_current_user_id();
 		}
-		$can = user_can( $user_id, 'read' );
+		$can = $post && user_can( $user_id, 'read' ) && user_can( $user_id, 'read_post', $post->ID );
 		return (bool) apply_filters( 'hamethread_user_can_comment', $can, $post, $user_id );
 	}
 }
