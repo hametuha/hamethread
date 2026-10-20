@@ -1,37 +1,63 @@
-.browserslistrc
-.DS_Store
-.idea
-.phpunit.result.cache
-temp
-tasks
-.claude
-.editorconfig
-.eslintrc
-.eslintrc.js
-eslint.config.mjs
-.distignore
+# .distignore: 配布物（WordPress.org SVN / リリース zip）から除外するファイル。
+# rsync --exclude-from で使われるため、先頭 / はリポジトリルート固定。
+# vendor/ 配下の同名ディレクトリ（src/ など）を巻き込まないよう、ルート固有のものは / で固定する。
+
+# VCS / CI / エディタ・OS
 .git
-.github
-.gitignore
-.husky
-.node-version
-.stylelintrc.json
-.wordpress-org
-.wp-env.json
-node_modules
-composer.lock
-gulpfile.js
-package-lock.json
-phpcs.ruleset.xml
-phpstan.neon
-phpstan-baseline.neon
-phpstan-bootstrap.php
-phpunit.xml.dist
-README.md
-Development.md
-webpack.config.js
+/.github
+/.gitignore
+/.distignore
+/.editorconfig
+/.idea
+.DS_Store
+
+# AI エージェント・作業用
+/.claude
+/.playwright-mcp
+/CLAUDE.md
+/tasks
+/temp
+
+# WordPress.org アセット（SVN の assets/ に別途デプロイ）
+/.wordpress-org
+
+# Node / ビルドツール（ビルド成果物は assets/ と wp-dependencies.json）
+/node_modules
+/.node-version
+/.browserslistrc
+/.husky
+/package.json
+/package-lock.json
+/.eslintrc
+/.eslintrc.js
+/eslint.config.mjs
+/.stylelintrc.json
+/gulpfile.js
+/webpack.config.js
+# ビルド前ソース（src/blocks は assets/blocks へ、src/js・src/scss は assets/js・assets/css へビルドされる）
+/src
+# ソースマップ（src/ を同梱しないため参照先がない）
+*.map
+
+# PHP 開発ツール（composer.json は vendor/autoload.php 同梱のため残す）
+/composer.lock
+/phpcs.ruleset.xml
+/phpstan.neon
+/phpstan-baseline.neon
+/phpstan-bootstrap.php
+/phpunit.xml.dist
+/.phpunit.result.cache
+
+# テスト・ローカル環境・スクリプト
+/tests
+/bin
+/.wp-env.json
 /wordpress
-bin
-tests
-hamethread.php.bak
-readme.txt.bak
+
+# ドキュメント（readme.txt はビルド時に README.md から生成される）
+README.md
+/Development.md
+
+# ビルド時の sed -i.bak が生成するバックアップ
+/hamethread.php.bak
+/readme.txt.bak
