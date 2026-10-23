@@ -9,7 +9,7 @@ WordPressのフォーラム/スレッド機能を提供するプラグイン。
 | 項目 | 参照ファイル |
 |------|-------------|
 | PHP / WordPress | `hamethread.php` ヘッダー、`composer.json` |
-| Node.js | `package.json` の `engines` および `volta` |
+| Node.js | `.node-version`（`package.json` の `engines` は許容範囲） |
 
 W.I.P ここに対照表を書く
 
@@ -203,4 +203,4 @@ npm run log:tail   # リアルタイムで監視（Ctrl+C で終了）
 1. **アセットの直接編集禁止**: `assets/` 内のファイルは自動生成される。`src/` を編集すること。
 2. **依存関係の記述**: JS/CSSファイルのヘッダーコメントで依存関係を宣言。`npm run dump` で `wp-dependencies.json` に反映。
 3. **Hashboard条件分岐**: Hashboardの有無は実行時に判定。`class_exists()` や `did_action()` で確認。
-4. **Node.js バージョン**: Voltaでv24にpinされている。
+4. **Node.js バージョン**: `.node-version` でv24系の特定パッチにpinされている。

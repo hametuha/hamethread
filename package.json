@@ -58,9 +58,6 @@
 		"sass": "^1.104.0"
 	},
 	"engineStrict": true,
-	"volta": {
-		"node": "24.15.0"
-	},
 	"watch": {
 		"build:css": {
 			"extensions": "scss",
