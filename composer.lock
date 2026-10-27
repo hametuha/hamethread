@@ -312,16 +312,16 @@
         },
         {
             "name": "hametuha/hashboard",
-            "version": "1.0.4",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hametuha/hashboard.git",
-                "reference": "8fdfcf6a8970b7834c6120cdf7e918946c0cd08a"
+                "reference": "e58e47f01b507f53f7c01fb3c3fd0396b9751020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hametuha/hashboard/zipball/8fdfcf6a8970b7834c6120cdf7e918946c0cd08a",
-                "reference": "8fdfcf6a8970b7834c6120cdf7e918946c0cd08a",
+                "url": "https://api.github.com/repos/hametuha/hashboard/zipball/e58e47f01b507f53f7c01fb3c3fd0396b9751020",
+                "reference": "e58e47f01b507f53f7c01fb3c3fd0396b9751020",
                 "shasum": ""
             },
             "require": {
@@ -357,9 +357,9 @@
             "description": "Web service like dashboard for WordPress.",
             "support": {
                 "issues": "https://github.com/hametuha/hashboard/issues",
-                "source": "https://github.com/hametuha/hashboard/tree/1.0.4"
+                "source": "https://github.com/hametuha/hashboard/tree/1.0.6"
             },
-            "time": "2026-06-15T12:36:11+00:00"
+            "time": "2026-10-14T07:25:33+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -920,11 +920,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.2",
+            "version": "2.3.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e5cc34d491a90e79c216d824f60fe21fd4d93bd6",
-                "reference": "e5cc34d491a90e79c216d824f60fe21fd4d93bd6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/18bc23a0682f08591529377d271b5c4dfe9ed1dd",
+                "reference": "18bc23a0682f08591529377d271b5c4dfe9ed1dd",
                 "shasum": ""
             },
             "require": {
@@ -980,7 +980,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-05T09:00:01+00:00"
+            "time": "2026-10-24T11:36:00+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2687,21 +2687,21 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e"
+                "reference": "84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/aa722f037b2d034828cd6c55ebe9e5c74961927e",
-                "reference": "aa722f037b2d034828cd6c55ebe9e5c74961927e",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a",
+                "reference": "84577e2ea1e4c2a95537fe5ea2ac8e18f4ceab1a",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "php-stubs/wordpress-stubs": "^6.6.2",
+                "php-stubs/wordpress-stubs": ">=6.6.2",
                 "phpstan/phpstan": "^2.0"
             },
             "require-dev": {
@@ -2744,9 +2744,9 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.3"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v2.0.4"
             },
-            "time": "2025-09-14T02:58:22+00:00"
+            "time": "2026-05-22T16:22:09+00:00"
         },
         {
             "name": "theseer/tokenizer",
