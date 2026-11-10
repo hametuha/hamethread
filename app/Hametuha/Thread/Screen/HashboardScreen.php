@@ -34,6 +34,8 @@ class HashboardScreen extends Screen {
 
 
 	public function head( $child = '' ) {
+		// サイドメニューの開閉など、hashboard 共通の処理（hb-hashboard-helper）を読み込む。
+		parent::head( $child );
 		// Load styles.
 		wp_enqueue_style( 'hamethread-hashboard' );
 	}
