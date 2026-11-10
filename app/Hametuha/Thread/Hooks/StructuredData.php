@@ -98,7 +98,7 @@ class StructuredData extends Singleton {
 				'answerCount' => get_comments_number( $post->ID ),
 				'upvoteCount' => hamethread_upvote_count( $post ),
 				'dateCreated' => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
-				'author'      => $this->get_person_json( get_the_author_meta( 'display_name', $post->post_author ), $post->post_author ),
+				'author'      => $this->get_person_json( get_the_author_meta( 'display_name', (int) $post->post_author ), (int) $post->post_author ),
 			],
 		];
 		$best_answer    = hamethread_get_best_answer( $post );
@@ -138,7 +138,7 @@ class StructuredData extends Singleton {
 			'text'                 => wp_strip_all_tags( $post->post_content ),
 			'url'                  => get_permalink( $post ),
 			'datePublished'        => mysql2date( \DateTime::ISO8601, $post->post_date_gmt ),
-			'author'               => $this->get_person_json( get_the_author_meta( 'display_name', $post->post_author ), $post->post_author ),
+			'author'               => $this->get_person_json( get_the_author_meta( 'display_name', (int) $post->post_author ), (int) $post->post_author ),
 			'interactionStatistic' => [
 				'@type'                => 'InteractionCounter',
 				'interactionType'      => 'https://schema.org/LikeAction',
@@ -155,8 +155,8 @@ class StructuredData extends Singleton {
 					'@type'         => 'Comment',
 					'text'          => $comment->comment_content,
 					'datePublished' => mysql2date( \DateTime::ISO8601, $comment->comment_date_gmt ),
-					'author'        => $this->get_person_json( $comment->comment_author, $comment->user_id ),
-					'url'           => get_permalink( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
+					'author'        => $this->get_person_json( $comment->comment_author, (int) $comment->user_id ),
+					'url'           => get_permalink( (int) $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
 				];
 			}, $comments );
 		}
@@ -193,8 +193,8 @@ class StructuredData extends Singleton {
 			'text'        => $comment->comment_content,
 			'dateCreated' => mysql2date( \DateTime::ISO8601, $comment->comment_date_gmt ),
 			'upvoteCount' => hamethread_comment_upvoted_count( $comment ),
-			'url'         => get_permalink( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
-			'author'      => $this->get_person_json( $comment->comment_author, $comment->user_id ),
+			'url'         => get_permalink( (int) $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID,
+			'author'      => $this->get_person_json( $comment->comment_author, (int) $comment->user_id ),
 		];
 	}
 
