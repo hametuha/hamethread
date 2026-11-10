@@ -2,7 +2,7 @@
 
 Contributors: hametuha, Takahashi_Fumiki  
 Tags: forum, support, thread, faq, woocommerce  
-Tested up to: 7.1  
+Tested up to: 7.2  
 Stable tag: 2.1.0  
 License: GPLv3 or later  
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -134,6 +134,12 @@ A full list of hooks lives in the source. See the `app/` directory and [the GitH
 ## Changelog
 
 [![Hamethread Test](https://github.com/hametuha/hamethread/actions/workflows/test.yml/badge.svg)](https://github.com/hametuha/hamethread/actions/workflows/test.yml)
+
+### 2.1.5
+
+- Fix: the side menu and its submenus did not open on the thread screen of the Hashboard dashboard.
+- The release package no longer includes development files such as source assets and source maps.
+- Tested up to WordPress 7.2.
 
 ### 2.1.4
 
