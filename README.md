@@ -135,6 +135,11 @@ A full list of hooks lives in the source. See the `app/` directory and [the GitH
 
 [![Hamethread Test](https://github.com/hametuha/hamethread/actions/workflows/test.yml/badge.svg)](https://github.com/hametuha/hamethread/actions/workflows/test.yml)
 
+### 2.1.5
+
+- Fix: the side menu and its submenus did not open on the thread screen of the Hashboard dashboard.
+- The release package no longer includes development files such as source assets and source maps.
+
 ### 2.1.4
 
 - **Security:** Strengthen permission checks for private threads. Updating is strongly recommended.
