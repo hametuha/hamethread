@@ -20,6 +20,11 @@ class TestHashboardScreen extends WP_UnitTestCase {
 		if ( ! class_exists( 'Hametuha\Hashboard\Pattern\Screen' ) ) {
 			$this->markTestSkipped( 'Hashboard is not available.' );
 		}
+		// Hashboard registers its assets only when initialized (local env only).
+		// wp_enqueue_script() ignores unregistered handles, so register a stub in CI.
+		if ( ! wp_script_is( 'hb-hashboard-helper', 'registered' ) ) {
+			wp_register_script( 'hb-hashboard-helper', false, array(), '1.0.0', true );
+		}
 		wp_dequeue_script( 'hb-hashboard-helper' );
 		wp_dequeue_style( 'hamethread-hashboard' );
 	}
