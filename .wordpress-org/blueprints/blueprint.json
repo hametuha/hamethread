@@ -1,0 +1,57 @@
+{
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "meta": {
+        "title": "HameThread: support forum demo",
+        "description": "A support forum for a fictional note-taking app with resolved threads, best answers, a private thread and topics.",
+        "author": "tarosky",
+        "categories": [
+            "Community",
+            "Forum"
+        ]
+    },
+    "landingPage": "/thread/notes-not-syncing/",
+    "preferredVersions": {
+        "php": "8.2",
+        "wp": "latest"
+    },
+    "features": {
+        "networking": true
+    },
+    "steps": [
+        {
+            "step": "login"
+        },
+        {
+            "step": "installTheme",
+            "themeData": {
+                "resource": "wordpress.org/themes",
+                "slug": "twentytwentyone"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "installPlugin",
+            "pluginData": {
+                "resource": "wordpress.org/plugins",
+                "slug": "hamethread"
+            },
+            "options": {
+                "activate": true
+            }
+        },
+        {
+            "step": "setSiteOptions",
+            "options": {
+                "blogname": "Driftnote Community",
+                "blogdescription": "Support forum for the Driftnote notes app",
+                "permalink_structure": "/%postname%/"
+            }
+        },
+        {
+            "step": "runPHP",
+            "code": "<?php\n/**\n * Live Preview のデモデータ。\n *\n * 架空のノートアプリ「Driftnote」のサポートフォーラム。\n * 解決済み（ベストアンサー）・未解決・非公開・受付終了・返信なしのスレッドを一通り入れる。\n *\n * このファイルがマスター。編集したら次で blueprint.json に埋め込むこと:\n *   php <skill>/scripts/blueprint.php embed .\n */\nrequire '/wordpress/wp-load.php';\n\n// runPHP はログインユーザー無しで動く。権限チェックのある API（tax_input など）が黙って無視されるので、管理者として実行する。\nwp_set_current_user( 1 );\n\nuse Hametuha\\Thread\\Hooks\\BestAnswer;\nuse Hametuha\\Thread\\Hooks\\SupportNotification;\nuse Hametuha\\Thread\\Rest\\RestVote;\n\n// Settings → Discussion.\nupdate_option( 'hamethread_thread_description', 'Ask the Driftnote team and other users anything about the app.' );\nupdate_option( 'hamethread_allow_private', 1 );\nupdate_option( 'hamethread_best_answer_supported', array( 'thread' ) );\n\n// The admin plays the support staff.\nwp_update_user( array(\n\t'ID'           => 1,\n\t'display_name' => 'Driftnote Support',\n\t'nickname'     => 'Driftnote Support',\n) );\n\n// Fictional forum members.\n$users = array();\nforeach ( array(\n\t'maya'  => 'Maya Lindqvist',\n\t'tomas' => 'Tomás Okafor',\n\t'priya' => 'Priya Raman',\n\t'leo'   => 'Leo Hartmann',\n) as $login => $name ) {\n\t$users[ $login ] = wp_insert_user( array(\n\t\t'user_login'   => $login,\n\t\t'user_email'   => $login . '@example.com',\n\t\t'user_pass'    => wp_generate_password(),\n\t\t'display_name' => $name,\n\t\t'role'         => 'subscriber',\n\t) );\n}\n$users['support'] = 1;\n\n// Topics.\n$topics = array();\nforeach ( array( 'Getting Started', 'Sync & Backup', 'Billing', 'Bug Reports' ) as $topic ) {\n\t$term              = wp_insert_term( $topic, 'topic' );\n\t$topics[ $topic ] = $term['term_id'];\n}\n\n/**\n * GMT timestamp → post/comment date pair.\n */\n$dates = function ( $timestamp ) {\n\t$gmt = gmdate( 'Y-m-d H:i:s', $timestamp );\n\treturn array( get_date_from_gmt( $gmt ), $gmt );\n};\n\n/**\n * Insert a reply and return its ID.\n */\n$reply = function ( $thread_id, $user, $content, $timestamp, $parent = 0 ) use ( $users, $dates ) {\n\t$author        = get_userdata( $users[ $user ] );\n\tlist( $d, $g ) = $dates( $timestamp );\n\treturn wp_insert_comment( array(\n\t\t'comment_post_ID'      => $thread_id,\n\t\t'comment_content'      => $content,\n\t\t'comment_type'         => 'comment',\n\t\t'comment_approved'     => 1,\n\t\t'comment_parent'       => $parent,\n\t\t'user_id'              => $author->ID,\n\t\t'comment_author'       => $author->display_name,\n\t\t'comment_author_email' => $author->user_email,\n\t\t'comment_date'         => $d,\n\t\t'comment_date_gmt'     => $g,\n\t) );\n};\n\n/**\n * Insert a thread and return its ID.\n */\n$thread = function ( $args ) use ( $users, $topics, $dates ) {\n\tlist( $d, $g ) = $dates( $args['time'] );\n\t$id            = wp_insert_post( array(\n\t\t'post_type'      => 'thread',\n\t\t'post_status'    => isset( $args['status'] ) ? $args['status'] : 'publish',\n\t\t'post_title'     => $args['title'],\n\t\t'post_name'      => isset( $args['slug'] ) ? $args['slug'] : '',\n\t\t'post_content'   => $args['content'],\n\t\t'post_author'    => $users[ $args['author'] ],\n\t\t'post_date'      => $d,\n\t\t'post_date_gmt'  => $g,\n\t\t'comment_status' => isset( $args['comments'] ) ? $args['comments'] : 'open',\n\t) );\n\twp_set_object_terms( $id, array( $topics[ $args['topic'] ] ), 'topic' );\n\treturn $id;\n};\n\n$hour = HOUR_IN_SECONDS;\n$day  = DAY_IN_SECONDS;\n$now  = time();\n\n// 1. Landing page: resolved, best answer, nested replies, upvotes and followers.\n$t0   = $now - 3 * $day;\n$sync = $thread( array(\n\t'title'   => 'Notes are not syncing between my phone and laptop',\n\t'slug'    => 'notes-not-syncing',\n\t'author'  => 'maya',\n\t'topic'   => 'Sync & Backup',\n\t'time'    => $t0,\n\t'content' => \"Since yesterday, notes I write on my phone never show up on my laptop. Both devices are signed in to the same account and the sync icon just keeps spinning.\\n\\nPhone: Android 15, Driftnote 4.2.1\\nLaptop: macOS, Driftnote 4.2.0\\n\\nIs there anything I can try before reinstalling?\",\n) );\n$r1 = $reply( $sync, 'tomas', 'Same here on Windows. It started after the laptop app asked me to update, but I postponed it.', $t0 + 2 * $hour );\n$r2 = $reply( $sync, 'support', \"Thanks for the details, Maya. Version 4.2.0 uses an older sync protocol that the server stopped accepting yesterday.\\n\\nPlease update the laptop app to 4.2.1 (Help → Check for Updates). Pending notes are kept locally and will sync right after the update, so you don't need to reinstall.\", $t0 + 5 * $hour );\n$reply( $sync, 'tomas', 'Updating fixed it for me too. Everything synced within a minute.', $t0 + 6 * $hour, $r2 );\n$reply( $sync, 'maya', 'That was it! All my notes are on the laptop now. Thank you!', $t0 + 8 * $hour, $r2 );\n$reply( $sync, 'priya', 'Good to know. Is there a way to get a warning when one device is on an outdated version?', $t0 + 1 * $day );\nBestAnswer::get_instance()->mark_as_the_best( $r2 );\nforeach ( array( 'maya', 'tomas', 'priya', 'leo' ) as $voter ) {\n\tRestVote::get_instance()->upvote( $r2, $users[ $voter ] );\n}\nRestVote::get_instance()->upvote( $r1, $users['priya'] );\nforeach ( array( 'maya', 'tomas', 'priya', 'support' ) as $follower ) {\n\tSupportNotification::get_instance()->subscribe( $sync, $users[ $follower ] );\n}\n\n// 2. Resolved how-to.\n$t0     = $now - 9 * $day;\n$export = $thread( array(\n\t'title'   => 'How do I export all notes to Markdown?',\n\t'author'  => 'leo',\n\t'topic'   => 'Getting Started',\n\t'time'    => $t0,\n\t'content' => 'I want to keep a plain-text backup of everything. Is there a bulk export, or do I have to copy notes one by one?',\n) );\n$a = $reply( $export, 'support', 'Go to Settings → Data → Export and choose \"Markdown (.zip)\". Each notebook becomes a folder, and images are saved next to the notes.', $t0 + 3 * $hour );\n$reply( $export, 'leo', 'Perfect, exactly what I needed.', $t0 + 4 * $hour, $a );\nBestAnswer::get_instance()->mark_as_the_best( $a );\n\n// 3. Open feature request with discussion.\n$t0   = $now - 6 * $day;\n$dark = $thread( array(\n\t'title'   => 'Feature request: dark mode for the web editor',\n\t'author'  => 'priya',\n\t'topic'   => 'Getting Started',\n\t'time'    => $t0,\n\t'content' => 'The desktop and mobile apps have a dark theme, but the web editor is always bright. Could it follow the system setting?',\n) );\n$d1 = $reply( $dark, 'leo', '+1. I write mostly at night and the web editor is painful.', $t0 + 1 * $hour );\n$reply( $dark, 'support', \"Thanks for the request! It's on our roadmap for the next quarter. We'll post an update in this thread.\", $t0 + 1 * $day );\n$reply( $dark, 'maya', 'In the meantime a browser extension that forces dark pages works reasonably well.', $t0 + 2 * $day, $d1 );\nRestVote::get_instance()->upvote( $d1, $users['maya'] );\nRestVote::get_instance()->upvote( $d1, $users['tomas'] );\n\n// 4. Private thread: only the author, invited people and editors can read it.\n$t0 = $now - 2 * $day;\n$refund = $thread( array(\n\t'title'   => 'Refund for a duplicate subscription charge',\n\t'author'  => 'tomas',\n\t'topic'   => 'Billing',\n\t'status'  => 'private',\n\t'time'    => $t0,\n\t'content' => 'I was charged twice for the annual plan this month. Could you refund one of the payments? I can send the receipt numbers privately.',\n) );\n$reply( $refund, 'support', \"Sorry about that, Tomás. We found the duplicate payment and issued a refund. It should appear on your statement within 5–10 business days.\", $t0 + 4 * $hour );\n\n// 5. Bug report closed for replies.\n$t0     = $now - 20 * $day;\n$upload = $thread( array(\n\t'title'    => 'Attachments over 20 MB fail to upload',\n\t'author'   => 'leo',\n\t'topic'    => 'Bug Reports',\n\t'time'     => $t0,\n\t'comments' => 'closed',\n\t'content'  => 'Uploading a 25 MB PDF stops at 99% and then shows \"Upload failed\". Smaller files work fine.',\n) );\n$u1 = $reply( $upload, 'support', 'Confirmed. The limit was accidentally lowered in 4.1.3. It is back to 100 MB in 4.1.4, released today.', $t0 + 1 * $day );\n$reply( $upload, 'leo', 'Works now, thanks!', $t0 + 2 * $day, $u1 );\nBestAnswer::get_instance()->mark_as_the_best( $u1 );\n\n// 6. Unresolved question.\n$t0     = $now - 1 * $day;\n$search = $thread( array(\n\t'title'   => 'Search does not find words inside PDFs',\n\t'author'  => 'priya',\n\t'topic'   => 'Bug Reports',\n\t'time'    => $t0,\n\t'content' => 'I attached a few scanned PDFs to my notes, but searching for words in them returns nothing. Is PDF text search supported?',\n) );\n$reply( $search, 'maya', 'Text PDFs work for me. Scanned ones probably need OCR first?', $t0 + 3 * $hour );\n\n// 7. Resolved: sharing.\n$t0    = $now - 12 * $day;\n$share = $thread( array(\n\t'title'   => 'Can I share a notebook with read-only access?',\n\t'author'  => 'maya',\n\t'topic'   => 'Getting Started',\n\t'time'    => $t0,\n\t'content' => 'I want my team to see our meeting notes without editing them.',\n) );\n$s1 = $reply( $share, 'support', 'Yes. Open the notebook, click Share, invite people and set their role to \"Viewer\".', $t0 + 2 * $hour );\nBestAnswer::get_instance()->mark_as_the_best( $s1 );\n\n// 8. No replies yet.\n$thread( array(\n\t'title'   => 'Is there a list of keyboard shortcuts?',\n\t'author'  => 'tomas',\n\t'topic'   => 'Getting Started',\n\t'time'    => $now - 2 * $hour,\n\t'content' => 'I keep discovering shortcuts by accident. Is there a cheat sheet somewhere?',\n) );\n\n// Pretty permalinks for /thread/{slug}/.\nflush_rewrite_rules();\n"
+        }
+    ]
+}
